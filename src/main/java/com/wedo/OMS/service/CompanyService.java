@@ -10,7 +10,6 @@ import java.util.List;
 public interface CompanyService {
     /**
      * 根据用户ID获取用户公司
-     *
      * @param userId
      * @return
      */
@@ -18,7 +17,6 @@ public interface CompanyService {
 
     /**
      * 根据公司名搜索公司
-     *
      * @param
      * @return
      */
@@ -26,7 +24,6 @@ public interface CompanyService {
 
     /**
      * 发包方根据公司ID获取公司的所有成员
-     *
      * @param companyId
      * @return
      */
@@ -34,7 +31,6 @@ public interface CompanyService {
 
     /**
      * 队长根据名字搜索公司成员
-     *
      * @param username
      * @return
      */
@@ -42,7 +38,6 @@ public interface CompanyService {
 
     /**
      * 发包方新建公司
-     *
      * @param company
      * @return
      */
@@ -50,14 +45,12 @@ public interface CompanyService {
 
     /**
      * 发包方删除公司
-     *
      * @param companyId
      */
     void deleteCompanyByCompanyId(Long companyId);
 
     /**
      * 删除公司成员
-     *
      * @param companyId
      * @param userId
      */
