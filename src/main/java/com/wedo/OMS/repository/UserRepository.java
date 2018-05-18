@@ -7,13 +7,9 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByName(String name);
-<<<<<<< HEAD
     User findUserById(Long userId);
     List<User> findUsersByCompany(Company company);
     List<User> findUsersByNameContaining(String name);
-    int countUserByCompany(String company);
-=======
-
+    void deleteUserByCompanyAndId(Company company,Long userId);
     int countUserByCompany(Company company);
->>>>>>> 4794e3347754cdf3015c1a1c8339b3196e413df2
 }

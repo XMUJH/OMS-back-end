@@ -29,3 +29,5 @@
 /.nb-gradle/
 *.jar
 *.jar
+src/main/java/com/wedo/OMS/repository/TaskRepository.java
+src/main/java/com/wedo/OMS/repository/UserRepository.java

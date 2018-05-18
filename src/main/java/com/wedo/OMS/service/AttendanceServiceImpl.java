@@ -24,18 +24,33 @@ public class AttendanceServiceImpl implements AttendanceService {
         this.userRepository=userRepository;
         this.taskRepository=taskRepository;
     }
+    /**
+     * 用户获取个人考勤情况
+     * @param userId
+     * @return
+     */
     @Override
     public List<Attendance> getAttendancesByUserId(Long userId) {
         User user = userRepository.findUserById(userId);
         return attendanceRepository.findAttendancesByUser(user);
     }
 
+    /**
+     * 队长或发包方根据任务ID获取任务考勤情况
+     * @param taskId
+     * @return
+     */
     @Override
     public List<Attendance> getTaskAttendancesByTaskId(Long taskId) {
         Task task = taskRepository.findTaskById(taskId);
         return attendanceRepository.findAttendancesByTask(task);
     }
 
+    /**
+     * 查看考勤日志
+     * @param recordId
+     * @return
+     */
     @Override
     public Record getAttendanceRecordByRecordId(Long recordId) {
         return recordRepository.findRecordById(recordId);
