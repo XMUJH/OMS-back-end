@@ -10,22 +10,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//用户id
-
     private String account;//用户账号
-
     private String phone;//用户手机号
-
     private String email;//用户邮箱
-
     private String name;//用户名称
-
     private String password;//用户密码
-
     @Enumerated
     private Gender gender;//用户性别，男为0，女为1
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="company_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
     private Company company;//用户公司
 
     private UserRole role;//用户身份，SENDER为0，RECEIVER为1
@@ -33,7 +27,6 @@ public class User {
     private String photo;//用户头像url
 
     private String face;//用户人脸url
-
 
 
     public long getId() {

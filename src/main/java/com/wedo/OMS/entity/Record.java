@@ -1,18 +1,15 @@
 package com.wedo.OMS.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//日志id
-
     private String content;//日志内容
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="attendance_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "attendance_id")
     private Attendance attendance;//签到记录
 
     public long getId() {

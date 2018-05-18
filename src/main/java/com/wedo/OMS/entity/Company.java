@@ -10,17 +10,11 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//公司id
-
     private String name;//公司名称
-
     private String info;//公司详情描述
-
     private String email;//公司邮箱
-
     private String site;//公司官网
-
     private String phone;//公司联系电话
-
     private long grade;//公司评级
 
     public long getId() {

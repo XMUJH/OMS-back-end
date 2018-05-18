@@ -6,7 +6,6 @@ import com.wedo.OMS.entity.User;
 import com.wedo.OMS.repository.MilestoneRepository;
 import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.repository.UserRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,7 @@ public class UserController {
     private MilestoneRepository milestoneRepository;
     private TaskRepository taskRepository;
 
-    public UserController(UserRepository userRepository,MilestoneRepository milestoneRepository,TaskRepository taskRepository) {
+    public UserController(UserRepository userRepository, MilestoneRepository milestoneRepository, TaskRepository taskRepository) {
 
         this.userRepository = userRepository;
         this.milestoneRepository = milestoneRepository;
@@ -36,7 +35,7 @@ public class UserController {
     @GetMapping(value = "/milestone")
     public List<Milestone> getMilestoneInfo() {
         Milestone milestone = new Milestone();
-        Task task=new Task();
+        Task task = new Task();
         task.setInfo("1231231");
         taskRepository.save(task);
         milestone.setChangeCount(2);

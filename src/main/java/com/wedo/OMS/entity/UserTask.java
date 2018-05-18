@@ -10,20 +10,15 @@ public class UserTask {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="task_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
     private Task task;
-
     @Enumerated
     private UserTaskRole userTaskRole;//负责人为0，参与人员为1
-
     private String job;//用户职责
-
     private VerifyStatus status;//审核状态，NOTPASSED为0，PASSED为1
 
     public long getId() {

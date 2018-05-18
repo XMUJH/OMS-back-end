@@ -8,21 +8,14 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//项目id
-
     private String name;//项目名称
-
     private String password;//项目密码
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="project_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_id")
     private Project belong;//前一级项目
-
     private Date createTime;//项目创建的时间
-
     private Date beginTime;//项目开始时间
-
     private Date endTime;//项目结束时间
-
     private long completionRate;//完成度
 
     public long getId() {

@@ -1,5 +1,6 @@
 package com.wedo.OMS.entity;
 
+import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.enums.VerifyStatus;
 
 import javax.persistence.*;
@@ -10,42 +11,29 @@ public class Milestone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//里程碑id
-
     private String name;//里程碑名称
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="task_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
     private Task task;//里程碑所属任务
-
     private Date beginTime;//里程碑开始时间
-
     private Date endTime;//里程碑结束时间
-
     private String info;//里程碑详情描述
-
     private long changeCount;//里程碑修改次数
-
     @Enumerated
-    private VerifyStatus status;//里程碑成果审核情况，通过为0，不通过为1
-
+    private MilestoneStatus status;//里程碑成果审核情况，通过为0，未审核为1,未通过则在Milestone中新增审核记录
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="id")
     public Task getTask() {
         return task;
     }
@@ -86,11 +74,11 @@ public class Milestone {
         this.changeCount = changeCount;
     }
 
-    public VerifyStatus getStatus() {
+    public MilestoneStatus getStatus() {
         return status;
     }
 
-    public void setStatus(VerifyStatus status) {
+    public void setStatus(MilestoneStatus status) {
         this.status = status;
     }
 

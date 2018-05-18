@@ -13,19 +13,12 @@ public class Resource {
     @Id
     @GeneratedValue
     private long id;//资源文件id
-
     private String name;//资源文件名称
-
     private String type;//资源文件类型
-
     private String size;//资源文件大小
-
     private String address;//资源文件地址
-
     private Date commit;//资源文件提交时间
-
     private String info;//资源文件详情描述
-
     @Enumerated
     private SafetyLevel safety;//资源文件安全等级
 

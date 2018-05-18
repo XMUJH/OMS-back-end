@@ -9,22 +9,17 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//签到记录id
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;//签到用户
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="task_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
     private Task task;//签到任务
-
     private Date beginTime;//签到时间
-
     private Date endTime;//签退时间
-
     private Date workingTime;//工作时长
-
     private String violation;//违规情况
+
 
     public long getId() {
         return id;
@@ -54,9 +49,13 @@ public class Attendance {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) { this.beginTime = beginTime; }
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
+    }
 
-    public Date getEndTime() { return endTime; }
+    public Date getEndTime() {
+        return endTime;
+    }
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;

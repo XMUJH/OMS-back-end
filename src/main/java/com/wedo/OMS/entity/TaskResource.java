@@ -7,13 +7,11 @@ public class TaskResource {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="task_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
     private Task task;
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="resource_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "resource_id")
     private Resource resource;
 
     public long getId() {

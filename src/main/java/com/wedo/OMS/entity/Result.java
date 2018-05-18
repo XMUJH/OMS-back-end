@@ -8,17 +8,12 @@ public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//成果文件id
-
     private String name;//成果文件名称
-
     private String size;//成果文件大小
-
     private String address;//成果文件地址
-
     private Date commit;//成果文件提交时间
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="milestone_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "milestone_id")
     private Milestone milestone;//成果文件所属里程碑
 
     public long getId() {

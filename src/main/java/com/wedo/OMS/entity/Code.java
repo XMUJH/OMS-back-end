@@ -10,13 +10,10 @@ public class Code {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//激活码id
-
     private CodeStatus status;//激活码状态，无效为0，有效为1
-
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="task_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
     private Task task;//相应任务
-
     private Date time;//激活码过期时间
 
     public long getId() {
