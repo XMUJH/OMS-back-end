@@ -40,11 +40,6 @@ public class MilestoneServiceImpl implements MilestoneService{
         return milestones;
     }
 
-    /**
-     * 查看里程碑详情
-     * @param milestoneId
-     * @return
-     */
     @Override
     public Milestone getMilestoneByMilestoneId(Long milestoneId) {
         Milestone milestone = milestoneRepository.findAllById(milestoneId);
@@ -65,7 +60,7 @@ public class MilestoneServiceImpl implements MilestoneService{
 
     /**
      * 接包方上传成果
-     * @param milestoneId
+     * @param taskId
      * @param result
      */
     @Override
@@ -104,29 +99,6 @@ public class MilestoneServiceImpl implements MilestoneService{
                 projectRepository.save(project);
                 project = project.getBelong();
             }
-        }
-    }
-
-    /**
-     * 以数组的形式添加里程碑,添加之后将里程碑所在的任务和项目里程碑总个数更新
-     * @param milestones
-     * @param taskId
-     */
-    @Override
-    public void addMilestone(List<Milestone> milestones,Long taskId){
-        Task task = taskRepository.findAllById(taskId);
-        int num = milestones.size();
-        for (Milestone milestone:milestones){
-            milestone.setTask(task);
-        }
-        milestoneRepository.saveAll(milestones);
-        task.setCompletion(task.getCompletion()+num);
-        taskRepository.save(task);
-        Project project = task.getProject();
-        while (project != null){
-            project.setCompletion(project.getCompletion()+num);
-            projectRepository.save(project);
-            project = project.getBelong();
         }
     }
 }
