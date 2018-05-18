@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MilestoneServiceImpl implements MilestoneService{
+public class MilestoneServiceImpl implements MilestoneService {
     @Override
     public List<Milestone> listMilestonesByTaskId(Long taskId) {
         return null;

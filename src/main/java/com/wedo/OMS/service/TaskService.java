@@ -1,7 +1,6 @@
 package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.entity.User;
 import com.wedo.OMS.entity.UserTask;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
@@ -11,6 +10,7 @@ import java.util.List;
 public interface TaskService {
     /**
      * 根据用户ID获取任务列表
+     *
      * @param userId
      * @return
      */
@@ -18,6 +18,7 @@ public interface TaskService {
 
     /**
      * 根据任务ID获取任务
+     *
      * @param taskId
      * @return
      */
@@ -25,6 +26,7 @@ public interface TaskService {
 
     /**
      * 根据任务名称搜索任务
+     *
      * @param taskname
      * @return
      */
@@ -41,14 +43,16 @@ public interface TaskService {
 
     /**
      * 根据任务ID修改任务，如修改任务合同信息或保密协议
+     *
      * @param taskId
      * @param task
      * @return
      */
-    Task updateTaskByTaskId(Long taskId,Task task);
+    Task updateTaskByTaskId(Long taskId, Task task);
 
     /**
      * 队长新增任务成员
+     *
      * @param userId
      * @param utr
      * @return
@@ -57,6 +61,7 @@ public interface TaskService {
 
     /**
      * 发包方审核任务成员
+     *
      * @param userId
      * @param taskId
      * @param status
@@ -66,6 +71,7 @@ public interface TaskService {
 
     /**
      * 删除任务成员
+     *
      * @param userId
      * @param tastId
      */
