@@ -11,4 +11,5 @@ public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
     List<Milestone> findAllByTask(Task task);
 
     Milestone findAllById(long milestoneId);
+
 }

@@ -42,9 +42,16 @@ public interface MilestoneService {
     void downloadResult(Long resultId);
 
     /**
-     * 审核里程碑,pass or notpass
+     * 审核里程碑,pass or notpass，pass则将里程碑所在的任务和项目完成数加一
      * @param milestoneId
      * @param status pass or notpass
      */
     void auditMilestoneByMilestoneId(Long milestoneId,MilestoneStatus status);
+
+    /**
+     * 以数组的形式添加里程碑,添加之后将里程碑所在的任务和项目里程碑总个数更新
+     * @param milestones
+     * @param taskId
+     */
+    void addMilestone(List<Milestone> milestones,Long taskId);
 }
