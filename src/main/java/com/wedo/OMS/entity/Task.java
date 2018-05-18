@@ -25,7 +25,8 @@ public class Task {
     private String info;//任务详情描述
     private String contractUrl;//合同信息URL'
     private String agreementUrl;//保密协议URL
-    private long completion;//完成个数
+    private long completion;//里程碑完成个数
+    private long total;//里程碑总个数
     private long changeCount;//里程碑修改次数
 
     public long getId() {
@@ -124,6 +125,14 @@ public class Task {
         this.changeCount = changeCount;
     }
 
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -138,6 +147,7 @@ public class Task {
                 ", contractUrl='" + contractUrl + '\'' +
                 ", agreementUrl='" + agreementUrl + '\'' +
                 ", completion=" + completion +
+                ", total=" + total +
                 ", changeCount=" + changeCount +
                 '}';
     }
