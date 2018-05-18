@@ -2,11 +2,7 @@ package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Milestone;
 import com.wedo.OMS.entity.Result;
-import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.enums.MilestoneStatus;
-import com.wedo.OMS.repository.MilestoneRepository;
-import com.wedo.OMS.repository.ResultRepository;
-import com.wedo.OMS.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

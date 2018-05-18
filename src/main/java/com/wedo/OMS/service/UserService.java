@@ -3,11 +3,12 @@ package com.wedo.OMS.service;
 import com.wedo.OMS.entity.User;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 public interface UserService {
+
     /**
      * 用户登陆
+     *
      * @param user
      * @return
      */
@@ -15,6 +16,7 @@ public interface UserService {
 
     /**
      * 根据用户ID获取用户信息
+     *
      * @param userId
      * @return
      */
@@ -22,6 +24,7 @@ public interface UserService {
 
     /**
      * 签到
+     *
      * @param userId
      * @param taskId
      * @param dateTime
@@ -31,6 +34,7 @@ public interface UserService {
 
     /**
      * 签退，包括提交考勤日志
+     *
      * @param userId
      * @param taskId
      * @param dateTime

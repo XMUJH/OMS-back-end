@@ -1,7 +1,6 @@
 package com.wedo.OMS.entity;
 
 import com.wedo.OMS.enums.MilestoneStatus;
-import com.wedo.OMS.enums.VerifyStatus;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,15 +20,19 @@ public class Milestone {
     private long changeCount;//里程碑修改次数
     @Enumerated
     private MilestoneStatus status;//里程碑成果审核情况，通过为0，未审核为1,未通过则在Milestone中新增审核记录
+
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
