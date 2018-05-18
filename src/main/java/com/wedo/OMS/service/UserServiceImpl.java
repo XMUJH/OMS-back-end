@@ -1,6 +1,10 @@
 package com.wedo.OMS.service;
 
+import com.wedo.OMS.entity.Attendance;
+import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.entity.User;
+import com.wedo.OMS.repository.AttendanceRepository;
+import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Encoder;
@@ -13,8 +17,12 @@ import java.sql.Timestamp;
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository){
+    private AttendanceRepository attendanceRepository;
+    private TaskRepository taskRepository;
+    public UserServiceImpl(UserRepository userRepository,AttendanceRepository attendanceRepository,TaskRepository taskRepository){
         this.userRepository = userRepository;
+        this.attendanceRepository=attendanceRepository;
+        this.taskRepository=taskRepository;
     }
 
     /*MD5密码加密处理*/
@@ -62,7 +70,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User signin(Long userId, Long taskId, Timestamp dateTime) {
-        return null;
+        Attendance attendance =new Attendance();
+        User user =userRepository.findUserById(userId);
+        Task task =taskRepository.findTaskById(taskId);
+        attendance.setUser(user);
+        attendance.setTask(task);
+        attendance.setBeginTime(dateTime);
+        attendanceRepository.save(attendance);
+        return userRepository.findUserById(userId);
     }
 
     /**
@@ -74,6 +89,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User signout(Long userId, Long taskId, Timestamp dateTime) {
-        return null;
+        User user=userRepository.findUserById(userId);
+        Task task =taskRepository.findTaskById(taskId);
+        Attendance attendance=attendanceRepository.findAttendanceByUserAndAndTask(user,task);
+        attendance.setEndTime(dateTime);
+        attendanceRepository.save(attendance);
+        return userRepository.findUserById(userId);
     }
 }
