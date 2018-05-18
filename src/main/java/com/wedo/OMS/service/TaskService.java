@@ -1,7 +1,6 @@
 package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.entity.User;
 import com.wedo.OMS.entity.UserTask;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
@@ -45,7 +44,7 @@ public interface TaskService {
      * @param task
      * @return
      */
-    Task updateTaskByTaskId(Long taskId,Task task);
+    Task updateTaskByTaskId(Long taskId, Task task);
 
     /**
      * 队长新增任务成员

@@ -20,14 +20,14 @@ public interface CompanyService {
      * @param
      * @return
      */
-    List<Company> listCompanysByCompanyname(String companyname);
+    List<Company> listCompaniesByCompanyname(String companyname);
 
     /**
      * 发包方根据公司ID获取公司的所有成员
      * @param companyId
      * @return
      */
-    List<Company> listCompanyUsersByCompanyId(Long companyId);
+    List<User> listCompanyUsersByCompanyId(Long companyId);
 
     /**
      * 队长根据名字搜索公司成员
@@ -55,7 +55,6 @@ public interface CompanyService {
      * @param userId
      */
     void deleteCompanyUser(Long companyId, Long userId);
-
 
 
 }

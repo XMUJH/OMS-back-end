@@ -24,9 +24,9 @@ public class User {
 
     private UserRole role;//用户身份，SENDER为0，RECEIVER为1
 
-    private String photo;//用户头像url
+    private String photoUrl;//用户头像url
 
-    private String face;//用户人脸url
+    private String faceUrl;//用户人脸url
 
 
     public long getId() {
@@ -101,20 +101,20 @@ public class User {
         this.gender = gender;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
-    public String getFace() {
-        return face;
+    public String getFaceUrl() {
+        return faceUrl;
     }
 
-    public void setFace(String face) {
-        this.face = face;
+    public void setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl;
     }
 
     @Override
@@ -129,8 +129,8 @@ public class User {
                 ", gender=" + gender +
                 ", company=" + company +
                 ", role=" + role +
-                ", photo='" + photo + '\'' +
-                ", face='" + face + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", faceUrl='" + faceUrl + '\'' +
                 '}';
     }
 }

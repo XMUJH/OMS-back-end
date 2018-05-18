@@ -23,9 +23,10 @@ public class Task {
     @Enumerated
     private SafetyLevel safety;//任务安全等级
     private String info;//任务详情描述
-    private String contractURL;//合同信息URL'
-    private String agreementURL;//保密协议URL
-    private long completionRate;//完成度
+    private String contractUrl;//合同信息URL'
+    private String agreementUrl;//保密协议URL
+    private long completion;//里程碑完成个数
+    private long total;//里程碑总个数
     private long changeCount;//里程碑修改次数
 
     public long getId() {
@@ -92,28 +93,28 @@ public class Task {
         this.info = info;
     }
 
-    public String getContractURL() {
-        return contractURL;
+    public String getContractUrl() {
+        return contractUrl;
     }
 
-    public void setContractURL(String contractURL) {
-        this.contractURL = contractURL;
+    public void setContractUrl(String contractUrl) {
+        this.contractUrl = contractUrl;
     }
 
-    public String getAgreementURL() {
-        return agreementURL;
+    public String getAgreementUrl() {
+        return agreementUrl;
     }
 
-    public void setAgreementURL(String agreementURL) {
-        this.agreementURL = agreementURL;
+    public void setAgreementUrl(String agreementUrl) {
+        this.agreementUrl = agreementUrl;
     }
 
-    public long getCompletionRate() {
-        return completionRate;
+    public long getCompletion() {
+        return completion;
     }
 
-    public void setCompletionRate(long completionRate) {
-        this.completionRate = completionRate;
+    public void setCompletion(long completion) {
+        this.completion = completion;
     }
 
     public long getChangeCount() {
@@ -122,6 +123,14 @@ public class Task {
 
     public void setChangeCount(long changeCount) {
         this.changeCount = changeCount;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 
     @Override
@@ -135,9 +144,10 @@ public class Task {
                 ", endTime=" + endTime +
                 ", safety=" + safety +
                 ", info='" + info + '\'' +
-                ", contractURL='" + contractURL + '\'' +
-                ", agreementURL='" + agreementURL + '\'' +
-                ", completionRate=" + completionRate +
+                ", contractUrl='" + contractUrl + '\'' +
+                ", agreementUrl='" + agreementUrl + '\'' +
+                ", completion=" + completion +
+                ", total=" + total +
                 ", changeCount=" + changeCount +
                 '}';
     }

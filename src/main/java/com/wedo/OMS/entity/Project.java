@@ -16,7 +16,8 @@ public class Project {
     private Date createTime;//项目创建的时间
     private Date beginTime;//项目开始时间
     private Date endTime;//项目结束时间
-    private long completionRate;//完成度
+    private long completion;//里程碑完成个数
+    private long total;//里程碑总个数
 
     public long getId() {
         return id;
@@ -74,12 +75,20 @@ public class Project {
         this.endTime = endTime;
     }
 
-    public long getCompletionRate() {
-        return completionRate;
+    public long getCompletion() {
+        return completion;
     }
 
-    public void setCompletionRate(long completionRate) {
-        this.completionRate = completionRate;
+    public void setCompletion(long completion) {
+        this.completion = completion;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 
     @Override
@@ -92,7 +101,8 @@ public class Project {
                 ", createTime=" + createTime +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
-                ", completionRate=" + completionRate +
+                ", completion=" + completion +
+                ", total=" + total +
                 '}';
     }
 }

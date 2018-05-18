@@ -3,7 +3,6 @@ package com.wedo.OMS.service;
 import com.wedo.OMS.entity.Milestone;
 import com.wedo.OMS.entity.Result;
 import com.wedo.OMS.enums.MilestoneStatus;
-import com.wedo.OMS.enums.VerifyStatus;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface MilestoneService {
      * @param taskId
      * @param result
      */
-    void uploadResult(Long taskId,Result result);
+    void uploadResult(Long taskId, Result result);
 
     /**
      * 接包方下载成果
@@ -43,9 +42,16 @@ public interface MilestoneService {
     void downloadResult(Long resultId);
 
     /**
-     * 审核里程碑,pass or notpass
+     * 审核里程碑,pass or notpass，pass则将里程碑所在的任务和项目完成数加一
      * @param milestoneId
      * @param status pass or notpass
      */
     void auditMilestoneByMilestoneId(Long milestoneId,MilestoneStatus status);
+
+    /**
+     * 以数组的形式添加里程碑,添加之后将里程碑所在的任务和项目里程碑总个数更新
+     * @param milestones
+     * @param taskId
+     */
+    void addMilestone(List<Milestone> milestones,Long taskId);
 }
