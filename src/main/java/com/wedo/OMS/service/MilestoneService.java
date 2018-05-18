@@ -3,7 +3,6 @@ package com.wedo.OMS.service;
 import com.wedo.OMS.entity.Milestone;
 import com.wedo.OMS.entity.Result;
 import com.wedo.OMS.enums.MilestoneStatus;
-import com.wedo.OMS.enums.VerifyStatus;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface MilestoneService {
      * @param taskId
      * @param result
      */
-    void uploadResult(Long taskId,Result result);
+    void uploadResult(Long taskId, Result result);
 
     /**
      * 接包方下载成果

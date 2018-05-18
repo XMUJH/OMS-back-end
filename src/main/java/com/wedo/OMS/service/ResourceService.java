@@ -59,7 +59,7 @@ public interface ResourceService {
      * @param taskId
      * @param resource
      */
-    void uploadResource(Long taskId,Resource resource);
+    void uploadResource(Long taskId, Resource resource);
 
     /**
      * 接包方下载资源

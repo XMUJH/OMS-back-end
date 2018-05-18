@@ -57,5 +57,4 @@ public interface CompanyService {
     void deleteCompanyUser(Long companyId, Long userId);
 
 
-
 }

@@ -1,7 +1,6 @@
 package com.wedo.OMS.entity;
 
 import com.wedo.OMS.enums.MilestoneStatus;
-import com.wedo.OMS.enums.VerifyStatus;
 
 import javax.persistence.*;
 import java.util.Date;
