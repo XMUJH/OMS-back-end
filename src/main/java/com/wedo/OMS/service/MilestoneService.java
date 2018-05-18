@@ -31,10 +31,10 @@ public interface MilestoneService {
 
     /**
      * 接包方上传成果
-     * @param taskId
+     * @param milestoneId
      * @param result
      */
-    void uploadResult(Long taskId,Result result);
+    void uploadResult(Long milestoneId,Result result);
 
     /**
      * 接包方下载成果
