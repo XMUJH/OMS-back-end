@@ -2,10 +2,7 @@ package com.wedo.OMS.entity;
 
 import com.wedo.OMS.enums.SafetyLevel;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,14 +10,29 @@ public class Resource {
     @Id
     @GeneratedValue
     private long id;//资源文件id
+    @Column(unique = true)
     private String name;//资源文件名称
     private String type;//资源文件类型
     private String size;//资源文件大小
+    @Column(unique = true)
     private String address;//资源文件地址
     private Date commit;//资源文件提交时间
     private String info;//资源文件详情描述
     @Enumerated
     private SafetyLevel safety;//资源文件安全等级
+
+    public Resource() {
+    }
+
+    public Resource(String name, String type, String size, String address, Date commit, String info, SafetyLevel safety) {
+        this.name = name;
+        this.type = type;
+        this.size = size;
+        this.address = address;
+        this.commit = commit;
+        this.info = info;
+        this.safety = safety;
+    }
 
     public long getId() {
         return id;

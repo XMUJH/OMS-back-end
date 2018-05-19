@@ -10,8 +10,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//用户id
+    @Column(unique = true)
     private String account;//用户账号
+    @Column(unique = true)
     private String phone;//用户手机号
+    @Column(unique = true)
     private String email;//用户邮箱
     private String name;//用户名称
     private String password;//用户密码
@@ -28,6 +31,30 @@ public class User {
 
     private String faceUrl;//用户人脸url
 
+    public User() {
+    }
+
+    public User(String account, String phone, String email, String name, String password, Gender gender) {
+        this.account = account;
+        this.phone = phone;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.gender = gender;
+    }
+
+    public User(String account, String phone, String email, String name, String password, Gender gender, Company company, UserRole role, String photoUrl, String faceUrl) {
+        this.account = account;
+        this.phone = phone;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.gender = gender;
+        this.company = company;
+        this.role = role;
+        this.photoUrl = photoUrl;
+        this.faceUrl = faceUrl;
+    }
 
     public long getId() {
         return id;

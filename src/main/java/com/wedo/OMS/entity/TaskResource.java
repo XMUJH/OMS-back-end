@@ -38,6 +38,13 @@ public class TaskResource {
         this.resource = resource;
     }
 
+    public TaskResource() {
+    }
+
+    public TaskResource(Task task, Resource resource) {
+        this.task = task;
+        this.resource = resource;
+    }
 
     @Override
     public String toString() {

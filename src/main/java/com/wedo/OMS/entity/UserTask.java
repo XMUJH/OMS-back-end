@@ -21,6 +21,17 @@ public class UserTask {
     private String job;//用户职责
     private VerifyStatus status;//审核状态，NOTPASSED为0，PASSED为1
 
+    public UserTask() {
+    }
+
+    public UserTask(User user, Task task, UserTaskRole userTaskRole, String job, VerifyStatus status) {
+        this.user = user;
+        this.task = task;
+        this.userTaskRole = userTaskRole;
+        this.job = job;
+        this.status = status;
+    }
+
     public long getId() {
         return id;
     }

@@ -8,6 +8,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//项目id
+    @Column(unique = true)
     private String name;//项目名称
     private String password;//项目密码
     @OneToOne(cascade = CascadeType.ALL)
@@ -18,6 +19,20 @@ public class Project {
     private Date endTime;//项目结束时间
     private long completion;//里程碑完成个数
     private long total;//里程碑总个数
+
+    public Project() {
+    }
+
+    public Project(String name, String password, Project belong, Date createTime, Date beginTime, Date endTime, long completion, long total) {
+        this.name = name;
+        this.password = password;
+        this.belong = belong;
+        this.createTime = createTime;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.completion = completion;
+        this.total = total;
+    }
 
     public long getId() {
         return id;

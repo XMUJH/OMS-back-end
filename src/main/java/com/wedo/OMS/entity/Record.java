@@ -12,6 +12,14 @@ public class Record {
     @JoinColumn(name = "attendance_id")
     private Attendance attendance;//签到记录
 
+    public Record() {
+    }
+
+    public Record(String content, Attendance attendance) {
+        this.content = content;
+        this.attendance = attendance;
+    }
+
     public long getId() {
         return id;
     }

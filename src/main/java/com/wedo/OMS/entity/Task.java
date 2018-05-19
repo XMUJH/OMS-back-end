@@ -23,11 +23,29 @@ public class Task {
     @Enumerated
     private SafetyLevel safety;//任务安全等级
     private String info;//任务详情描述
-    private String contractUrl;//合同信息URL'
+    private String contractUrl;//合同信息URL
     private String agreementUrl;//保密协议URL
     private long completion;//里程碑完成个数
     private long total;//里程碑总个数
     private long changeCount;//里程碑修改次数
+
+    public Task() {
+    }
+
+    public Task(String name, Project project, Date createTime, Date beginTime, Date endTime, SafetyLevel safety, String info, String contractUrl, String agreementUrl, long completion, long total, long changeCount) {
+        this.name = name;
+        this.project = project;
+        this.createTime = createTime;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.safety = safety;
+        this.info = info;
+        this.contractUrl = contractUrl;
+        this.agreementUrl = agreementUrl;
+        this.completion = completion;
+        this.total = total;
+        this.changeCount = changeCount;
+    }
 
     public long getId() {
         return id;
