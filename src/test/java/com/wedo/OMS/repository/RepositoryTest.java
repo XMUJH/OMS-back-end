@@ -48,7 +48,6 @@ public class RepositoryTest {
     @Test
     public void initMySQL() {
         //初始化Company
-
         //初始化User
         User user0 = new User("2432015000", "18859272730", "609490911@qq.com", "邓荟丹", "000", Gender.FAMALE, null, UserRole.RECEIVER, null, null);
         User user1 = new User("2432015001", "18859272731", "609490912@qq.com", "邓帅", "001", Gender.MALE, null, UserRole.RECEIVER, null, null);
