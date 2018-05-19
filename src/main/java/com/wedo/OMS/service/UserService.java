@@ -2,6 +2,8 @@ package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.User;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 
 public interface UserService {
@@ -10,7 +12,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    User login(User user);
+    User login(User user)throws NoSuchAlgorithmException,UnsupportedEncodingException;
 
     /**
      * 根据用户ID获取用户信息
