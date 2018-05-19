@@ -130,9 +130,4 @@ public class TestController {
     public String faceTest() {
         return afrService.doFR("src/main/resources/static/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"});
     }
-
-    @GetMapping(value = "/testresource")
-    public List<Resource> testResource() {
-       return resourceService.getResourcesByResourcename("人脸");
-    }
 }
