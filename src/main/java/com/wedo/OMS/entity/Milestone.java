@@ -10,6 +10,7 @@ public class Milestone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//里程碑id
+    @Column(unique = true)
     private String name;//里程碑名称
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
@@ -17,18 +18,33 @@ public class Milestone {
     private Date beginTime;//里程碑开始时间
     private Date endTime;//里程碑结束时间
     private String info;//里程碑详情描述
-    private long changeCount;//里程碑修改次数
     @Enumerated
     private MilestoneStatus status;//里程碑成果审核情况，通过为0，未审核为1,未通过则在Milestone中新增审核记录
+
+    public Milestone() {
+    }
+
+    public Milestone(String name, Task task, Date beginTime, Date endTime, String info, MilestoneStatus status) {
+        this.name = name;
+        this.task = task;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.info = info;
+        this.status = status;
+    }
+
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -65,14 +81,6 @@ public class Milestone {
         this.info = info;
     }
 
-    public long getChangeCount() {
-        return changeCount;
-    }
-
-    public void setChangeCount(long changeCount) {
-        this.changeCount = changeCount;
-    }
-
     public MilestoneStatus getStatus() {
         return status;
     }
@@ -90,7 +98,6 @@ public class Milestone {
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", info='" + info + '\'' +
-                ", changeCount=" + changeCount +
                 ", status=" + status +
                 '}';
     }

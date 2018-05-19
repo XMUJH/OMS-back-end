@@ -1,21 +1,34 @@
 package com.wedo.OMS.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//公司id
+    @Column(unique = true)
     private String name;//公司名称
     private String info;//公司详情描述
+    @Column(unique = true)
     private String email;//公司邮箱
+    @Column(unique = true)
     private String site;//公司官网
+    @Column(unique = true)
     private String phone;//公司联系电话
     private long grade;//公司评级
+
+    public Company() {
+    }
+
+    public Company(String name, String info, String email, String site, String phone, long grade) {
+        this.name = name;
+        this.info = info;
+        this.email = email;
+        this.site = site;
+        this.phone = phone;
+        this.grade = grade;
+    }
 
     public long getId() {
         return id;

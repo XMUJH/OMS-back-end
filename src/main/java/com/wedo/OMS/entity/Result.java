@@ -16,6 +16,17 @@ public class Result {
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;//成果文件所属里程碑
 
+    public Result() {
+    }
+
+    public Result(String name, String size, String address, Date commit, Milestone milestone) {
+        this.name = name;
+        this.size = size;
+        this.address = address;
+        this.commit = commit;
+        this.milestone = milestone;
+    }
+
     public long getId() {
         return id;
     }

@@ -16,6 +16,15 @@ public class MilestoneNotpass {
     private Date createTime;//审核时间
     private String reason;//审核未通过原因
 
+    public MilestoneNotpass() {
+    }
+
+    public MilestoneNotpass(Milestone milestone, Date createTime, String reason) {
+        this.milestone = milestone;
+        this.createTime = createTime;
+        this.reason = reason;
+    }
+
     public Long getId() {
         return id;
     }

@@ -3,7 +3,6 @@ package com.wedo.OMS.controller;
 import com.wedo.OMS.entity.Milestone;
 import com.wedo.OMS.entity.Result;
 import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.entity.User;
 import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.repository.MilestoneRepository;
 import com.wedo.OMS.repository.TaskRepository;
@@ -48,7 +47,7 @@ public class UserController {
         Task task = new Task();
         task.setInfo("1231231");
         taskRepository.save(task);
-        milestone.setChangeCount(2);
+        //milestone.setChangeCount(2);
         milestone.setTask(task);
 
         milestoneRepository.save(milestone);

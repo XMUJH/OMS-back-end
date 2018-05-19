@@ -20,6 +20,18 @@ public class Attendance {
     private Date workingTime;//工作时长
     private String violation;//违规情况
 
+    public Attendance() {
+
+    }
+
+    public Attendance(User user, Task task, Date beginTime, Date endTime, Date workingTime, String violation) {
+        this.user = user;
+        this.task = task;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.workingTime = workingTime;
+        this.violation = violation;
+    }
 
     public long getId() {
         return id;
