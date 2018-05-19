@@ -8,14 +8,19 @@ import com.wedo.OMS.entity.Attendance;
 import com.wedo.OMS.entity.Company;
 import com.wedo.OMS.entity.Record;
 import com.wedo.OMS.entity.User;
+import com.wedo.OMS.entity.Resource;
+import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.repository.CompanyRepository;
 import com.wedo.OMS.repository.RecordRepository;
+import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.service.AttendanceService;
 import com.wedo.OMS.service.CompanyService;
+import com.wedo.OMS.service.ResourceService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,12 +30,16 @@ public class TestController {
     private CompanyService companyService;
     private RecordRepository recordRepository;
     private AFRService afrService;
+    private ResourceService resourceService;
+    private TaskRepository taskRepository;
 
-    public TestController(AttendanceService attendanceService, RecordRepository recordRepository, CompanyService companyService, AFRService afrService) {
+    public TestController(AttendanceService attendanceService, RecordRepository recordRepository, CompanyService companyService, AFRService afrService, ResourceService resourceService, TaskRepository taskRepository) {
        this.attendanceService = attendanceService;
        this.recordRepository = recordRepository;
        this.companyService = companyService;
-        this.afrService = afrService;
+       this.afrService = afrService;
+       this.resourceService=resourceService;
+       this.taskRepository=taskRepository;
     }
 
     /*AttendanceService*/
@@ -120,5 +129,10 @@ public class TestController {
     @GetMapping(value = "/facetest")
     public String faceTest() {
         return afrService.doFR("src/main/resources/static/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"});
+    }
+
+    @GetMapping(value = "/testresource")
+    public List<Resource> testResource() {
+       return resourceService.getResourcesByResourcename("人脸");
     }
 }
