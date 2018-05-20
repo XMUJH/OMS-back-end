@@ -50,14 +50,16 @@ public class CompanyServiceImpl implements CompanyService {
         return userRepository.findUsersByCompany(company);
     }
 
-    /**
+    /**2s
      * 队长根据名字搜索公司成员
      * @param username
      * @return
      */
     @Override
-    public List<User> ListCompanyUsersByUsername(String username) {
-        return userRepository.findUsersByNameContaining(username);
+    public List<User> ListCompanyUsersByUsername(Long leaderid,String username) {
+        User leader = userRepository.findUserById(leaderid);
+        Company company = companyRepository.findCompanyById(leader.getCompany().getId());
+        return userRepository.findUsersByCompanyAndNameContaining(company,username);
     }
 
     /**
