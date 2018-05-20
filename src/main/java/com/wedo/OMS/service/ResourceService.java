@@ -32,7 +32,7 @@ public interface ResourceService {
      * @param resourceId
      * @param tasks      资源分配任务
      */
-    void updateResource(Long resourceId, Resource resource, List<Task> tasks);
+    //void updateResource(Long resourceId, Resource resource, List<Task> tasks);
 
     /**
      * 删除资源
@@ -52,7 +52,7 @@ public interface ResourceService {
      * @param resourcename
      * @return
      */
-    List<Resource> getResourcesByResourcename(Long resourcename);
+    List<Resource> getResourcesByResourcename(String resourcename);
 
     /**
      * 发包方上传资源
@@ -65,5 +65,5 @@ public interface ResourceService {
      * 接包方下载资源
      * @param resourceId
      */
-    void downloadResource(Long resourceId);
+    String downloadResource(Long resourceId);
 }

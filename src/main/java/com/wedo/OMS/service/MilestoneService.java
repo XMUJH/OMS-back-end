@@ -39,7 +39,7 @@ public interface MilestoneService {
      * 接包方下载成果
      * @param resultId
      */
-    void downloadResult(Long resultId);
+    String downloadResult(Long resultId);
 
     /**
      * 审核里程碑,pass or notpass，pass则将里程碑所在的任务和项目完成数加一

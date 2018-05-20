@@ -9,14 +9,30 @@ public interface ProjectService {
      * @param belong 所属项目的ID
      * @return
      */
-    Project addProject(Project project, Long belong);
+    void addProject(Project project, Long belong);
 
     /**
-     * 更新项目
+     * 将项目移入另一个项目中
+     * @param InprojectId
+     * @param OutprojectId
+     * @return
+     */
+    void MoveInprojectToOutprojectByProjectId(Long InprojectId,Long OutprojectId);
+
+    /**
+     * 将任务移入项目中
+     * @param taskId
      * @param projectId
      * @return
      */
-    Project updateProjectByProjectId(Long projectId);
+    void MoveTaskToProjectById(Long taskId,Long projectId);
+
+    /**
+     * 计算进度
+     * @param projectId
+     * @return 百分数
+     */
+    long CalScheduleByProjectId(Long projectId);
 
     /**
      * 删除项目

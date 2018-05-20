@@ -7,7 +7,8 @@ import com.wedo.OMS.repository.AttendanceRepository;
 import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -28,8 +29,8 @@ public class UserServiceImpl implements UserService {
     /*MD5密码加密处理*/
     public String EncoderByMd5(String str) throws NoSuchAlgorithmException,UnsupportedEncodingException{
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        String newstr=base64Encoder.encode(md5.digest(str.getBytes("utf-8")));
+        Encoder base64Encoder = Base64.getEncoder();
+        String newstr=base64Encoder.encodeToString(md5.digest(str.getBytes("utf-8")));
         return newstr;
     }
 

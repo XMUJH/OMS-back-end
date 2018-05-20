@@ -80,8 +80,9 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param resultId
      */
     @Override
-    public void downloadResult(Long resultId) {
-
+    public String downloadResult(Long resultId) {
+        Result result = resultRepository.findResultById(resultId);
+        return result.getAddress();
     }
 
     /**
