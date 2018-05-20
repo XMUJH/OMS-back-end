@@ -33,10 +33,8 @@ public interface TaskService {
      * 发包方新建任务，包括上传合同信息，保密协议和生成任务授权码
      *
      * @param task
-     * @param belong 新增任务所属项目Id
-     * @return
      */
-    Task addTask(Task task, Long belong);
+    void addTask(Task task);
 
     /**
      * 根据任务ID修改任务，如修改任务合同信息或保密协议
@@ -50,9 +48,8 @@ public interface TaskService {
      * 队长新增任务成员
      * @param userId
      * @param utr
-     * @return
      */
-    UserTask addTaskUser(Long userId, UserTaskRole utr);
+    void addTaskUser(Long userId, UserTaskRole utr);
 
     /**
      * 发包方审核任务成员
@@ -66,7 +63,7 @@ public interface TaskService {
     /**
      * 删除任务成员
      * @param userId
-     * @param tastId
+     * @param taskId
      */
-    void deleteTaskUserById(Long userId, Long tastId);
+    void deleteTaskUserById(Long userId, Long taskId);
 }
