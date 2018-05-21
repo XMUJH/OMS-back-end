@@ -10,6 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserById(Long userId);
     List<User> findUsersByCompany(Company company);
     List<User> findUsersByNameContaining(String name);
+    List<User> findUsersByCompanyAndNameContaining(Company company,String name);
     void deleteUserByCompanyAndId(Company company,Long userId);
     int countUserByCompany(Company company);
 
