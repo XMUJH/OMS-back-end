@@ -92,7 +92,8 @@ public class TestController {
      */
     @GetMapping(value = "/selectMember")
     public  List<User> ListCompanyUsersByUsername() {
-        return companyService.ListCompanyUsersByUsername("a");
+        long leaderid=1;
+        return companyService.ListCompanyUsersByUsername(leaderid,"a");
     }
 
     /**
