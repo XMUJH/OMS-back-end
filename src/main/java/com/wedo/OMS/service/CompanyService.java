@@ -34,7 +34,7 @@ public interface CompanyService {
      * @param username
      * @return
      */
-    List<User> ListCompanyUsersByUsername(String username);
+    List<User> ListCompanyUsersByUsername(Long leaderid,String username);
 
     /**
      * 发包方新建公司
