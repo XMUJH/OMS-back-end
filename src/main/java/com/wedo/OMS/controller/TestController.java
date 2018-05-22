@@ -92,7 +92,7 @@ public class TestController {
      */
     @GetMapping(value = "/selectMember")
     public  List<User> ListCompanyUsersByUsername() {
-        return companyService.ListCompanyUsersByUsername("a");
+        return companyService.ListCompanyUsersByUsername(1l,"a");
     }
 
     /**
