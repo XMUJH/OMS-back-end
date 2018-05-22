@@ -7,6 +7,8 @@ import com.wedo.OMS.repository.AttendanceRepository;
 import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 
@@ -14,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(User user) throws NoSuchAlgorithmException,UnsupportedEncodingException{
-        User userRecorded = userRepository.findUserById(user.getId());
+        User userRecorded = userRepository.findUserByAccount(user.getAccount());
         String passwordRecorded = userRecorded.getPassword();
         String passwordInput = user.getPassword();
         passwordInput = EncoderByMd5(passwordInput);
@@ -92,9 +95,23 @@ public class UserServiceImpl implements UserService {
     public User signout(Long userId, Long taskId, Timestamp dateTime) {
         User user=userRepository.findUserById(userId);
         Task task =taskRepository.findTaskById(taskId);
-        Attendance attendance=attendanceRepository.findAttendanceByUserAndAndTask(user,task);
+        Attendance attendance=attendanceRepository.findAttendanceByUserAndTask(user,task);
         attendance.setEndTime(dateTime);
         attendanceRepository.save(attendance);
         return userRepository.findUserById(userId);
+    }
+
+    /**
+     * 获取所有人脸信息
+     * @return
+     */
+    @Override
+    public List<String> getUserFaces(){
+        List<User> users = userRepository.findAll();
+        List<String> face_urls = new ArrayList<>();
+        for (User user:users){
+            face_urls.add(user.getPhotoUrl());
+        }
+        return face_urls;
     }
 }
