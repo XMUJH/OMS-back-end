@@ -1,7 +1,7 @@
 package com.wedo.OMS.enums;
 
 public enum VerifyStatus {
-    NOTPASSED,
-    PASSED,
-    UNAUDITED
+    NORMAL,
+    ADD_CHECK,
+    DELETE_CHECK
 }

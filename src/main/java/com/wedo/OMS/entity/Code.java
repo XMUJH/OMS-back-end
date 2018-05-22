@@ -11,7 +11,7 @@ public class Code {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//激活码id
     @Column(unique = true)
-    private long code;//激活码
+    private String code;//激活码
     private CodeStatus status;//激活码状态，无效为0，有效为1
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
@@ -53,7 +53,7 @@ public class Code {
     public Code() {
     }
 
-    public Code(long code, CodeStatus status, Task task, Date time) {
+    public Code(String code, CodeStatus status, Task task, Date time) {
         this.code = code;
         this.status = status;
         this.task = task;

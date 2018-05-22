@@ -66,7 +66,7 @@ public class TaskServiceImpl implements TaskService {
         User user = userRepository.findUserById(userId);
         UserTask userTask = new UserTask();
         userTask.setUser(user);
-        userTask.setStatus(VerifyStatus.UNAUDITED);
+        userTask.setStatus(VerifyStatus.ADD_CHECK);
         userTask.setUserTaskRole(utr);
 
 
