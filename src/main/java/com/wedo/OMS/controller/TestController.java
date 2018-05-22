@@ -128,6 +128,6 @@ public class TestController {
 
     @GetMapping(value = "/facetest")
     public String faceTest() {
-        return afrService.doFR("src/main/resources/static/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"});
+        return afrService.doFR("src/main/resources/static/faceimg/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"}).toString();
     }
 }

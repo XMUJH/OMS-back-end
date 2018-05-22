@@ -109,7 +109,7 @@ public class AFRServiceImpl implements AFRService{
                 CLibrary.INSTANCE.free(pFRWorkMem);
 
                 System.out.println("#####################################################");
-                return "警告！发现第三方人脸";
+                return "Warning! Third Party Faces Detected";
             }
         }
         // release Engine
@@ -120,8 +120,8 @@ public class AFRServiceImpl implements AFRService{
         CLibrary.INSTANCE.free(pFRWorkMem);
 
         System.out.println("#####################################################");
-        if(recognitionStatus==true) return "识别成功";
-        else return ("未能识别该人脸");
+        if(recognitionStatus==true) return "Recognition Successful!";
+        else return "Recognition Failed!";
     }
 
     @Override
