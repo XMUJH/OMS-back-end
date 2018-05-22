@@ -50,7 +50,7 @@ public class CompanyServiceImpl implements CompanyService {
         return userRepository.findUsersByCompany(company);
     }
 
-    /**2s
+    /**
      * 队长根据名字搜索公司成员
      * @param username
      * @return
