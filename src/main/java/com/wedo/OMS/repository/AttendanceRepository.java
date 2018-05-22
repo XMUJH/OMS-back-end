@@ -10,5 +10,5 @@ import java.util.List;
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     List<Attendance> findAttendancesByUser(User user);
     List<Attendance> findAttendancesByTask(Task task);
-    Attendance findAttendanceByUserAndAndTask(User user,Task task);
+    Attendance findAttendanceByUserAndTask(User user,Task task);
 }

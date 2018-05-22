@@ -5,6 +5,7 @@ import com.wedo.OMS.entity.User;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface UserService {
     /**
@@ -38,4 +39,10 @@ public interface UserService {
      * @return
      */
     User signout(Long userId, Long taskId, Timestamp dateTime);
+
+    /**
+     * 获取所有人脸信息
+     * @return
+     */
+    List<String> getUserFaces();
 }
