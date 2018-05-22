@@ -29,24 +29,6 @@ public class Task {
     private long total;//里程碑总个数
     private long changeCount;//里程碑修改次数
 
-    public Task() {
-    }
-
-    public Task(String name, Project project, Date createTime, Date beginTime, Date endTime, SafetyLevel safety, String info, String contractUrl, String agreementUrl, long completion, long total, long changeCount) {
-        this.name = name;
-        this.project = project;
-        this.createTime = createTime;
-        this.beginTime = beginTime;
-        this.endTime = endTime;
-        this.safety = safety;
-        this.info = info;
-        this.contractUrl = contractUrl;
-        this.agreementUrl = agreementUrl;
-        this.completion = completion;
-        this.total = total;
-        this.changeCount = changeCount;
-    }
-
     public long getId() {
         return id;
     }

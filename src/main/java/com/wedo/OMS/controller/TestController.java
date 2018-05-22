@@ -1,6 +1,7 @@
 package com.wedo.OMS.controller;
 
 import com.arcsoft.service.AFRService;
+import com.wedo.OMS.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +21,8 @@ import com.wedo.OMS.service.ResourceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,16 +33,18 @@ public class TestController {
     private CompanyService companyService;
     private RecordRepository recordRepository;
     private AFRService afrService;
+    private UserService userService;
     private ResourceService resourceService;
     private TaskRepository taskRepository;
 
-    public TestController(AttendanceService attendanceService, RecordRepository recordRepository, CompanyService companyService, AFRService afrService, ResourceService resourceService, TaskRepository taskRepository) {
+    public TestController(AttendanceService attendanceService, UserService userService,RecordRepository recordRepository, CompanyService companyService, AFRService afrService, ResourceService resourceService, TaskRepository taskRepository) {
        this.attendanceService = attendanceService;
        this.recordRepository = recordRepository;
        this.companyService = companyService;
        this.afrService = afrService;
        this.resourceService=resourceService;
        this.taskRepository=taskRepository;
+       this.userService =userService;
     }
 
     /*AttendanceService*/
@@ -75,7 +80,7 @@ public class TestController {
      */
     @GetMapping(value = "/companies")
     public List<Company> listCompanysByCompanyname() {
-        return companyService.listCompaniesByCompanyname("a");
+        return companyService.listCompaniesByCompanyname("do");
     }
 
     /**
@@ -92,7 +97,8 @@ public class TestController {
      */
     @GetMapping(value = "/selectMember")
     public  List<User> ListCompanyUsersByUsername() {
-        return companyService.ListCompanyUsersByUsername(1l,"a");
+        long leaderid=1;
+        return companyService.ListCompanyUsersByUsername(leaderid,"邓");
     }
 
     /**
@@ -101,9 +107,9 @@ public class TestController {
     @GetMapping(value = "/newCompany")
     public Company addCompany() {
         Company company = new Company();
-        long id =1;
+        long id =5;
         company.setId(id);
-        company.setName("Wedo");
+        company.setName("Wedo1");
         return companyService.addCompany(company);
     }
 
@@ -126,8 +132,23 @@ public class TestController {
         companyService.deleteCompanyUser(companyid,userid);
     }
 
+    /**
+     * 获取所有人脸信息
+     */
+    @GetMapping(value = "/getUserFaces")
+    public List<String> getUserFaces() {
+       return userService.getUserFaces();
+    }
+
     @GetMapping(value = "/facetest")
     public String faceTest() {
         return afrService.doFR("src/main/resources/static/faceimg/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"}).toString();
+    }
+
+    @GetMapping(value = "/login")
+    public User userLogin() throws NoSuchAlgorithmException,UnsupportedEncodingException {
+        long id =1;
+        User user = userService.getUserByUserId(id);
+        return userService.login(user);
     }
 }

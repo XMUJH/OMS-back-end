@@ -19,7 +19,7 @@ public class UserTask {
     @Enumerated
     private UserTaskRole userTaskRole;//负责人为0，参与人员为1
     private String job;//用户职责
-    private VerifyStatus status;//审核状态，NOTPASSED为0，PASSED为1
+    private VerifyStatus status;//审核状态，NORMAL为0，ADD_CHECK为1，DELETE_CHECK为2
 
     public UserTask() {
     }

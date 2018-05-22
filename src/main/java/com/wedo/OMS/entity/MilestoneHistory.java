@@ -6,22 +6,24 @@ import java.util.Date;
 /**
  * 里程碑审核记录
  */
-public class MilestoneNotpass {
+public class MilestoneHistory {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;//审核记录所属里程碑
     private Date createTime;//审核时间
+    private long status;//该条历史记录的状态（第几次审核、未通过、通过）
     private String reason;//审核未通过原因
 
-    public MilestoneNotpass() {
+    public MilestoneHistory() {
     }
 
-    public MilestoneNotpass(Milestone milestone, Date createTime, String reason) {
+    public MilestoneHistory(Milestone milestone, Date createTime, long status, String reason) {
         this.milestone = milestone;
         this.createTime = createTime;
+        this.status = status;
         this.reason = reason;
     }
 
@@ -49,6 +51,10 @@ public class MilestoneNotpass {
         this.createTime = createTime;
     }
 
+    public long getStatus(){ return status; }
+
+    public void setStatus(long status){ this.status = status; }
+
     public String getReason() {
         return reason;
     }
@@ -63,6 +69,7 @@ public class MilestoneNotpass {
                 "id=" + id +
                 ", milestone=" + milestone +
                 ", createTime=" + createTime +
+                ", status=" + status +
                 ", reason='" + reason + '\'' +
                 '}';
     }

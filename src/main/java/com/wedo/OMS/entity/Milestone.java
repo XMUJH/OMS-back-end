@@ -19,18 +19,20 @@ public class Milestone {
     private Date endTime;//里程碑结束时间
     private String info;//里程碑详情描述
     @Enumerated
-    private MilestoneStatus status;//里程碑成果审核情况，通过为0，未审核为1,未通过则在Milestone中新增审核记录
+    private MilestoneStatus status;//里程碑成果审核情况，通过为0，待审核为1,未开始为2
+    private long submitTime;//里程碑 提交审核 次数
 
     public Milestone() {
     }
 
-    public Milestone(String name, Task task, Date beginTime, Date endTime, String info, MilestoneStatus status) {
+    public Milestone(String name, Task task, Date beginTime, Date endTime, String info, MilestoneStatus status, long submitTime) {
         this.name = name;
         this.task = task;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.info = info;
         this.status = status;
+        this.submitTime = submitTime;
     }
 
     public long getId() {
@@ -89,6 +91,10 @@ public class Milestone {
         this.status = status;
     }
 
+    public long getSubmitTime() { return submitTime; }
+
+    public void setSubmitTime(long submitTime) { this.submitTime = submitTime; }
+
     @Override
     public String toString() {
         return "Milestone{" +
@@ -99,6 +105,7 @@ public class Milestone {
                 ", endTime=" + endTime +
                 ", info='" + info + '\'' +
                 ", status=" + status +
+                ", submitTime=" + submitTime +
                 '}';
     }
 }
