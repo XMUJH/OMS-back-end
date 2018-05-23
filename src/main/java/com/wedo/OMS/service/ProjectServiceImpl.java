@@ -24,7 +24,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public void addProject(Project project, Long belong) {
+    public void addProject(Project project, long belong) {
         Project Belong = projectRepository.findProjectById(belong);
         project.setBelong(Belong);
         projectRepository.save(project);
@@ -37,7 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public void MoveInprojectToOutprojectByProjectId(Long InprojectId,Long OutprojectId) {
+    public void MoveInprojectToOutprojectByProjectId(long InprojectId,long OutprojectId) {
         Project Inproject = projectRepository.findProjectById(InprojectId);
         Project Outproject = projectRepository.findProjectById(OutprojectId);
         Inproject.setBelong(Outproject);
@@ -53,7 +53,8 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return
      */
-    public void MoveTaskToProjectById(Long taskId,Long projectId){
+    @Override
+    public void MoveTaskToProjectById(long taskId,long projectId){
         Task task = taskRepository.findTaskById(taskId);
         Project project = projectRepository.findProjectById(projectId);
         task.setProject(project);
@@ -68,7 +69,8 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return 百分数
      */
-    public long CalScheduleByProjectId(Long projectId){
+    @Override
+    public long CalScheduleByProjectId(long projectId){
         Project project = projectRepository.findProjectById(projectId);
         return project.getCompletion()*100/project.getTotal();
     }
@@ -78,7 +80,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      */
     @Override
-    public void deleteProjectByProjectId(Long projectId) {
+    public void deleteProjectByProjectId(long projectId) {
 
     }
 }

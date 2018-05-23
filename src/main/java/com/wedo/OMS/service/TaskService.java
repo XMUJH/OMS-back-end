@@ -13,14 +13,14 @@ public interface TaskService {
      * @param userId
      * @return
      */
-    List<Task> listTasksByUserId(Long userId);
+    List<Task> listTasksByUserId(long userId);
 
     /**
      * 根据任务ID获取任务
      * @param taskId
      * @return
      */
-    Task getTaskByTaskId(Long taskId);
+    Task getTaskByTaskId(long taskId);
 
     /**
      * 根据任务名称搜索任务
@@ -42,14 +42,14 @@ public interface TaskService {
      * @param task
      * @return
      */
-    Task updateTaskByTaskId(Long taskId, Task task);
+    Task updateTaskByTaskId(long taskId, Task task);
 
     /**
      * 队长新增任务成员
      * @param userId
      * @param utr
      */
-    void addTaskUser(Long userId, UserTaskRole utr);
+    void addTaskUser(long userId, UserTaskRole utr);
 
     /**
      * 发包方审核任务成员
@@ -58,12 +58,12 @@ public interface TaskService {
      * @param status
      * @return
      */
-    UserTask auditTaskUserById(Long userId, Long taskId, VerifyStatus status);
+    UserTask auditTaskUserById(long userId, long taskId, VerifyStatus status);
 
     /**
      * 删除任务成员
      * @param userId
      * @param taskId
      */
-    void deleteTaskUserById(Long userId, Long taskId);
+    void deleteTaskUserById(long userId, long taskId);
 }

@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> listTasksByUserId(Long userId) {
+    public List<Task> listTasksByUserId(long userId) {
         User user = userRepository.findUserById(userId);
         List<UserTask> userTasks = userTaskRepository.findUserTasksByUser(user);
         List<Task> tasks = new ArrayList<>();
@@ -38,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task getTaskByTaskId(Long taskId) {
+    public Task getTaskByTaskId(long taskId) {
         return taskRepository.findTaskById(taskId);
     }
 
@@ -54,7 +54,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTaskByTaskId(Long taskId, Task task) {
+    public Task updateTaskByTaskId(long taskId, Task task) {
         Task newTask = taskRepository.findTaskById(taskId);
         newTask = task;
         taskRepository.save(newTask);
@@ -62,7 +62,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTaskUser(Long userId, UserTaskRole utr) {
+    public void addTaskUser(long userId, UserTaskRole utr) {
         User user = userRepository.findUserById(userId);
         UserTask userTask = new UserTask();
         userTask.setUser(user);
@@ -73,7 +73,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public UserTask auditTaskUserById(Long userId, Long taskId, VerifyStatus status) {
+    public UserTask auditTaskUserById(long userId, long taskId, VerifyStatus status) {
         User user = userRepository.findUserById(userId);
         Task task = taskRepository.findTaskById(taskId);
         UserTask userTask = userTaskRepository.findUserTasksByUserAndTask(user, task);
@@ -84,7 +84,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteTaskUserById(Long userId, Long taskId) {
+    public void deleteTaskUserById(long userId, long taskId) {
         User user = userRepository.findUserById(userId);
         Task task = taskRepository.findTaskById(taskId);
         userTaskRepository.deleteByUserAndTask(user, task);

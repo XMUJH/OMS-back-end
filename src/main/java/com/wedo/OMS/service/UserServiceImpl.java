@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User getUserByUserId(Long userId) {
+    public User getUserByUserId(long userId) {
         return userRepository.findUserById(userId);
     }
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User signin(Long userId, Long taskId, Timestamp dateTime) {
+    public User signin(long userId, long taskId, Timestamp dateTime) {
         Attendance attendance =new Attendance();
         User user =userRepository.findUserById(userId);
         Task task =taskRepository.findTaskById(taskId);
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User signout(Long userId, Long taskId, Timestamp dateTime) {
+    public User signout(long userId, long taskId, Timestamp dateTime) {
         User user=userRepository.findUserById(userId);
         Task task =taskRepository.findTaskById(taskId);
         Attendance attendance=attendanceRepository.findAttendanceByUserAndTask(user,task);

@@ -23,6 +23,6 @@ public class LoadUtils {
     }
     
     public static <T> Object loadLibrary(String filePath, Class<T> interfaceClass) {
-        return Native.loadLibrary("src/main/resources/static/arcsoft/"+filePath,interfaceClass);
+        return Native.loadLibrary("C:\\Users\\Administrator\\Desktop\\OMS-back-end\\src\\main\\resources\\static\\arcsoft\\"+filePath,interfaceClass);
     }
 }

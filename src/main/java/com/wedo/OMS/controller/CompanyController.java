@@ -19,12 +19,12 @@ public class CompanyController {
      * @param companyId
      */
     @DeleteMapping(value = "/companies/:id")
-    public void deleteCompanyByCompanyId(@PathVariable("companyId") Long companyId){
+    public void deleteCompanyByCompanyId(@PathVariable("companyId") long companyId){
         companyService.deleteCompanyByCompanyId(companyId);
     }
 
     @GetMapping(value = "/companies/:id")
-    public List<User> listCompanyUsersByCompanyId(@PathVariable("companyId") Long companyId){
+    public List<User> listCompanyUsersByCompanyId(@PathVariable("companyId") long companyId){
         return companyService.listCompanyUsersByCompanyId(companyId);
     }
 }

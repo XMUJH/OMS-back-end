@@ -20,7 +20,7 @@ public interface UserService {
      * @param userId
      * @return
      */
-    User getUserByUserId(Long userId);
+    User getUserByUserId(long userId);
 
     /**
      * 签到
@@ -29,7 +29,7 @@ public interface UserService {
      * @param dateTime
      * @return
      */
-    User signin(Long userId, Long taskId, Timestamp dateTime);
+    User signin(long userId, long taskId, Timestamp dateTime);
 
     /**
      * 签退，包括提交考勤日志
@@ -38,7 +38,7 @@ public interface UserService {
      * @param dateTime
      * @return
      */
-    User signout(Long userId, Long taskId, Timestamp dateTime);
+    User signout(long userId, long taskId, Timestamp dateTime);
 
     /**
      * 获取所有人脸信息

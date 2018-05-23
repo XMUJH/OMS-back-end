@@ -10,11 +10,11 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByName(String name);
     User findUserByAccount(String account);
-    User findUserById(Long userId);
+    User findUserById(long userId);
     List<User> findUsersByCompany(Company company);
     List<User> findUsersByNameContaining(String name);
     List<User> findUsersByCompanyAndNameContaining(Company company,String name);
     int countUserByCompany(Company company);
     @Transactional
-    void deleteUserByCompanyAndId(Company company,Long userId);
+    void deleteUserByCompanyAndId(Company company,long userId);
 }

@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    Company findCompanyById(Long companyId);
+    Company findCompanyById(long companyId);
     List<Company> findCompaniesByNameContaining(String companyName);
     @Transactional
-    void deleteCompanyById(Long companyId);
+    void deleteCompanyById(long companyId);
 }
