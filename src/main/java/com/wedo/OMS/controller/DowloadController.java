@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DowloadController {
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void testDownload(HttpServletResponse res) {
-        String fileName = "传输测试.jpg";
+        String fileName = "第九届大赛决赛报到须知.pdf";
         res.setHeader("content-type", "application/octet-stream");
         res.setContentType("application/octet-stream");
         res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
@@ -21,7 +21,7 @@ public class DowloadController {
         OutputStream os = null;
         try {
             os = res.getOutputStream();
-            bis = new BufferedInputStream(new FileInputStream(new File("src/main/resources/static/"
+            bis = new BufferedInputStream(new FileInputStream(new File("src/main/resources/static/taskfile/"
                     + fileName)));
             int i = bis.read(buff);
             while (i != -1) {

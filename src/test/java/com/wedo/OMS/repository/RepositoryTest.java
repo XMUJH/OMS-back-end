@@ -49,6 +49,7 @@ public class RepositoryTest {
     public void initMySQL() {
         //初始化Company
         //初始化User
+        /*
         User user0 = new User("2432015000", "18859272730", "609490911@qq.com", "邓荟丹", "000", Gender.FAMALE, null, UserRole.RECEIVER, null, null);
         User user1 = new User("2432015001", "18859272731", "609490912@qq.com", "邓帅", "001", Gender.MALE, null, UserRole.RECEIVER, null, null);
         User user2 = new User("2432015002", "18859272732", "609490913@qq.com", "张渝萍", "002", Gender.FAMALE, null, UserRole.RECEIVER, null, null);
@@ -69,6 +70,7 @@ public class RepositoryTest {
         Project project1 = new Project("项目二", "001", null, new Date(2018, 3, 5, 12, 0, 0), new Date(2018, 3, 5, 12, 0, 0), new Date(2018, 4, 5, 12, 0, 0), 0, 0);
         projectRepository.save(project0);
         projectRepository.save(project1);
+        */
 
         /*//初始化Task
         Task task0= new Task("任务一",project0,new Date(2018,3,5,12,0,0),new Date(2018,3,5,12,0,0),new Date(2018,3,5,12,0,0),SafetyLevel.A,"项目一描述",null,null,0,3,0);
