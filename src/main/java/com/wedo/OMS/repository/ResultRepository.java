@@ -10,5 +10,5 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
 
     List<Result> findAllByMilestone(Milestone milestone);
 
-    Result findResultById(Long resultId);
+    Result findResultById(long resultId);
 }

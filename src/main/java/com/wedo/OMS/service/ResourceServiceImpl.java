@@ -24,7 +24,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> listResourcesByTaskId(Long taskId) {
+    public List<Resource> listResourcesByTaskId(long taskId) {
         Task task=taskRepository.findTaskById(taskId);
         List<TaskResource> allTaskResources;
         List<Resource> result=new ArrayList<>();
@@ -66,7 +66,7 @@ public class ResourceServiceImpl implements ResourceService {
     */
 
     @Override
-    public void deleteResourceById(Long resourceId) {
+    public void deleteResourceById(long resourceId) {
         Resource resource=resourceRepository.findResourceById(resourceId);
         List<TaskResource> taskResources=taskResourceRepository.findTaskResourcesByResource(resource);
         for(TaskResource i : taskResources)
@@ -77,7 +77,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public Resource getResourceByResourceId(Long resourceId) {
+    public Resource getResourceByResourceId(long resourceId) {
         return resourceRepository.findResourceById(resourceId);
     }
 
@@ -96,14 +96,33 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public void uploadResource(Long taskId, Resource resource) {
+    public Resource uploadResource(long taskId, Resource resource) {
         List<Task> tasks=new ArrayList<>();
         tasks.add(taskRepository.findTaskById(taskId));
         addResource(resource,tasks);
+        return resource;
     }
 
     @Override
-    public String downloadResource(Long resourceId) {
+    public String downloadResource(long resourceId) {
         return resourceRepository.findResourceById(resourceId).getAddress();
+    }
+
+    /**
+     * 分配资源(依次分配)
+     * @param resourceId
+     * @param taskName
+     * @return
+     */
+    @Override
+    public TaskResource addTaskResource(long resourceId,String taskName){
+        taskRepository.findTaskByName(taskName);
+        Resource resource = resourceRepository.findResourceById(resourceId);
+        Task task = taskRepository.findTaskByName(taskName);
+        TaskResource taskResource = new TaskResource();
+        taskResource.setResource(resource);
+        taskResource.setTask(task);
+        taskResourceRepository.save(taskResource);
+        return taskResource;
     }
 }

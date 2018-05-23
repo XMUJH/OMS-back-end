@@ -11,20 +11,20 @@ public interface AttendanceService {
      * @param userId
      * @return
      */
-    List<Attendance> getAttendancesByUserId(Long userId);
+    List<Attendance> getAttendancesByUserId(long userId);
 
     /**
      * 队长或发包方根据任务ID获取任务考勤情况
      * @param taskId
      * @return
      */
-    List<Attendance> getTaskAttendancesByTaskId(Long taskId);
+    List<Attendance> getTaskAttendancesByTaskId(long taskId);
 
     /**
      * 查看考勤日志
      * @param recordId
      * @return
      */
-    Record getAttendanceRecordByRecordId(Long recordId);
+    Record getAttendanceRecordByRecordId(long recordId);
 
 }

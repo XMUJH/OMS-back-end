@@ -2,6 +2,7 @@ package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Resource;
 import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.TaskResource;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface ResourceService {
      * @param taskId
      * @return
      */
-    List<Resource> listResourcesByTaskId(Long taskId);
+    List<Resource> listResourcesByTaskId(long taskId);
 
     /**
      * 发包方查看所有资源
@@ -38,14 +39,14 @@ public interface ResourceService {
      * 删除资源
      * @param resourceId
      */
-    void deleteResourceById(Long resourceId);
+    void deleteResourceById(long resourceId);
 
     /**
      * 获取资源
      * @param resourceId
      * @return
      */
-    Resource getResourceByResourceId(Long resourceId);
+    Resource getResourceByResourceId(long resourceId);
 
     /**
      * 根据资源名称搜索资源
@@ -59,11 +60,19 @@ public interface ResourceService {
      * @param taskId
      * @param resource
      */
-    void uploadResource(Long taskId, Resource resource);
+    Resource uploadResource(long taskId, Resource resource);
 
     /**
      * 接包方下载资源
      * @param resourceId
      */
-    String downloadResource(Long resourceId);
+    String downloadResource(long resourceId);
+
+    /**
+     * 分配资源
+     * @param resourceId
+     * @param taskName
+     * @return
+     */
+    TaskResource addTaskResource(long resourceId,String taskName);
 }

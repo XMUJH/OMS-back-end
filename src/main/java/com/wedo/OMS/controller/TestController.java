@@ -127,9 +127,8 @@ public class TestController {
      */
     @GetMapping(value = "/deleteCompanyMember")
     public void deleteCompanyUser() {
-        long companyid=1;
         long userid=1;
-        companyService.deleteCompanyUser(companyid,userid);
+        companyService.deleteCompanyUser(userid);
     }
 
     /**
