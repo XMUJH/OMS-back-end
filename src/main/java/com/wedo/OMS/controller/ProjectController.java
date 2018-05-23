@@ -30,7 +30,7 @@ public class ProjectController {
      * @param projectId
      * @return
      */
-    @GetMapping(value = "/projects/:id")
+    @GetMapping(value = "/projects/:projectId")
     public Project getProject(@PathVariable("projectId") long projectId){
         return projectService.getProjectByProjectId(projectId);
     }

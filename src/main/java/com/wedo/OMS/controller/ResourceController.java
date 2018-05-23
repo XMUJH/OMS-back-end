@@ -19,7 +19,7 @@ public class ResourceController {
      * 管理员删除资源
      * @param resourceId
      */
-    @DeleteMapping(value = "/resources/:id")
+    @DeleteMapping(value = "/resources/:resourceId")
     public void deleteResourceById(@PathVariable("resourceId") long resourceId){
         resourceService.deleteResourceById(resourceId);
     }
@@ -30,7 +30,7 @@ public class ResourceController {
      * @param taskName
      * @return
      */
-    @PostMapping(value = "/resources/:id/tasks/:name")
+    @PostMapping(value = "/resources/:resourceId/tasks/:taskName")
     public TaskResource addResource(@PathVariable("resourceId") long resourceId, @PathVariable("taskName")String taskName){
         return resourceService.addTaskResource(resourceId,taskName);
     }

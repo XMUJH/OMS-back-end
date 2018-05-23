@@ -19,7 +19,7 @@ public class MilestoneController {
      * @param taskId
      * @return
      */
-    @PostMapping(value = "/tasks/:id/milestones")
+    @PostMapping(value = "/tasks/:taskId/milestones")
     public List<Milestone> addMilestone(@RequestBody List<Milestone> milestones, @PathVariable("taskId") long taskId){
         return milestoneService.addMilestone(milestones,taskId);
     }
@@ -29,8 +29,8 @@ public class MilestoneController {
      * @param taskId
      * @return
      */
-    @GetMapping(value = "/tasks/:id/milestones")
-    public List<Milestone> listMilestonesByTaskId(@PathVariable("tasskId") long taskId){
+    @GetMapping(value = "/tasks/:taskId/milestones")
+    public List<Milestone> listMilestonesByTaskId(@PathVariable("taskId") long taskId){
         return milestoneService.listMilestonesByTaskId(taskId);
     }
 
@@ -39,7 +39,7 @@ public class MilestoneController {
      * @param milestoneId
      * @return
      */
-    @GetMapping(value = "/milestones/:id")
+    @GetMapping(value = "/milestones/:milestoneId")
     public Milestone getMilestoneByMilestoneId(@PathVariable("milestoneId") long milestoneId){
         return milestoneService.getMilestoneByMilestoneId(milestoneId);
     }

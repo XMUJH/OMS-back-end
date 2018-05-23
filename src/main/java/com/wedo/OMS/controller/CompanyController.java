@@ -21,7 +21,7 @@ public class CompanyController {
      * 管理员删除外包公司
      * @param companyId
      */
-    @DeleteMapping(value = "/companies/:id")
+    @DeleteMapping(value = "/companies/:companyId")
     public void deleteCompanyByCompanyId(@PathVariable("companyId") long companyId){
         companyService.deleteCompanyByCompanyId(companyId);
     }
@@ -31,7 +31,7 @@ public class CompanyController {
      * @param companyId
      * @return
      */
-    @GetMapping(value = "/companies/:id")
+    @GetMapping(value = "/companies/:companyId")
     public List<User> listCompanyUsersByCompanyId(@PathVariable("companyId") long companyId){
         return companyService.listCompanyUsersByCompanyId(companyId);
     }
@@ -40,7 +40,7 @@ public class CompanyController {
      * 发包方根据userId删除某公司成员
      * @param userId
      */
-    @DeleteMapping(value = "/users/:id")
+    @DeleteMapping(value = "/users/:userId")
     public void deleteCompanyUser(@PathVariable("userId") long userId){
         companyService.deleteCompanyUser(userId);
     }

@@ -46,7 +46,7 @@ public class TaskController {
      * @param taskId 任务id
      * @param projectId 目标项目id
      */
-    @PatchMapping(value = "/tasks/:id")
+    @PatchMapping(value = "/tasks/:taskId")
     public Task MoveTaskToProjectById(@PathVariable("taskId") long taskId,@RequestBody long projectId){
         return projectService.MoveTaskToProjectById(taskId,projectId);
     }
@@ -56,7 +56,7 @@ public class TaskController {
      * @param taskId
      * @return
      */
-    @GetMapping(value = "/tasks/:id")
+    @GetMapping(value = "/tasks/:taskId")
     public Task getTaskByTaskId(@PathVariable("taskId") long taskId){
         return taskService.getTaskByTaskId(taskId);
     }
@@ -67,7 +67,7 @@ public class TaskController {
      * @param code
      * @return
      */
-    @PatchMapping(value = "/users/:id/codes/:code")
+    @PatchMapping(value = "/users/:userId/codes/:code")
     public UserTask addUserTask(@PathVariable("userId")long userId,@PathVariable("code") String code){
         Code code1 = taskService.findCodeByCode(code);
         if(code1!=null) {
