@@ -53,5 +53,5 @@ public interface MilestoneService {
      * @param milestones
      * @param taskId
      */
-    void addMilestone(List<Milestone> milestones,long taskId);
+    List<Milestone> addMilestone(List<Milestone> milestones,long taskId);
 }

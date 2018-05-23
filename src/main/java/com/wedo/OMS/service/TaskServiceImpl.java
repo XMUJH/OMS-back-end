@@ -46,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> getTasksByTaskname(String taskname) {
-        return taskRepository.findTasksByName(taskname);
+        return taskRepository.findTasksByNameContaining(taskname);
     }
 
     @Override
