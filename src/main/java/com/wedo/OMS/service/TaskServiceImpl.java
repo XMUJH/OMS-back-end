@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -49,11 +50,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task addTask(Task task,long projectId) {
+    public Code addTask(Task task,long projectId) {
         Project project = projectRepository.findProjectById(projectId);
         task.setProject(project);
         taskRepository.save(task);
-        return task;
+        String str = getRandomString(10);
+        Code cod = new Code();
+        cod.setCode(str);
+        cod.setTask(task);
+        cod.setStatus(CodeStatus.VALID);
+        codeRepository.save(cod);
+        return cod;
     }
 
     @Override
@@ -125,7 +132,7 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public Code updateCodeStatus(Code code){
-        code.setStatus(CodeStatus.VALID);
+        code.setStatus(CodeStatus.INVALID);
         codeRepository.save(code);
         return code;
     }
@@ -147,5 +154,22 @@ public class TaskServiceImpl implements TaskService {
         userTask.setUserTaskRole(UserTaskRole.LEADER);
         userTaskRepository.save(userTask);
         return userTask;
+    }
+
+    public static String getRandomString(int length){
+        //定义一个字符串（A-Z，a-z，0-9）即62位；
+        String str="zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+        //由Random生成随机数
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        //长度为几就循环几次
+        for(int i=0; i<length; ++i){
+            //产生0-61的数字
+            int number=random.nextInt(62);
+            //将产生的数字通过length次承载到sb中
+            sb.append(str.charAt(number));
+        }
+        //将承载的字符转换成字符串
+        return sb.toString();
     }
 }

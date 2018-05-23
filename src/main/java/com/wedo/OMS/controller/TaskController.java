@@ -20,7 +20,7 @@ public class TaskController {
     }
 
     /**
-     * 用户获取我负责的项目/我参与的项目
+     * 用户获取我负责的任务/我参与的任务
      * @param userTaskRole
      * @param userId
      * @return
@@ -37,7 +37,7 @@ public class TaskController {
      * @return
      */
     @PostMapping(value = "/tasks")
-    public Task addTask(@RequestBody Task task,@RequestBody long projectId){
+    public Code addTask(@RequestBody Task task,@RequestBody long projectId){
         return taskService.addTask(task,projectId);
     }
 
