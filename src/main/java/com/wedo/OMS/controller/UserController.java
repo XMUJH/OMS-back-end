@@ -35,7 +35,7 @@ public class UserController {
         //Result result = new Result();
         //result.setName("第二个成果");
         long a = 1;
-        MilestoneStatus b = MilestoneStatus.NOTAUDIT;
+        MilestoneStatus b = MilestoneStatus.NOTBEGIN;
         //milestoneService.uploadResult(a, result);
         milestoneService.auditMilestoneByMilestoneId(a,b);
         return milestoneService.getMilestoneResultsByMilestoneId(a);
