@@ -96,10 +96,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public void uploadResource(long taskId, Resource resource) {
+    public Resource uploadResource(long taskId, Resource resource) {
         List<Task> tasks=new ArrayList<>();
         tasks.add(taskRepository.findTaskById(taskId));
         addResource(resource,tasks);
+        return resource;
     }
 
     @Override

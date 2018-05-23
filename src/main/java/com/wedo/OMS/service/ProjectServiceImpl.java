@@ -24,10 +24,11 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public void addProject(Project project, long belong) {
+    public Project addProject(Project project, long belong) {
         Project Belong = projectRepository.findProjectById(belong);
         project.setBelong(Belong);
         projectRepository.save(project);
+        return project;
     }
 
     /**
@@ -54,7 +55,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public void MoveTaskToProjectById(long taskId,long projectId){
+    public Task MoveTaskToProjectById(long taskId,long projectId){
         Task task = taskRepository.findTaskById(taskId);
         Project project = projectRepository.findProjectById(projectId);
         task.setProject(project);
@@ -62,6 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
         project.setTotal(project.getTotal()+task.getTotal());
         projectRepository.save(project);
         taskRepository.save(task);
+        return task;
     }
 
     /**
@@ -82,5 +84,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteProjectByProjectId(long projectId) {
 
+    }
+
+    /**
+     * 获取项目信息
+     * @param projectId
+     * @return
+     */
+    @Override
+    public Project getProjectByProjectId(long projectId){
+        return projectRepository.findProjectById(projectId);
     }
 }

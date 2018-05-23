@@ -1,5 +1,6 @@
 package com.wedo.OMS.service;
 
+import com.wedo.OMS.entity.Code;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.entity.UserTask;
 import com.wedo.OMS.enums.UserTaskRole;
@@ -34,7 +35,7 @@ public interface TaskService {
      *
      * @param task
      */
-    void addTask(Task task);
+    Task addTask(Task task,long projectId);
 
     /**
      * 根据任务ID修改任务，如修改任务合同信息或保密协议
@@ -66,4 +67,34 @@ public interface TaskService {
      * @param taskId
      */
     void deleteTaskUserById(long userId, long taskId);
+
+
+    /**
+     * 根据人员身份查找该身份全部任务
+     * @param userId
+     * @param userTaskRole
+     * @return
+     */
+    List<Task> findTasks(long userId,UserTaskRole userTaskRole);
+
+    /**
+     * 根据激活码找到该code
+     * @param code
+     * @return
+     */
+    Code findCodeByCode(String code);
+
+    /**
+     * 任务激活后更改任务状态
+     * @return
+     */
+    Code updateCodeStatus(Code code);
+
+    /**
+     * 任务激活后添加userTask负责人信息
+     * @param code
+     * @param userId
+     * @return
+     */
+    UserTask addUserTask(Code code,long userId);
 }

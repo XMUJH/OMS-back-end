@@ -51,10 +51,9 @@ public interface CompanyService {
 
     /**
      * 删除公司成员
-     * @param companyId
      * @param userId
      */
-    void deleteCompanyUser(long companyId, long userId);
+    void deleteCompanyUser(long userId);
 
 
 }

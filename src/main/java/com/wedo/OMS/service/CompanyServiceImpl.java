@@ -82,13 +82,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     /**
-     * 删除公司成员
-     * @param companyId
+     * 管理员删除公司成员
      * @param userId
      */
     @Override
-    public void deleteCompanyUser(long companyId, long userId) {
-        Company company= companyRepository.findCompanyById(companyId);
-        userRepository.deleteUserByCompanyAndId(company,userId);
+    public void deleteCompanyUser(long userId) {
+        userRepository.deleteById(userId);
     }
 }
