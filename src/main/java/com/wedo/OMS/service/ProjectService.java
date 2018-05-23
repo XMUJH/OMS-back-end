@@ -1,6 +1,7 @@
 package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Project;
+import com.wedo.OMS.entity.Task;
 
 public interface ProjectService {
     /**
@@ -9,7 +10,7 @@ public interface ProjectService {
      * @param belong 所属项目的ID
      * @return
      */
-    void addProject(Project project, Long belong);
+    Project addProject(Project project, long belong);
 
     /**
      * 将项目移入另一个项目中
@@ -17,7 +18,7 @@ public interface ProjectService {
      * @param OutprojectId
      * @return
      */
-    void MoveInprojectToOutprojectByProjectId(Long InprojectId,Long OutprojectId);
+    void MoveInprojectToOutprojectByProjectId(long InprojectId,long OutprojectId);
 
     /**
      * 将任务移入项目中
@@ -25,18 +26,25 @@ public interface ProjectService {
      * @param projectId
      * @return
      */
-    void MoveTaskToProjectById(Long taskId,Long projectId);
+    Task MoveTaskToProjectById(long taskId, long projectId);
 
     /**
      * 计算进度
      * @param projectId
      * @return 百分数
      */
-    long CalScheduleByProjectId(Long projectId);
+    long CalScheduleByProjectId(long projectId);
 
     /**
      * 删除项目
      * @param projectId
      */
-    void deleteProjectByProjectId(Long projectId);
+    void deleteProjectByProjectId(long projectId);
+
+    /**
+     * 获取项目信息
+     * @param projectId
+     * @return
+     */
+    Project getProjectByProjectId(long projectId);
 }

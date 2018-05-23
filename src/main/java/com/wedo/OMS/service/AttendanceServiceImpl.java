@@ -30,7 +30,7 @@ public class AttendanceServiceImpl implements AttendanceService {
      * @return
      */
     @Override
-    public List<Attendance> getAttendancesByUserId(Long userId) {
+    public List<Attendance> getAttendancesByUserId(long userId) {
         User user = userRepository.findUserById(userId);
         return attendanceRepository.findAttendancesByUser(user);
     }
@@ -41,7 +41,7 @@ public class AttendanceServiceImpl implements AttendanceService {
      * @return
      */
     @Override
-    public List<Attendance> getTaskAttendancesByTaskId(Long taskId) {
+    public List<Attendance> getTaskAttendancesByTaskId(long taskId) {
         Task task = taskRepository.findTaskById(taskId);
         return attendanceRepository.findAttendancesByTask(task);
     }
@@ -52,7 +52,7 @@ public class AttendanceServiceImpl implements AttendanceService {
      * @return
      */
     @Override
-    public Record getAttendanceRecordByRecordId(Long recordId) {
+    public Record getAttendanceRecordByRecordId(long recordId) {
         return recordRepository.findRecordById(recordId);
     }
 }

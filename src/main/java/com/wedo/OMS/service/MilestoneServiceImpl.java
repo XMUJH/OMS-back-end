@@ -34,7 +34,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @return
      */
     @Override
-    public List<Milestone> listMilestonesByTaskId(Long taskId) {
+    public List<Milestone> listMilestonesByTaskId(long taskId) {
         Task task = taskRepository.findTaskById(taskId);
         List<Milestone> milestones = milestoneRepository.findAllByTask(task);
         return milestones;
@@ -46,7 +46,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @return
      */
     @Override
-    public Milestone getMilestoneByMilestoneId(Long milestoneId) {
+    public Milestone getMilestoneByMilestoneId(long milestoneId) {
         Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
         return milestone;
     }
@@ -57,7 +57,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @return
      */
     @Override
-    public List<Result> getMilestoneResultsByMilestoneId(Long milestoneId) {
+    public List<Result> getMilestoneResultsByMilestoneId(long milestoneId) {
         Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
         List<Result> results = resultRepository.findAllByMilestone(milestone);
         return results;
@@ -69,7 +69,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param result
      */
     @Override
-    public void uploadResult(Long milestoneId, Result result) {
+    public void uploadResult(long milestoneId, Result result) {
         Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
         result.setMilestone(milestone);
         resultRepository.save(result);
@@ -80,7 +80,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param resultId
      */
     @Override
-    public String downloadResult(Long resultId) {
+    public String downloadResult(long resultId) {
         Result result = resultRepository.findResultById(resultId);
         return result.getAddress();
     }
@@ -91,7 +91,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param status pass or notpass
      */
     @Override
-    public void auditMilestoneByMilestoneId(Long milestoneId, MilestoneStatus status) {
+    public void auditMilestoneByMilestoneId(long milestoneId, MilestoneStatus status) {
         Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
         milestone.setStatus(status);
         milestoneRepository.save(milestone);
@@ -114,7 +114,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param taskId
      */
     @Override
-    public void addMilestone(List<Milestone> milestones,Long taskId){
+    public List<Milestone> addMilestone(List<Milestone> milestones,long taskId){
         Task task = taskRepository.findTaskById(taskId);
         int num = milestones.size();
         for (Milestone milestone:milestones)
@@ -130,5 +130,6 @@ public class MilestoneServiceImpl implements MilestoneService{
             projectRepository.save(project);
             project = project.getBelong();
         }
+        return milestones;
     }
 }

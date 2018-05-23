@@ -24,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @return
      */
     @Override
-    public Company getCompanyByUserId(Long userId) {
+    public Company getCompanyByUserId(long userId) {
         User user = userRepository.findUserById(userId);
         return companyRepository.findCompanyById(user.getCompany().getId());
     }
@@ -45,7 +45,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @return
      */
     @Override
-    public List<User> listCompanyUsersByCompanyId(Long companyId) {
+    public List<User> listCompanyUsersByCompanyId(long companyId) {
         Company company = companyRepository.findCompanyById(companyId);
         return userRepository.findUsersByCompany(company);
     }
@@ -56,7 +56,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @return
      */
     @Override
-    public List<User> ListCompanyUsersByUsername(Long leaderid,String username) {
+    public List<User> ListCompanyUsersByUsername(long leaderid,String username) {
         User leader = userRepository.findUserById(leaderid);
         Company company = companyRepository.findCompanyById(leader.getCompany().getId());
         return userRepository.findUsersByCompanyAndNameContaining(company,username);
@@ -77,18 +77,16 @@ public class CompanyServiceImpl implements CompanyService {
      * @param companyId
      */
     @Override
-    public void deleteCompanyByCompanyId(Long companyId) {
+    public void deleteCompanyByCompanyId(long companyId) {
         companyRepository.deleteCompanyById(companyId);
     }
 
     /**
-     * 删除公司成员
-     * @param companyId
+     * 管理员删除公司成员
      * @param userId
      */
     @Override
-    public void deleteCompanyUser(Long companyId, Long userId) {
-        Company company= companyRepository.findCompanyById(companyId);
-        userRepository.deleteUserByCompanyAndId(company,userId);
+    public void deleteCompanyUser(long userId) {
+        userRepository.deleteById(userId);
     }
 }

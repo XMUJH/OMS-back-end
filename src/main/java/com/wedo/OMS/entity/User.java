@@ -31,30 +31,7 @@ public class User {
 
     private String faceUrl;//用户人脸url
 
-    public User() {
-    }
 
-    public User(String account, String phone, String email, String name, String password, Gender gender) {
-        this.account = account;
-        this.phone = phone;
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.gender = gender;
-    }
-
-    public User(String account, String phone, String email, String name, String password, Gender gender, Company company, UserRole role, String photoUrl, String faceUrl) {
-        this.account = account;
-        this.phone = phone;
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.gender = gender;
-        this.company = company;
-        this.role = role;
-        this.photoUrl = photoUrl;
-        this.faceUrl = faceUrl;
-    }
 
     public long getId() {
         return id;

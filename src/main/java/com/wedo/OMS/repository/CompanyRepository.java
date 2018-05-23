@@ -3,10 +3,12 @@ package com.wedo.OMS.repository;
 import com.wedo.OMS.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    Company findCompanyById(Long companyId);
+    Company findCompanyById(long companyId);
     List<Company> findCompaniesByNameContaining(String companyName);
-    void deleteCompanyById(Long companyId);
+    @Transactional
+    void deleteCompanyById(long companyId);
 }
