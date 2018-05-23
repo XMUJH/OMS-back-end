@@ -114,7 +114,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param taskId
      */
     @Override
-    public void addMilestone(List<Milestone> milestones,long taskId){
+    public List<Milestone> addMilestone(List<Milestone> milestones,long taskId){
         Task task = taskRepository.findTaskById(taskId);
         int num = milestones.size();
         for (Milestone milestone:milestones)
@@ -130,5 +130,6 @@ public class MilestoneServiceImpl implements MilestoneService{
             projectRepository.save(project);
             project = project.getBelong();
         }
+        return milestones;
     }
 }

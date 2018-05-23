@@ -107,4 +107,22 @@ public class ResourceServiceImpl implements ResourceService {
     public String downloadResource(long resourceId) {
         return resourceRepository.findResourceById(resourceId).getAddress();
     }
+
+    /**
+     * 分配资源(依次分配)
+     * @param resourceId
+     * @param taskName
+     * @return
+     */
+    @Override
+    public TaskResource addTaskResource(long resourceId,String taskName){
+        taskRepository.findTaskByName(taskName);
+        Resource resource = resourceRepository.findResourceById(resourceId);
+        Task task = taskRepository.findTaskByName(taskName);
+        TaskResource taskResource = new TaskResource();
+        taskResource.setResource(resource);
+        taskResource.setTask(task);
+        taskResourceRepository.save(taskResource);
+        return taskResource;
+    }
 }

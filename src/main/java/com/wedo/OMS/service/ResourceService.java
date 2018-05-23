@@ -2,6 +2,7 @@ package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Resource;
 import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.TaskResource;
 
 import java.util.List;
 
@@ -66,4 +67,12 @@ public interface ResourceService {
      * @param resourceId
      */
     String downloadResource(long resourceId);
+
+    /**
+     * 分配资源
+     * @param resourceId
+     * @param taskName
+     * @return
+     */
+    TaskResource addTaskResource(long resourceId,String taskName);
 }
