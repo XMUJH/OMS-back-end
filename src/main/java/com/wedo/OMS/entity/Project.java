@@ -24,6 +24,7 @@ public class Project {
     }
 
     public Project(String name, String password, Project belong, Date createTime, Date beginTime, Date endTime, long completion, long total) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.belong = belong;

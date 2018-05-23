@@ -7,13 +7,13 @@ import com.wedo.OMS.repository.AttendanceRepository;
 import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import java.util.Base64;
-import java.util.Base64.Encoder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(User user) throws NoSuchAlgorithmException,UnsupportedEncodingException{
-        User userRecorded = userRepository.findUserById(user.getId());
+        User userRecorded = userRepository.findUserByAccount(user.getAccount());
         String passwordRecorded = userRecorded.getPassword();
         String passwordInput = user.getPassword();
-        passwordInput = EncoderByMd5(passwordInput);
+        //passwordInput = EncoderByMd5(passwordInput);
         if (passwordRecorded.equals(passwordInput)){
             return userRecorded;
         }

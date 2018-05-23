@@ -1,27 +1,21 @@
 package com.wedo.OMS.controller;
 
 import com.arcsoft.service.AFRService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.context.annotation.ComponentScan;
 import com.wedo.OMS.entity.Attendance;
 import com.wedo.OMS.entity.Company;
 import com.wedo.OMS.entity.Record;
 import com.wedo.OMS.entity.User;
-import com.wedo.OMS.entity.Resource;
-import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.repository.CompanyRepository;
 import com.wedo.OMS.repository.RecordRepository;
 import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.service.AttendanceService;
 import com.wedo.OMS.service.CompanyService;
 import com.wedo.OMS.service.ResourceService;
-
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @ComponentScan(value="com.arcsoft")

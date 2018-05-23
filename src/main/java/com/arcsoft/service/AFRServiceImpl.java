@@ -1,23 +1,6 @@
 package com.arcsoft.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.arcsoft.AFD_FSDKLibrary;
-import com.arcsoft.AFD_FSDK_FACERES;
-import com.arcsoft.AFD_FSDK_Version;
-import com.arcsoft.AFR_FSDKLibrary;
-import com.arcsoft.AFR_FSDK_FACEINPUT;
-import com.arcsoft.AFR_FSDK_FACEMODEL;
-import com.arcsoft.AFR_FSDK_Version;
-import com.arcsoft.ASVLOFFSCREEN;
-import com.arcsoft.ASVL_COLOR_FORMAT;
-import com.arcsoft.CLibrary;
-import com.arcsoft.FaceInfo;
-import com.arcsoft.MRECT;
-import com.arcsoft._AFD_FSDK_OrientPriority;
+import com.arcsoft.*;
 import com.arcsoft.utils.BufferInfo;
 import com.arcsoft.utils.ImageLoader;
 import com.sun.jna.Memory;
@@ -25,8 +8,12 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.FloatByReference;
 import com.sun.jna.ptr.PointerByReference;
-
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class AFRServiceImpl implements AFRService{
@@ -109,7 +96,7 @@ public class AFRServiceImpl implements AFRService{
                 CLibrary.INSTANCE.free(pFRWorkMem);
 
                 System.out.println("#####################################################");
-                return "警告！发现第三方人脸";
+                return "Warning! Third Party Faces Detected";
             }
         }
         // release Engine
@@ -120,8 +107,8 @@ public class AFRServiceImpl implements AFRService{
         CLibrary.INSTANCE.free(pFRWorkMem);
 
         System.out.println("#####################################################");
-        if(recognitionStatus==true) return "识别成功";
-        else return ("未能识别该人脸");
+        if (recognitionStatus == true) return "Recognition Successful!";
+        else return ("Recognition Failed!");
     }
 
     @Override
