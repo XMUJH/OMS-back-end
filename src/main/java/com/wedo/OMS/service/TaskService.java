@@ -35,7 +35,7 @@ public interface TaskService {
      *
      * @param task
      */
-    Task addTask(Task task,long projectId);
+    Code addTask(Task task,long projectId);
 
     /**
      * 根据任务ID修改任务，如修改任务合同信息或保密协议

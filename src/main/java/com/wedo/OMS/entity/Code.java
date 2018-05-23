@@ -26,6 +26,10 @@ public class Code {
         this.id = id;
     }
 
+    public String getCode() { return code; }
+
+    public void setCode(String code) { this.code = code; }
+
     public CodeStatus getStatus() {
         return status;
     }
@@ -64,6 +68,7 @@ public class Code {
     public String toString() {
         return "Code{" +
                 "id=" + id +
+                ", code=" + code +
                 ", status=" + status +
                 ", task=" + task +
                 ", time=" + time +
