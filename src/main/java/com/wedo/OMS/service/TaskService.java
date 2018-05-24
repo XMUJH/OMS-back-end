@@ -2,6 +2,7 @@ package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Code;
 import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.User;
 import com.wedo.OMS.entity.UserTask;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
@@ -50,7 +51,7 @@ public interface TaskService {
      * @param userId
      * @param utr
      */
-    void addTaskUser(long userId, UserTaskRole utr);
+    UserTask addTaskUser(long taskId,long userId, UserTaskRole utr);
 
     /**
      * 发包方审核任务成员
@@ -97,4 +98,11 @@ public interface TaskService {
      * @return
      */
     UserTask addUserTask(Code code,long userId);
+
+    /**
+     * 查询该任务所有成员
+     * @param taskId
+     * @return
+     */
+    List<User> findUsersByTaskId(long taskId);
 }

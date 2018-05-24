@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.wedo.OMS.repository.AttendanceRepository;
 import com.wedo.OMS.repository.RecordRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,6 +37,16 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     /**
+     * 获取每次考勤的考勤日志
+     * @return
+     */
+    @Override
+    public Record getRecordByAttendanceId(long attendanceId){
+        Attendance attendance= attendanceRepository.findAttendanceById(attendanceId);
+        return recordRepository.findRecordByAttendance(attendance);
+    }
+
+    /**
      * 队长或发包方根据任务ID获取任务考勤情况
      * @param taskId
      * @return
@@ -46,13 +57,13 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceRepository.findAttendancesByTask(task);
     }
 
-    /**
-     * 查看考勤日志
-     * @param recordId
-     * @return
-     */
-    @Override
-    public Record getAttendanceRecordByRecordId(long recordId) {
-        return recordRepository.findRecordById(recordId);
-    }
+//    /**
+//     * 查看考勤日志
+//     * @param recordId
+//     * @return
+//     */
+//    @Override
+//    public Record getAttendanceRecordByRecordId(long recordId) {
+//        return recordRepository.findRecordById(recordId);
+//    }
 }

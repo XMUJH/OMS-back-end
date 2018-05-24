@@ -2,8 +2,10 @@ package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Code;
 import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.User;
 import com.wedo.OMS.entity.UserTask;
 import com.wedo.OMS.enums.UserTaskRole;
+import com.wedo.OMS.enums.VerifyStatus;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.service.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,7 @@ public class TaskController {
      * @param userId
      * @return
      */
-    @GetMapping(value = "/users/:id/tasks")
+    @GetMapping(value = "/users/:userId/tasks")
     public List<Task> getTask(@PathVariable("userId") long userId,@RequestBody UserTaskRole userTaskRole){
         return taskService.findTasks(userId,userTaskRole);
     }
@@ -78,5 +80,37 @@ public class TaskController {
             return null;
     }
 
+    /**
+     * 该任务所有成员
+     * @param taskId
+     * @return
+     */
+    @GetMapping(value = "/tasks/:taskId/users")
+    public List<User> findUsersByTaskId(@PathVariable("taskId")long taskId){
+        return taskService.findUsersByTaskId(taskId);
+    }
 
+    /**
+     * 队长添加成员
+     * @param taskId
+     * @param userId
+     * @param utr
+     * @return
+     */
+    @PostMapping(value = "/tasks/:taskId/users/:userId")
+    public UserTask addTaskUser(@PathVariable("taskId")long taskId,@PathVariable("userId")long userId, @RequestBody UserTaskRole utr){
+        return taskService.addTaskUser(taskId, userId, utr);
+    }
+
+    /**
+     * 审核任务成员
+     * @param userId
+     * @param taskId
+     * @param status
+     * @return
+     */
+    @PatchMapping(value = "/tasks/:taskId/users/:userId")
+    public UserTask auditTaskUserById(@PathVariable("userId")long userId, @PathVariable("taskId")long taskId,@RequestBody VerifyStatus status){
+        return taskService.auditTaskUserById(userId, taskId, status);
+    }
 }

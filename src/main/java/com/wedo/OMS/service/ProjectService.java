@@ -46,5 +46,5 @@ public interface ProjectService {
      * @param projectId
      * @return
      */
-    Project getProjectByProjectId(long projectId);
+    Project getProjectsByProjectId(long projectId);
 }

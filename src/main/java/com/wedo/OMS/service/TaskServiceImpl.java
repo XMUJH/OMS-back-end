@@ -72,14 +72,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTaskUser(long userId, UserTaskRole utr) {
+    public UserTask addTaskUser(long taskId,long userId, UserTaskRole utr) {
         User user = userRepository.findUserById(userId);
+        Task task = taskRepository.findTaskById(taskId);
         UserTask userTask = new UserTask();
         userTask.setUser(user);
+        userTask.setTask(task);
         userTask.setStatus(VerifyStatus.ADD_CHECK);
         userTask.setUserTaskRole(utr);
-
-
+        userTaskRepository.save(userTask);
+        return userTask;
     }
 
     @Override
@@ -171,5 +173,20 @@ public class TaskServiceImpl implements TaskService {
         }
         //将承载的字符转换成字符串
         return sb.toString();
+    }
+
+    /**
+     * 查询该任务所有成员
+     * @param taskId
+     * @return
+     */
+    public List<User> findUsersByTaskId(long taskId){
+        Task task = taskRepository.findTaskById(taskId);
+        List<UserTask> userTasks = userTaskRepository.findUserTasksByTask(task);
+        List<User> users = new ArrayList<>();
+        for(UserTask userTask:userTasks){
+            users.add(userRepository.findUserById(userTask.getUser().getId()));
+        }
+        return users;
     }
 }

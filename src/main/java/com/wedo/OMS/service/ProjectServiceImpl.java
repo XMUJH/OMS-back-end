@@ -92,7 +92,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public Project getProjectByProjectId(long projectId){
+    public Project getProjectsByProjectId(long projectId){
         return projectRepository.findProjectById(projectId);
     }
 }

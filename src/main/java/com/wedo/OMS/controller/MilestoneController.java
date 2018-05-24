@@ -1,6 +1,7 @@
 package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Milestone;
+import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.service.MilestoneService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,17 @@ public class MilestoneController {
     @GetMapping(value = "/milestones/:milestoneId")
     public Milestone getMilestoneByMilestoneId(@PathVariable("milestoneId") long milestoneId){
         return milestoneService.getMilestoneByMilestoneId(milestoneId);
+    }
+
+    /**
+     * 审核里程碑
+     * @param milestoneId
+     * @param status
+     * @return
+     */
+    @PatchMapping(value = "/milestones/:milestoneId")
+    public Milestone auditMilestoneByMilestoneId(@PathVariable("milestoneId")long milestoneId,@RequestBody MilestoneStatus status){
+        return milestoneService.auditMilestoneByMilestoneId(milestoneId, status);
     }
 
 }

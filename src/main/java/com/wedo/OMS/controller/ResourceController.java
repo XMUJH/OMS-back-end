@@ -35,4 +35,13 @@ public class ResourceController {
         return resourceService.addTaskResource(resourceId,taskName);
     }
 
+    /**
+     * 获取该任务所有资源
+     * @param taskId
+     * @return
+     */
+    @GetMapping(value = "/tasks/:taskId/resources")
+    public List<Resource> listResourcesByTaskId(@PathVariable("taskId")long taskId){
+        return resourceService.listResourcesByTaskId(taskId);
+    }
 }

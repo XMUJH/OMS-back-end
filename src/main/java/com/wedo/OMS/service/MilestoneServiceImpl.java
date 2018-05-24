@@ -91,7 +91,7 @@ public class MilestoneServiceImpl implements MilestoneService{
      * @param status pass or notpass
      */
     @Override
-    public void auditMilestoneByMilestoneId(long milestoneId, MilestoneStatus status) {
+    public Milestone auditMilestoneByMilestoneId(long milestoneId, MilestoneStatus status) {
         Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
         milestone.setStatus(status);
         milestoneRepository.save(milestone);
@@ -106,6 +106,7 @@ public class MilestoneServiceImpl implements MilestoneService{
                 project = project.getBelong();
             }
         }
+        return milestone;
     }
 
     /**

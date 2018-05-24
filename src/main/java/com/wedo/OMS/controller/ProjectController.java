@@ -32,7 +32,7 @@ public class ProjectController {
      */
     @GetMapping(value = "/projects/:projectId")
     public Project getProject(@PathVariable("projectId") long projectId){
-        return projectService.getProjectByProjectId(projectId);
+        return projectService.getProjectsByProjectId(projectId);
     }
 
 }

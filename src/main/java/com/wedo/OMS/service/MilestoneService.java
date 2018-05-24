@@ -46,7 +46,7 @@ public interface MilestoneService {
      * @param milestoneId
      * @param status pass or notpass
      */
-    void auditMilestoneByMilestoneId(long milestoneId,MilestoneStatus status);
+    Milestone auditMilestoneByMilestoneId(long milestoneId,MilestoneStatus status);
 
     /**
      * 以数组的形式添加里程碑,添加之后将里程碑所在的任务和项目里程碑总个数更新
