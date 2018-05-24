@@ -1,9 +1,9 @@
-package com.wedo.OMS.service;
-
+﻿package com.wedo.OMS.service;
 import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.exception.ProjectNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
+import java.util.List;
 
 public interface ProjectService {
     /**
@@ -55,4 +55,19 @@ public interface ProjectService {
      * @return
      */
     Project getProjectsByProjectId(long projectId) throws ProjectNotFoundException;
+
+    /**
+     * 获取项目的全部子项目
+     * @param projectBelongId
+     * @return
+     */
+    List<Project> findProjectProjects(long projectBelongId);
+
+    /**
+     * 获取项目的全部子任务
+     * @param projectBelongId
+     * @return
+     */
+    List<Task> findProjectTasks(long projectBelongId);
+
 }

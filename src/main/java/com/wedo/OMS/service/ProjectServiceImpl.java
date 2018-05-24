@@ -8,6 +8,8 @@ import com.wedo.OMS.repository.ProjectRepository;
 import com.wedo.OMS.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -121,5 +123,28 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ProjectNotFoundException();
         }
         return project;
+    }
+
+    /**
+     * 获取项目的全部子项目
+     * @param projectBelongId
+     * @return
+     */
+    @Override
+    public List<Project> findProjectProjects(long projectBelongId){
+        Project projectBelong = projectRepository.findProjectById(projectBelongId);
+        return projectRepository.findProjectsByBelong(projectBelong);
+    }
+
+    /**
+     * 获取项目的全部子任务
+     * @param projectBelongId
+     * @return
+     */
+    @Override
+    public List<Task> findProjectTasks(long projectBelongId){
+        Project projectBelong =projectRepository.findProjectById(projectBelongId);
+        return taskRepository.findTasksByProject(projectBelong);
+
     }
 }

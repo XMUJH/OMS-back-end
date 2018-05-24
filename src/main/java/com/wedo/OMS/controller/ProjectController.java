@@ -35,4 +35,24 @@ public class ProjectController {
         return projectService.getProjectsByProjectId(projectId);
     }
 
+    /**
+     * 获取项目的全部子项目
+     * @param projectId
+     * @return
+     */
+    @GetMapping(value = "/projects/:projectId/projects")
+    public List<Project> getProjectProjects(@PathVariable("projectId") long projectId){
+        return projectService.findProjectProjects(projectId);
+    }
+
+    /**
+     * 获取项目的全部子任务
+     * @param projectId
+     * @return
+     */
+    @GetMapping(value = "/projects/:projectId/tasks")
+    public List<Task> getProjectTasks(@PathVariable("projectId") long projectId){
+        return projectService.findProjectTasks(projectId);
+    }
+
 }
