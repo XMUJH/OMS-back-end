@@ -1,10 +1,8 @@
-package com.wedo.OMS.service;
-
+﻿package com.wedo.OMS.service;
 import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.exception.ProjectNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
-
 import java.util.List;
 
 public interface ProjectService {

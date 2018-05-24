@@ -145,5 +145,6 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Task> findProjectTasks(long projectBelongId){
         Project projectBelong =projectRepository.findProjectById(projectBelongId);
         return taskRepository.findTasksByProject(projectBelong);
+
     }
 }
