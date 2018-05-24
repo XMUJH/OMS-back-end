@@ -12,20 +12,24 @@ import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.service.MilestoneService;
 import com.wedo.OMS.service.UserService;
 import com.wedo.OMS.utils.FileUtil;
-import com.wedo.OMS.viewmodel.UserViewModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 public class UserController {
-    private UserService userService;
-    private MilestoneRepository milestoneRepository;
-    private TaskRepository taskRepository;
-    private MilestoneService milestoneService;
-    private ProjectRepository projectRepository;
-    private AFRService afrService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private final UserService userService;
+    private final MilestoneRepository milestoneRepository;
+    private final TaskRepository taskRepository;
+    private final MilestoneService milestoneService;
+    private final ProjectRepository projectRepository;
+    private final AFRService afrService;
 
     public UserController(AFRService afrService, UserService userService, ProjectRepository projectRepository, MilestoneService milestoneService, MilestoneRepository milestoneRepository, TaskRepository taskRepository) {
         this.afrService = afrService;
@@ -83,9 +87,11 @@ public class UserController {
         System.out.println(fileName);
         String filePath = "src/main/resources/static/faceTemp/";
         try {
-            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
-        } catch (Exception e) {
-            // TODO: handle exception
+            FileUtil.write(file.getBytes(), filePath, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+            return -1;
         }
         String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/faceimg/photo-dhd.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"});
         if (result.equals("Warning! Third Party Faces Detected")) {

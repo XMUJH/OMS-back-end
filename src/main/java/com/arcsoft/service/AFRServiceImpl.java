@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 @Service
@@ -61,7 +60,7 @@ public class AFRServiceImpl implements AFRService {
             CLibrary.INSTANCE.free(pFDWorkMem);
             CLibrary.INSTANCE.free(pFRWorkMem);
             System.out.println(String.format("AFR_FSDK_InitialEngine ret 0x%x", ret.longValue()));
-            return String.format(String.format("AFR_FSDK_InitialEngine ret 0x%x", ret.longValue()));
+            return String.format("AFR_FSDK_InitialEngine ret 0x%x", ret.longValue());
         }
 
         // print FREngine version
@@ -76,13 +75,13 @@ public class AFRServiceImpl implements AFRService {
         ASVLOFFSCREEN inputImgA;
         ASVLOFFSCREEN inputImgB;
         inputImgA = loadImage(inputImg);
-        for (int i = 0; i < faceDataPath.length; i++) {
-            inputImgB = loadImage(faceDataPath[i]);
+        for (String aFaceDataPath : faceDataPath) {
+            inputImgB = loadImage(aFaceDataPath);
             if (compareFaceSimilarity(hFDEngine, hFREngine, inputImgA, inputImgB) >= 0.60) {
                 recognitionStatus = true;
                 break;
             }
-            if (getThirdPartyFace() == true) {
+            if (getThirdPartyFace()) {
                 AFD_FSDKLibrary.INSTANCE.AFD_FSDK_UninitialFaceEngine(hFDEngine);
                 AFR_FSDKLibrary.INSTANCE.AFR_FSDK_UninitialEngine(hFREngine);
 
@@ -101,7 +100,7 @@ public class AFRServiceImpl implements AFRService {
         CLibrary.INSTANCE.free(pFRWorkMem);
 
         System.out.println("#####################################################");
-        if (recognitionStatus == true) return "Recognition Successful!";
+        if (recognitionStatus) return "Recognition Successful!";
         else return ("Recognition Failed!");
     }
 
@@ -184,9 +183,9 @@ public class AFRServiceImpl implements AFRService {
             return 0.0f;
         }
         float totValue = 0;
-        for (int i = 0; i < faceInfosA.length; i++) {
+        for (FaceInfo aFaceInfosA : faceInfosA) {
             // Extract FaceA Feature
-            AFR_FSDK_FACEMODEL faceFeatureA = extractFRFeature(hFREngine, inputImgA, faceInfosA[i]);
+            AFR_FSDK_FACEMODEL faceFeatureA = extractFRFeature(hFREngine, inputImgA, aFaceInfosA);
             if (faceFeatureA == null) {
                 System.out.println("extract face feature in Image A failed");
                 faceFeatureA.freeUnmanaged();
@@ -247,22 +246,13 @@ public class AFRServiceImpl implements AFRService {
         // load YUV Image Data from File
         byte[] imagedata = new byte[yuv_rawdata_size];
         File f = new File(yuv_filePath);
-        InputStream ios = null;
-        try {
-            ios = new FileInputStream(f);
+        try (InputStream ios = new FileInputStream(f)) {
             ios.read(imagedata, 0, yuv_rawdata_size);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error in loading yuv file");
             System.exit(0);
-        } finally {
-            try {
-                if (ios != null) {
-                    ios.close();
-                }
-            } catch (IOException e) {
-            }
         }
 
         if (ASVL_COLOR_FORMAT.ASVL_PAF_I420 == inputImg.u32PixelArrayFormat) {
