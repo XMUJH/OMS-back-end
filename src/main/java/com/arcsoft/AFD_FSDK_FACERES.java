@@ -1,17 +1,22 @@
 package com.arcsoft;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import com.sun.jna.ptr.IntByReference;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class AFD_FSDK_FACERES extends Structure {
-    @Override
-    protected List<String> getFieldOrder() {
-        return Arrays.asList("nFace", "rcFace", "lfaceOrient");
-    }
+    public static class ByReference extends AFD_FSDK_FACERES implements Structure.ByReference {
+        public ByReference() {
+
+        }
+
+        public ByReference(Pointer p) {
+            super(p);
+        }
+    };
 
     public int nFace;
     public MRECT.ByReference rcFace;
@@ -26,13 +31,8 @@ public class AFD_FSDK_FACERES extends Structure {
         read();
     }
 
-    public static class ByReference extends AFD_FSDK_FACERES implements Structure.ByReference {
-        public ByReference() {
-
-        }
-
-        public ByReference(Pointer p) {
-            super(p);
-        }
+    @Override
+    protected List getFieldOrder() {
+        return Arrays.asList(new String[] { "nFace", "rcFace", "lfaceOrient" });
     }
 }
