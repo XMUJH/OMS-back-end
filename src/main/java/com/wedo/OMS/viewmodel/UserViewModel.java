@@ -1,4 +1,4 @@
-package com.wedo.OMS.entity.viewmodel;
+package com.wedo.OMS.viewmodel;
 
 import com.wedo.OMS.entity.Company;
 import com.wedo.OMS.entity.User;

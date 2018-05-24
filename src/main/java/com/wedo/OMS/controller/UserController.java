@@ -4,6 +4,7 @@ package com.wedo.OMS.controller;
 import com.arcsoft.service.AFRService;
 import com.wedo.OMS.entity.*;
 import com.wedo.OMS.enums.MilestoneStatus;
+import com.wedo.OMS.exception.MilestoneNotFoundException;
 import com.wedo.OMS.exception.PasswordIncorrectException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.repository.MilestoneRepository;
@@ -12,6 +13,7 @@ import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.service.MilestoneService;
 import com.wedo.OMS.service.UserService;
 import com.wedo.OMS.utils.FileUtil;
+import com.wedo.OMS.viewmodel.UserViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -58,10 +60,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public List<Result> getUserInfo() {
+    public List<Result> getUserInfo() throws MilestoneNotFoundException {
         long a = 1;
         MilestoneStatus b = MilestoneStatus.NOTBEGIN;
-        milestoneService.auditMilestoneByMilestoneId(a,b);
+        milestoneService.auditMilestoneByMilestoneId(a, b);
         return milestoneService.getMilestoneResultsByMilestoneId(a);
     }
 

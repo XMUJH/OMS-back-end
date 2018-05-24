@@ -1,4 +1,4 @@
-package com.wedo.OMS.entity.viewmodel;
+package com.wedo.OMS.viewmodel;
 
 public class Error {
     private int code;

@@ -1,6 +1,7 @@
 package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Project;
+import com.wedo.OMS.exception.ProjectNotFoundException;
 import com.wedo.OMS.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class ProjectController {
      * @param belong  新建项目所属的项目id
      */
     @PostMapping(value = "/projects")
-    public Project addProject(@RequestBody Project project, @RequestBody long belong) {
+    public Project addProject(@RequestBody Project project, @RequestBody long belong) throws ProjectNotFoundException {
         return projectService.addProject(project, belong);
     }
 
@@ -30,7 +31,7 @@ public class ProjectController {
      * @return
      */
     @GetMapping(value = "/projects/:projectId")
-    public Project getProject(@PathVariable("projectId") long projectId) {
+    public Project getProject(@PathVariable("projectId") long projectId) throws ProjectNotFoundException {
         return projectService.getProjectsByProjectId(projectId);
     }
 
