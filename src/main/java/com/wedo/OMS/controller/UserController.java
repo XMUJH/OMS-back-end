@@ -105,7 +105,7 @@ public class UserController {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/faceimg/photo-dhd.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"}).toString();
+        String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/photo/photo-hjh.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"}).toString();
         if (result == "Warning! Third Party Faces Detected") {
             System.out.println("Warning! Third Party Faces Detected");
         }
