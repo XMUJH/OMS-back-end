@@ -2,6 +2,8 @@ package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Company;
 import com.wedo.OMS.entity.User;
+import com.wedo.OMS.exception.CompanyNotFoundException;
+import com.wedo.OMS.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public interface CompanyService {
      * @param userId
      * @return
      */
-    Company getCompanyByUserId(long userId);
+    Company getCompanyByUserId(long userId) throws UserNotFoundException, CompanyNotFoundException;
 
     /**
      * 根据公司名搜索公司
@@ -34,7 +36,7 @@ public interface CompanyService {
      * @param username
      * @return
      */
-    List<User> ListCompanyUsersByUsername(long leaderid,String username);
+    List<User> ListCompanyUsersByUsername(long leaderid, String username) throws UserNotFoundException, CompanyNotFoundException;
 
     /**
      * 发包方新建公司

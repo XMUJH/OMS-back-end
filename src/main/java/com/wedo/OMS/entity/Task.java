@@ -33,7 +33,6 @@ public class Task {
     }
 
     public Task(String name, Project project, Date createTime, Date beginTime, Date endTime, SafetyLevel safety, String info, String contractUrl, String agreementUrl, long completion, long total, long changeCount) {
-        this.id = id;
         this.name = name;
         this.project = project;
         this.createTime = createTime;

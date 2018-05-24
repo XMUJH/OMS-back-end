@@ -1,7 +1,6 @@
 package com.wedo.OMS.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Project {

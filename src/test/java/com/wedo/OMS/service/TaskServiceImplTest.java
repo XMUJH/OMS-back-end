@@ -1,5 +1,6 @@
 package com.wedo.OMS.service;
 
+import com.wedo.OMS.exception.UserNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,12 +14,13 @@ public class TaskServiceImplTest {
     private TaskService taskService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 
     @Test
-    public void listTasksByUserId() {
+    public void listTasksByUserId() throws UserNotFoundException {
+        //TODO Should use assert
         System.out.println(taskService.listTasksByUserId(new Long(0)));
 
     }

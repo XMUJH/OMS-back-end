@@ -1,61 +1,51 @@
 package com.wedo.OMS.controller;
 
 import com.arcsoft.service.AFRService;
-import com.wedo.OMS.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.context.annotation.ComponentScan;
 import com.wedo.OMS.entity.Attendance;
 import com.wedo.OMS.entity.Company;
 import com.wedo.OMS.entity.Record;
 import com.wedo.OMS.entity.User;
-import com.wedo.OMS.entity.Resource;
-import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.repository.CompanyRepository;
+import com.wedo.OMS.exception.CompanyNotFoundException;
+import com.wedo.OMS.exception.PasswordIncorrectException;
+import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.repository.RecordRepository;
-import com.wedo.OMS.repository.TaskRepository;
 import com.wedo.OMS.service.AttendanceService;
 import com.wedo.OMS.service.CompanyService;
-import com.wedo.OMS.service.ResourceService;
-
+import com.wedo.OMS.service.UserService;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
+//TODO Should move into Test module
+@Deprecated
 @RestController
 @ComponentScan(value="com.arcsoft")
 public class TestController {
-    private AttendanceService attendanceService;
-    private CompanyService companyService;
-    private RecordRepository recordRepository;
-    private AFRService afrService;
-    private UserService userService;
-    private ResourceService resourceService;
-    private TaskRepository taskRepository;
+    private final AttendanceService attendanceService;
+    private final CompanyService companyService;
+    private final RecordRepository recordRepository;
+    private final AFRService afrService;
+    private final UserService userService;
 
-    public TestController(AttendanceService attendanceService, UserService userService,RecordRepository recordRepository, CompanyService companyService, AFRService afrService, ResourceService resourceService, TaskRepository taskRepository) {
-       this.attendanceService = attendanceService;
-       this.recordRepository = recordRepository;
-       this.companyService = companyService;
-       this.afrService = afrService;
-       this.resourceService=resourceService;
-       this.taskRepository=taskRepository;
-       this.userService =userService;
+    public TestController(AttendanceService attendanceService, UserService userService, RecordRepository recordRepository, CompanyService companyService, AFRService afrService) {
+        this.attendanceService = attendanceService;
+        this.recordRepository = recordRepository;
+        this.companyService = companyService;
+        this.afrService = afrService;
+        this.userService = userService;
     }
 
     /*AttendanceService*/
     @GetMapping(value = "/userAttendances")
-    public List<Attendance> getAttendancesByUserId() {
+    public List<Attendance> getAttendancesByUserId() throws UserNotFoundException {
         long userid = 1;
         return attendanceService.getAttendancesByUserId(userid);
     }
 
     @GetMapping(value = "/memberAttendances")
-    public List<Attendance> getTaskAttendancesByTaskId() {
+    public List<Attendance> getTaskAttendancesByTaskId() throws UserNotFoundException {
         long taskid = 1;
         return attendanceService.getAttendancesByUserId(taskid);
     }
@@ -66,11 +56,12 @@ public class TestController {
         return recordRepository.findRecordById(recordId);
     }
     /*CompanyService*/
+
     /**
      * 根据用户ID获取用户公司
      */
     @GetMapping(value = "/userCompany")
-    public Company getCompanyByUserId() {
+    public Company getCompanyByUserId() throws CompanyNotFoundException, UserNotFoundException {
         long userid = 1;
         return companyService.getCompanyByUserId(userid);
     }
@@ -96,7 +87,7 @@ public class TestController {
      * 队长根据名字搜索公司成员
      */
     @GetMapping(value = "/selectMember")
-    public  List<User> ListCompanyUsersByUsername() {
+    public List<User> ListCompanyUsersByUsername() throws CompanyNotFoundException, UserNotFoundException {
         long leaderid=1;
         return companyService.ListCompanyUsersByUsername(leaderid,"邓");
     }
@@ -136,16 +127,16 @@ public class TestController {
      */
     @GetMapping(value = "/getUserFaces")
     public List<String> getUserFaces() {
-       return userService.getUserFaces();
+        return userService.getUserFaces();
     }
 
     @GetMapping(value = "/facetest")
     public String faceTest() {
-        return afrService.doFR("src/main/resources/static/faceimg/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"}).toString();
+        return afrService.doFR("src/main/resources/static/faceimg/004.png", new String[]{"src/main/resources/static/faceimg/001.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"});
     }
 
     @GetMapping(value = "/login")
-    public User userLogin() throws NoSuchAlgorithmException,UnsupportedEncodingException {
+    public User userLogin() throws UserNotFoundException, PasswordIncorrectException {
         long id =1;
         User user = userService.getUserByUserId(id);
         return userService.login(user);
