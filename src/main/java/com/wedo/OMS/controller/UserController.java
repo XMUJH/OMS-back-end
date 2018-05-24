@@ -38,8 +38,8 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public UserViewModel login(@RequestBody User user) throws UserNotFoundException, PasswordIncorrectException {
-        userService.login(user);
-        return new UserViewModel(user);
+        User userFound = userService.login(user);
+        return new UserViewModel(userFound);
     }
 
     @GetMapping(value = "/test")
@@ -67,17 +67,16 @@ public class UserController {
         Task task = new Task();
         task.setInfo("1231231");
         taskRepository.save(task);
-        //milestone.setChangeCount(2);
         milestone.setTask(task);
 
         milestoneRepository.save(milestone);
         return milestoneRepository.findAll();
     }
 
+    //TODO Should be removed
     @PostMapping(value = "/faceRecognition")
     public @ResponseBody
-    int faceRecogintion(@RequestParam("img") MultipartFile file) {
-        //TODO Should be removed
+    int faceRecognition(@RequestParam("img") MultipartFile file) {
         String contentType = file.getContentType();
         System.out.println(contentType);
         String fileName = file.getOriginalFilename() + ".png";

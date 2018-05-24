@@ -16,25 +16,22 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class AFRServiceImpl implements AFRService{
-    boolean thirdPartyFace=false;
+public class AFRServiceImpl implements AFRService {
+    private boolean thirdPartyFace = false;
 
     @Override
-    public boolean getThirdPartyFace()
-    {
+    public boolean getThirdPartyFace() {
         return thirdPartyFace;
     }
 
     @Override
-    public void setThirdPartyFace(boolean tag)
-    {
-        thirdPartyFace=tag;
+    public void setThirdPartyFace(boolean tag) {
+        thirdPartyFace = tag;
     }
 
     @Override
     public String doFR(String inputImg, String[] faceDataPath) {
-        System.out.println("#####################################################");
-        boolean recognitionStatus=false;
+        boolean recognitionStatus = false;
 
         // init Engine
         Pointer pFDWorkMem = CLibrary.INSTANCE.malloc(FD_WORKBUF_SIZE);
@@ -45,8 +42,8 @@ public class AFRServiceImpl implements AFRService{
         if (ret.longValue() != 0) {
             CLibrary.INSTANCE.free(pFDWorkMem);
             CLibrary.INSTANCE.free(pFRWorkMem);
-            System.out.println(String.format("AFD_FSDK_InitialFaceEngine ret 0x%x",ret.longValue()));
-            return String.format("AFD_FSDK_InitialFaceEngine ret 0x%x",ret.longValue());
+            System.out.println(String.format("AFD_FSDK_InitialFaceEngine ret 0x%x", ret.longValue()));
+            return String.format("AFD_FSDK_InitialFaceEngine ret 0x%x", ret.longValue());
         }
 
         // print FDEngine version
@@ -63,8 +60,8 @@ public class AFRServiceImpl implements AFRService{
             AFD_FSDKLibrary.INSTANCE.AFD_FSDK_UninitialFaceEngine(hFDEngine);
             CLibrary.INSTANCE.free(pFDWorkMem);
             CLibrary.INSTANCE.free(pFRWorkMem);
-            System.out.println(String.format("AFR_FSDK_InitialEngine ret 0x%x" ,ret.longValue()));
-            return String.format(String.format("AFR_FSDK_InitialEngine ret 0x%x" ,ret.longValue()));
+            System.out.println(String.format("AFR_FSDK_InitialEngine ret 0x%x", ret.longValue()));
+            return String.format(String.format("AFR_FSDK_InitialEngine ret 0x%x", ret.longValue()));
         }
 
         // print FREngine version
@@ -79,16 +76,13 @@ public class AFRServiceImpl implements AFRService{
         ASVLOFFSCREEN inputImgA;
         ASVLOFFSCREEN inputImgB;
         inputImgA = loadImage(inputImg);
-        for(int i=0;i<faceDataPath.length;i++)
-        {
+        for (int i = 0; i < faceDataPath.length; i++) {
             inputImgB = loadImage(faceDataPath[i]);
-            if(compareFaceSimilarity(hFDEngine, hFREngine, inputImgA, inputImgB)>=0.60)
-            {
-                recognitionStatus=true;
+            if (compareFaceSimilarity(hFDEngine, hFREngine, inputImgA, inputImgB) >= 0.60) {
+                recognitionStatus = true;
                 break;
             }
-            if(getThirdPartyFace()==true)
-            {
+            if (getThirdPartyFace() == true) {
                 AFD_FSDKLibrary.INSTANCE.AFD_FSDK_UninitialFaceEngine(hFDEngine);
                 AFR_FSDKLibrary.INSTANCE.AFR_FSDK_UninitialEngine(hFREngine);
 
@@ -118,7 +112,7 @@ public class AFRServiceImpl implements AFRService{
         PointerByReference ppFaceRes = new PointerByReference();
         NativeLong ret = AFD_FSDKLibrary.INSTANCE.AFD_FSDK_StillImageFaceDetection(hFDEngine, inputImg, ppFaceRes);
         if (ret.longValue() != 0) {
-            System.out.println(String.format("AFD_FSDK_StillImageFaceDetection ret 0x%x" , ret.longValue()));
+            System.out.println(String.format("AFD_FSDK_StillImageFaceDetection ret 0x%x", ret.longValue()));
             return faceInfo;
         }
 
@@ -155,7 +149,7 @@ public class AFRServiceImpl implements AFRService{
         AFR_FSDK_FACEMODEL faceFeature = new AFR_FSDK_FACEMODEL();
         NativeLong ret = AFR_FSDKLibrary.INSTANCE.AFR_FSDK_ExtractFRFeature(hFREngine, inputImg, faceinput, faceFeature);
         if (ret.longValue() != 0) {
-            System.out.println(String.format("AFR_FSDK_ExtractFRFeature ret 0x%x" ,ret.longValue()));
+            System.out.println(String.format("AFR_FSDK_ExtractFRFeature ret 0x%x", ret.longValue()));
             return null;
         }
 
@@ -189,9 +183,8 @@ public class AFRServiceImpl implements AFRService{
             faceFeatureB.freeUnmanaged();
             return 0.0f;
         }
-        float totValue=0;
-        for(int i=0;i<faceInfosA.length;i++)
-        {
+        float totValue = 0;
+        for (int i = 0; i < faceInfosA.length; i++) {
             // Extract FaceA Feature
             AFR_FSDK_FACEMODEL faceFeatureA = extractFRFeature(hFREngine, inputImgA, faceInfosA[i]);
             if (faceFeatureA == null) {
@@ -206,20 +199,17 @@ public class AFRServiceImpl implements AFRService{
             faceFeatureA.freeUnmanaged();
             faceFeatureB.freeUnmanaged();
             if (ret.longValue() != 0) {
-                System.out.println(String.format("AFR_FSDK_FacePairMatching failed:ret 0x%x" ,ret.longValue()));
+                System.out.println(String.format("AFR_FSDK_FacePairMatching failed:ret 0x%x", ret.longValue()));
                 return 0.0f;
             }
-            if(fSimilScore.getValue()<0.60&&faceInfosA.length>1)
-            {
+            if (fSimilScore.getValue() < 0.60 && faceInfosA.length > 1) {
                 setThirdPartyFace(true);
                 return fSimilScore.getValue();
-            }
-            else
-            {
-                totValue+=fSimilScore.getValue();
+            } else {
+                totValue += fSimilScore.getValue();
             }
         }
-        return totValue/faceInfosA.length;
+        return totValue / faceInfosA.length;
     }
 
     @Override
@@ -260,7 +250,7 @@ public class AFRServiceImpl implements AFRService{
         InputStream ios = null;
         try {
             ios = new FileInputStream(f);
-            ios.read(imagedata,0,yuv_rawdata_size);
+            ios.read(imagedata, 0, yuv_rawdata_size);
 
         } catch (Exception e) {
             e.printStackTrace();
