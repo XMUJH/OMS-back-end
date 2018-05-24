@@ -1,9 +1,11 @@
 package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.User;
+import com.wedo.OMS.exception.AttendanceNotFoundException;
+import com.wedo.OMS.exception.PasswordIncorrectException;
+import com.wedo.OMS.exception.TaskNotFoundException;
+import com.wedo.OMS.exception.UserNotFoundException;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -13,14 +15,14 @@ public interface UserService {
      * @param user
      * @return
      */
-    User login(User user)throws NoSuchAlgorithmException,UnsupportedEncodingException;
+    User login(User user) throws UserNotFoundException, PasswordIncorrectException;
 
     /**
      * 根据用户ID获取用户信息
      * @param userId
      * @return
      */
-    User getUserByUserId(long userId);
+    User getUserByUserId(long userId) throws UserNotFoundException;
 
     /**
      * 签到
@@ -29,7 +31,7 @@ public interface UserService {
      * @param dateTime
      * @return
      */
-    User signin(long userId, long taskId, Timestamp dateTime);
+    User signin(long userId, long taskId, Timestamp dateTime) throws UserNotFoundException, TaskNotFoundException;
 
     /**
      * 签退，包括提交考勤日志
@@ -38,7 +40,7 @@ public interface UserService {
      * @param dateTime
      * @return
      */
-    User signout(long userId, long taskId, Timestamp dateTime);
+    User signout(long userId, long taskId, Timestamp dateTime) throws UserNotFoundException, TaskNotFoundException, AttendanceNotFoundException;
 
     /**
      * 获取所有人脸信息

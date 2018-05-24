@@ -13,4 +13,5 @@ public interface UserTaskRepository extends JpaRepository<UserTask, Long> {
     List<UserTask> findUserTasksByUserAndUserTaskRole(User user, UserTaskRole userTaskRole);
     void deleteByUserAndTask(User user, Task task);
     UserTask findUserTasksByUserAndTask(User user, Task task);
+    List<UserTask> findUserTasksByTask(Task task);
 }

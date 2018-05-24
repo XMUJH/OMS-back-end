@@ -1,11 +1,11 @@
 package com.arcsoft;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import com.sun.jna.ptr.ByteByReference;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class AFR_FSDK_FACEMODEL extends Structure {
 
@@ -14,10 +14,8 @@ public class AFR_FSDK_FACEMODEL extends Structure {
 
     protected boolean bAllocByMalloc;
     @Override
-    protected List getFieldOrder() { 
-        return Arrays.asList(new String[] { 
-            "pbFeature", "lFeatureSize"
-        });
+    protected List<String> getFieldOrder() {
+        return Arrays.asList("pbFeature", "lFeatureSize");
     }
     
     public AFR_FSDK_FACEMODEL deepCopy() throws Exception{
@@ -44,7 +42,7 @@ public class AFR_FSDK_FACEMODEL extends Structure {
     }
     
     @Override
-    protected void finalize() throws   Throwable  {  
+    protected void finalize() {
         freeUnmanaged();
     }
     

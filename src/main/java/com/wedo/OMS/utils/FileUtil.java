@@ -2,30 +2,29 @@ package com.wedo.OMS.utils;
 
 import java.io.*;
 
-/**
- * 文件读取工具类
- */
 public class FileUtil {
 
     /**
      * 读取文件内容，作为字符串返回
      */
-    public static void uploadFile(byte[] file, String filePath, String fileName) throws Exception {
+    public static void write(byte[] file, String filePath, String fileName) throws IOException {
         File targetFile = new File(filePath);
-        if(!targetFile.exists()){
+        if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
-        FileOutputStream out = new FileOutputStream(filePath+fileName);
+        FileOutputStream out = new FileOutputStream(filePath + fileName);
         out.write(file);
         out.flush();
         out.close();
     }
+
     public static String readFileAsString(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             throw new FileNotFoundException(filePath);
         }
 
+        // TODO Spring boot has configuration for max file size, consider using it to replace
         if (file.length() > 1024 * 1024 * 1024) {
             throw new IOException("File is too large");
         }
@@ -36,8 +35,8 @@ public class FileUtil {
         // 创建一个长度为10240的Buffer
         byte[] bbuf = new byte[10240];
         // 用于保存实际读取的字节数
-        int hasRead = 0;
-        while ( (hasRead = fis.read(bbuf)) > 0 ) {
+        int hasRead;
+        while ((hasRead = fis.read(bbuf)) > 0) {
             sb.append(new String(bbuf, 0, hasRead));
         }
         fis.close();
@@ -64,8 +63,7 @@ public class FileUtil {
                     bos.write(buffer, 0, len1);
                 }
 
-                byte[] var7 = bos.toByteArray();
-                return var7;
+                return bos.toByteArray();
             } finally {
                 try {
                     if (in != null) {
