@@ -1,9 +1,9 @@
 package com.arcsoft;
 
+import com.sun.jna.Structure;
+
 import java.util.Arrays;
 import java.util.List;
-
-import com.sun.jna.Structure;
 
 public class AFD_FSDK_Version extends Structure {
     public int lCodebase;
@@ -15,7 +15,7 @@ public class AFD_FSDK_Version extends Structure {
     public String CopyRight;
 
     @Override
-    protected List getFieldOrder() {
-        return Arrays.asList(new String[] { "lCodebase", "lMajor", "lMinor", "lBuild", "Version", "BuildDate", "CopyRight" });
+    protected List<String> getFieldOrder() {
+        return Arrays.asList("lCodebase", "lMajor", "lMinor", "lBuild", "Version", "BuildDate", "CopyRight");
     }
 }
