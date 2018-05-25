@@ -1,10 +1,10 @@
 package com.arcsoft;
 
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
 
 public class MRECT extends Structure {
     public static class ByValue extends MRECT implements Structure.ByValue {
@@ -16,12 +16,17 @@ public class MRECT extends Structure {
             super(p); 
         }
     }
-
-    @Override
-    protected List<String> getFieldOrder() {
-        return Arrays.asList("left", "top", "right", "bottom");
-    }
-
+    
+    public static class ByReference extends MRECT implements Structure.ByReference{
+        public ByReference() {
+            
+        }
+        
+        public ByReference(Pointer p) {
+            super(p);
+        }
+    };
+    
     public int left;
     public int top;
     public int right;
@@ -35,14 +40,11 @@ public class MRECT extends Structure {
         super(p);
         read();
     }
-
-    public static class ByReference extends MRECT implements Structure.ByReference {
-        public ByReference() {
-
-        }
-
-        public ByReference(Pointer p) {
-            super(p);
-        }
+    
+    @Override
+    protected List getFieldOrder() { 
+        return Arrays.asList(new String[] { 
+            "left", "top", "right", "bottom"
+        });
     }
 }
