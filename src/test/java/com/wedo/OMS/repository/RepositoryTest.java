@@ -37,7 +37,7 @@ public class RepositoryTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 

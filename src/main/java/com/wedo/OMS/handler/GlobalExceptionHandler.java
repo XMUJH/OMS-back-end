@@ -2,6 +2,7 @@ package com.wedo.OMS.handler;
 
 import com.wedo.OMS.exception.PasswordIncorrectException;
 import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.viewmodel.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

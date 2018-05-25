@@ -1,38 +1,27 @@
-package com.wedo.OMS.entity;
+package com.wedo.OMS.vo;
 
-import javax.persistence.*;
+import com.wedo.OMS.entity.Project;
 
-@Entity
-public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;//项目id
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+public class NewProject {
     private String name;//项目名称
     private String password;//项目密码
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id")
-    private Project belong;//前一级项目
     private long completion;//里程碑完成个数
     private long total;//里程碑总个数
+    private long belongProjectId;//所属项目id
 
-    public Project() {
-    }
-
-    public Project(String name, String password, Project belong, long completion, long total) {
+    public NewProject(){}
+    public NewProject(String name, String password, long completion, long total, long belongProjectId) {
         this.name = name;
         this.password = password;
-        this.belong = belong;
         this.completion = completion;
         this.total = total;
+        this.belongProjectId = belongProjectId;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -48,14 +37,6 @@ public class Project {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Project getBelong() {
-        return belong;
-    }
-
-    public void setBelong(Project belong) {
-        this.belong = belong;
     }
 
     public long getCompletion() {
@@ -74,15 +55,22 @@ public class Project {
         this.total = total;
     }
 
+    public long getBelongProjectId() {
+        return belongProjectId;
+    }
+
+    public void setBelongProjectId(long belongProjectId) {
+        this.belongProjectId = belongProjectId;
+    }
+
     @Override
     public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "NewProject{" +
+                "name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", belong=" + belong +
                 ", completion=" + completion +
                 ", total=" + total +
+                ", belongProjectId=" + belongProjectId +
                 '}';
     }
 }

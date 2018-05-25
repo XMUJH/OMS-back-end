@@ -1,15 +1,15 @@
 package com.wedo.OMS.controller;
 
-import java.io.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 @RestController
-public class DowloadController {
+public class DownloadController {
+    //TODO refine code
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void testDownload(HttpServletResponse res) {
         String fileName = "第九届大赛决赛报到须知.pdf";
@@ -18,7 +18,7 @@ public class DowloadController {
         res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
         byte[] buff = new byte[1024];
         BufferedInputStream bis = null;
-        OutputStream os = null;
+        OutputStream os;
         try {
             os = res.getOutputStream();
             bis = new BufferedInputStream(new FileInputStream(new File("src/main/resources/static/taskfile/"

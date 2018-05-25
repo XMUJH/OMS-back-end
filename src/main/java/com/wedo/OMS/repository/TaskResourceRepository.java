@@ -1,6 +1,5 @@
 package com.wedo.OMS.repository;
 
-import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.entity.Resource;
 import com.wedo.OMS.entity.TaskResource;
 import org.springframework.data.jpa.repository.JpaRepository;

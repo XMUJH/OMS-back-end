@@ -1,32 +1,32 @@
 package com.wedo.OMS.controller;
 
 import com.wedo.OMS.utils.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.IOException;
 
 @RestController
 public class UploadController {
-    //处理文件上传
-    @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public @ResponseBody String uploadImg(@RequestParam("file") MultipartFile file,
-                                          HttpServletRequest request) {
-        String contentType = file.getContentType();
+    private final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
+    //TODO Should not upload files to project folder
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public @ResponseBody
+    String uploadImg(@RequestParam("file") MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        /*System.out.println("fileName-->" + fileName);
-        System.out.println("getContentType-->" + contentType);*/
         String filePath = "src/main/resources/static/";
         try {
-            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
-        } catch (Exception e) {
-            // TODO: handle exception
+            FileUtil.write(file.getBytes(), filePath, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+            return "upload fail";
         }
-        //返回json
-        return "uploadimg success";
+        //TODO Consider to return status code and message
+        return "upload success";
     }
 }
 

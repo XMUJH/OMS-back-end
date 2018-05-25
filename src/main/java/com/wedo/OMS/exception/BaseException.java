@@ -1,9 +1,9 @@
 package com.wedo.OMS.exception;
 
-public class BaseException extends Exception {
+class BaseException extends Exception {
     private String errorCode;
 
-    public BaseException() {
+    BaseException() {
         super();
     }
 

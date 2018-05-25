@@ -1,40 +1,31 @@
-package com.wedo.OMS.entity;
+package com.wedo.OMS.vo;
 
+import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.enums.SafetyLevel;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.util.Date;
 
-/**
- * @description:一个任务有多个用户参与
- */
-@Entity
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;//任务id
+public class NewTask {
     private String name;//任务名称
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id")
-    private Project project;//任务所属项目
     private Date createTime;//任务创建时间
     private Date beginTime;//任务开始时间
     private Date endTime;//任务结束时间
-    @Enumerated
-    private SafetyLevel safety;//任务安全等级
+    private String safety;//任务安全等级
     private String info;//任务详情描述
     private String contractUrl;//合同信息URL
     private String agreementUrl;//保密协议URL
     private long completion;//里程碑完成个数
     private long total;//里程碑总个数
     private long changeCount;//里程碑修改次数
+    private long projectId;//任务所属项目
 
-    public Task() {
-    }
-
-    public Task(String name, Project project, Date createTime, Date beginTime, Date endTime, SafetyLevel safety, String info, String contractUrl, String agreementUrl, long completion, long total, long changeCount) {
+    public NewTask(){}
+    public NewTask(String name, Date createTime, Date beginTime, Date endTime, String safety, String info, String contractUrl, String agreementUrl, long completion, long total, long changeCount, long projectId) {
         this.name = name;
-        this.project = project;
         this.createTime = createTime;
         this.beginTime = beginTime;
         this.endTime = endTime;
@@ -45,14 +36,7 @@ public class Task {
         this.completion = completion;
         this.total = total;
         this.changeCount = changeCount;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.projectId = projectId;
     }
 
     public String getName() {
@@ -61,14 +45,6 @@ public class Task {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
     }
 
     public Date getCreateTime() {
@@ -95,11 +71,11 @@ public class Task {
         this.endTime = endTime;
     }
 
-    public SafetyLevel getSafety() {
+    public String getSafety() {
         return safety;
     }
 
-    public void setSafety(SafetyLevel safety) {
+    public void setSafety(String safety) {
         this.safety = safety;
     }
 
@@ -135,14 +111,6 @@ public class Task {
         this.completion = completion;
     }
 
-    public long getChangeCount() {
-        return changeCount;
-    }
-
-    public void setChangeCount(long changeCount) {
-        this.changeCount = changeCount;
-    }
-
     public long getTotal() {
         return total;
     }
@@ -151,22 +119,37 @@ public class Task {
         this.total = total;
     }
 
+    public long getChangeCount() {
+        return changeCount;
+    }
+
+    public void setChangeCount(long changeCount) {
+        this.changeCount = changeCount;
+    }
+
+    public long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
+    }
+
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", project=" + project +
+        return "NewTask{" +
+                "name='" + name + '\'' +
                 ", createTime=" + createTime +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
-                ", safety=" + safety +
+                ", safety='" + safety + '\'' +
                 ", info='" + info + '\'' +
                 ", contractUrl='" + contractUrl + '\'' +
                 ", agreementUrl='" + agreementUrl + '\'' +
                 ", completion=" + completion +
                 ", total=" + total +
                 ", changeCount=" + changeCount +
+                ", projectId=" + projectId +
                 '}';
     }
 }

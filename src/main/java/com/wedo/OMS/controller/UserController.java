@@ -4,6 +4,7 @@ package com.wedo.OMS.controller;
 import com.arcsoft.service.AFRService;
 import com.wedo.OMS.entity.*;
 import com.wedo.OMS.enums.MilestoneStatus;
+import com.wedo.OMS.exception.MilestoneNotFoundException;
 import com.wedo.OMS.exception.PasswordIncorrectException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.repository.MilestoneRepository;
@@ -13,19 +14,24 @@ import com.wedo.OMS.service.MilestoneService;
 import com.wedo.OMS.service.UserService;
 import com.wedo.OMS.utils.FileUtil;
 import com.wedo.OMS.viewmodel.UserViewModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 public class UserController {
-    private UserService userService;
-    private MilestoneRepository milestoneRepository;
-    private TaskRepository taskRepository;
-    private MilestoneService milestoneService;
-    private ProjectRepository projectRepository;
-    private AFRService afrService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private final UserService userService;
+    private final MilestoneRepository milestoneRepository;
+    private final TaskRepository taskRepository;
+    private final MilestoneService milestoneService;
+    private final ProjectRepository projectRepository;
+    private final AFRService afrService;
 
     public UserController(AFRService afrService, UserService userService, ProjectRepository projectRepository, MilestoneService milestoneService, MilestoneRepository milestoneRepository, TaskRepository taskRepository) {
         this.afrService = afrService;
@@ -54,10 +60,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public List<Result> getUserInfo() {
+    public List<Result> getUserInfo() throws MilestoneNotFoundException {
         long a = 1;
         MilestoneStatus b = MilestoneStatus.NOTBEGIN;
-        milestoneService.auditMilestoneByMilestoneId(a,b);
+        milestoneService.auditMilestoneByMilestoneId(a, b);
         return milestoneService.getMilestoneResultsByMilestoneId(a);
     }
 
