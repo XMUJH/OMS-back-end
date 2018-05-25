@@ -22,7 +22,7 @@ public class CompanyController {
      *
      * @param companyId
      */
-    @DeleteMapping(value = "/companies/:companyId")
+    @DeleteMapping(value = "/companies/{companyId}")
     public void deleteCompanyByCompanyId(@PathVariable("companyId") long companyId) {
         companyService.deleteCompanyByCompanyId(companyId);
     }
@@ -33,7 +33,7 @@ public class CompanyController {
      * @param companyId
      * @return
      */
-    @GetMapping(value = "/companies/:companyId")
+    @GetMapping(value = "/companies/{companyId}")
     public List<User> listCompanyUsersByCompanyId(@PathVariable("companyId") long companyId) {
         return companyService.listCompanyUsersByCompanyId(companyId);
     }
@@ -43,7 +43,7 @@ public class CompanyController {
      *
      * @param userId
      */
-    @DeleteMapping(value = "/users/:userId")
+    @DeleteMapping(value = "/users/{userId}")
     public void deleteCompanyUser(@PathVariable("userId") long userId) {
         companyService.deleteCompanyUser(userId);
     }

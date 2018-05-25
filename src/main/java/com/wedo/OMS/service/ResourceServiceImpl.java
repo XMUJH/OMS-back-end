@@ -109,13 +109,13 @@ public class ResourceServiceImpl implements ResourceService {
      * 分配资源(依次分配)
      *
      * @param resourceId
-     * @param taskName
+     * @param taskId
      * @return
      */
     @Override
-    public TaskResource addTaskResource(long resourceId, String taskName) throws ResourceNotFoundException, TaskNotFoundException {
+    public TaskResource addTaskResource(long resourceId, long taskId) throws ResourceNotFoundException, TaskNotFoundException {
         Resource resource = resourceRepository.findResourceById(resourceId);
-        Task task = taskRepository.findTaskByName(taskName);
+        Task task = taskRepository.findTaskById(taskId);
         if (resource == null) {
             throw new ResourceNotFoundException();
         }

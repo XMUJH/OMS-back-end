@@ -147,4 +147,10 @@ public class ProjectServiceImpl implements ProjectService {
         return taskRepository.findTasksByProject(projectBelong);
 
     }
+
+    @Override
+    public Project findProjectByProjectId(long projectId)
+    {
+        return projectRepository.findProjectById(projectId);
+    }
 }

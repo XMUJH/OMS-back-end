@@ -10,6 +10,7 @@ import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.service.AttendanceService;
 import com.wedo.OMS.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import com.wedo.OMS.vo.UserAttendance;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,29 +25,31 @@ public class AttendanceController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/users/:userId/attendances")
+    @GetMapping(value = "/users/{userId}/attendances")
     public List<Attendance> getAttendancesByUserId(@PathVariable("userId") long userId) throws UserNotFoundException {
         return attendanceService.getAttendancesByUserId(userId);
     }
 
-    @GetMapping(value = "/tasks/:taskId/attendances")
+    @GetMapping(value = "/tasks/{taskId}/attendances")
     public List<Attendance> getTaskAttendancesByTaskId(@PathVariable("taskId") long taskId) throws TaskNotFoundException {
         return attendanceService.getTaskAttendancesByTaskId(taskId);
     }
 
-    @GetMapping(value = "/attendances/:attendanceId")
+    @GetMapping(value = "/attendances/{attendanceId}")
     public Record getRecordByAttendanceId(@PathVariable("attendanceId") long attendanceId) throws RecordNotFoundException, AttendanceNotFoundException {
         return attendanceService.getRecordByAttendanceId(attendanceId);
     }
 
     @PostMapping(value = "/attendances")
-    public User signIn(@RequestBody long userId, @RequestBody long taskId, @RequestBody Timestamp beginTime) throws UserNotFoundException, TaskNotFoundException {
-        return userService.signin(userId, taskId, beginTime);
+    public User signIn(@RequestBody UserAttendance userAttendance) throws UserNotFoundException, TaskNotFoundException {
+        Timestamp startTimeStamp = new Timestamp( userAttendance.getDate().getTime());
+        return userService.signin(userAttendance.getUserId(), userAttendance.getTaskId(), startTimeStamp);
     }
 
     @PatchMapping(value = "/attendances")
-    public User signOut(@RequestBody long userId, @RequestBody long taskId, @RequestBody Timestamp endTime) throws UserNotFoundException, AttendanceNotFoundException, TaskNotFoundException {
-        return userService.signout(userId, taskId, endTime);
+    public User signOut(@RequestBody UserAttendance userAttendance) throws UserNotFoundException, AttendanceNotFoundException, TaskNotFoundException {
+        Timestamp endTimeStamp = new Timestamp( userAttendance.getDate().getTime());
+        return userService.signout(userAttendance.getUserId(), userAttendance.getTaskId(), endTimeStamp);
     }
 
 }
