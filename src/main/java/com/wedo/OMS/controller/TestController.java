@@ -124,13 +124,6 @@ public class TestController {
         companyService.deleteCompanyUser(userid);
     }
 
-    /**
-     * 获取所有人脸信息
-     */
-    @GetMapping(value = "/getUserFaces")
-    public List<String> getUserFaces() {
-       return userService.getUserFaces();
-    }
 
     @GetMapping(value = "/facetest")
     public String faceTest() {

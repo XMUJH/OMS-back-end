@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Encoder;
-import java.util.List;
 
 //TODO Null check
 @Service
@@ -115,17 +113,15 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 获取所有人脸信息
-     *
+     * 获取人脸信息
      * @return
      */
     @Override
-    public List<String> getUserFaces() {
-        List<User> users = userRepository.findAll();
-        List<String> face_urls = new ArrayList<>();
-        for (User user : users) {
-            face_urls.add(user.getPhotoUrl());
+    public String getUserFaceUrlById(long userId) throws UserNotFoundException {
+        User userRecorded = userRepository.findUserById(userId);
+        if (userRecorded == null) {
+            throw new UserNotFoundException();
         }
-        return face_urls;
+        return userRecorded.getFaceUrl();
     }
 }

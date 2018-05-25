@@ -5,7 +5,6 @@ import com.wedo.OMS.exception.PasswordIncorrectException;
 import com.wedo.OMS.exception.UserNotFoundException;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 public interface UserService {
     /**
@@ -44,5 +43,5 @@ public interface UserService {
      * 获取所有人脸信息
      * @return
      */
-    List<String> getUserFaces();
+    String getUserFaceUrlById(long userId) throws UserNotFoundException;
 }
