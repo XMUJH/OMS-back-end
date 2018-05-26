@@ -3,11 +3,15 @@ package com.wedo.OMS.controller;
 import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.exception.ProjectNotFoundException;
+import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.vo.NewProject;
+import com.wedo.OMS.vo.OneLong;
+import com.wedo.OMS.vo.vue_task;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,8 +64,32 @@ public class ProjectController {
      * @return
      */
     @GetMapping(value = "/projects/{projectId}/tasks")
-    public List<Task> getProjectTasks(@PathVariable("projectId") long projectId){
-        return projectService.findProjectTasks(projectId);
+    public List<vue_task> getProjectTasks(@PathVariable("projectId") long projectId){
+        List<Task> tasks=projectService.findProjectTasks(projectId);
+        vue_task result;
+        List<vue_task> vue_tasks=new ArrayList<vue_task>();
+        long percentage;
+        for(Task task : tasks)
+        {
+            result=new vue_task();
+            result.setId(task.getId());
+            result.setName(task.getName());
+            percentage = task.getCompletion()*100/task.getTotal();
+            result.setPercentage(percentage);
+            result.setTaskColor(result.percentToColor(percentage));
+            vue_tasks.add(result);
+        }
+        return vue_tasks;
     }
-
+    /**
+     * 用户通过拖曳的方式将项目放进一个项目里
+     *
+     * @param projectId    项目id
+     * @param projectId2 目标项目id
+     */
+    @PatchMapping(value = "/projects/{projectId}")
+    public void MoveProjectToProjectById(@PathVariable("projectId") long projectId, @RequestBody OneLong projectId2) throws ProjectNotFoundException, TaskNotFoundException {
+        long id = projectId2.getId();
+        projectService.MoveInProjectToOutProjectByProjectId(projectId, id);
+    }
 }
