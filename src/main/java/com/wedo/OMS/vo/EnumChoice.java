@@ -19,7 +19,7 @@ public class EnumChoice {
     @Override
     public String toString() {
         return "EnumChoice{" +
-                "status='" + choice + '\'' +
+                "choice='" + choice + '\'' +
                 '}';
     }
 }

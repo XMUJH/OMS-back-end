@@ -117,7 +117,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return
      */
     @Override
-    public Project getProjectsByProjectId(long projectId) throws ProjectNotFoundException {
+    public Project getProjectByProjectId(long projectId) throws ProjectNotFoundException {
         Project project = projectRepository.findProjectById(projectId);
         if (project == null) {
             throw new ProjectNotFoundException();

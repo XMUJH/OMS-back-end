@@ -49,4 +49,14 @@ public class ResourceController {
     public List<Resource> listResourcesByTaskId(@PathVariable("taskId") long taskId) throws TaskNotFoundException {
         return resourceService.listResourcesByTaskId(taskId);
     }
+
+    /**
+     * 发包方获取所有资源
+     * @return
+     */
+    @GetMapping(value = "/resources")
+    public List<Resource> listAllResource(){
+        return resourceService.listAllResources();
+    }
+
 }

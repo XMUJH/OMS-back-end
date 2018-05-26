@@ -55,7 +55,7 @@ public interface ProjectService {
      * @param projectId
      * @return
      */
-    Project getProjectsByProjectId(long projectId) throws ProjectNotFoundException;
+    Project getProjectByProjectId(long projectId) throws ProjectNotFoundException;
 
     /**
      * 获取项目的全部子项目
