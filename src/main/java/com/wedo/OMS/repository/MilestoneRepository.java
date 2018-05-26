@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
 
-    List<Milestone> findAllByTask(Task task);
+    List<Milestone> findMilestonesByTask(Task task);
 
     Milestone findMilestoneById(long milestoneId);
 

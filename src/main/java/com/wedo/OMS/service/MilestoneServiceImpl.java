@@ -43,7 +43,7 @@ public class MilestoneServiceImpl implements MilestoneService {
         if (task == null) {
             throw new TaskNotFoundException();
         }
-        return milestoneRepository.findAllByTask(task);
+        return milestoneRepository.findMilestonesByTask(task);
     }
 
     /**
