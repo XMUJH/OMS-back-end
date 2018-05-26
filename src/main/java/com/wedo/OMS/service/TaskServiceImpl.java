@@ -87,15 +87,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public UserTask addTaskUser(long taskId, long userId, UserTaskRole userTaskRole) throws UserNotFoundException, TaskNotFoundException {
+    public UserTask addTaskUser(long taskId, long userId, String job) throws UserNotFoundException, TaskNotFoundException {
         User user = userRepository.findUserById(userId);
         Task task = taskRepository.findTaskById(taskId);
         nullCheck(user, task);
         UserTask userTask = new UserTask();
         userTask.setUser(user);
         userTask.setTask(task);
+        userTask.setJob(job);
         userTask.setStatus(VerifyStatus.ADD_CHECK);
-        userTask.setUserTaskRole(userTaskRole);
+        userTask.setUserTaskRole(UserTaskRole.FOLLOWER);
         userTaskRepository.save(userTask);
         return userTask;
     }
@@ -107,7 +108,7 @@ public class TaskServiceImpl implements TaskService {
         nullCheck(user, task);
         UserTask userTask = userTaskRepository.findUserTasksByUserAndTask(user, task);
         userTask.setStatus(status);
-        userTask.setTask(task);
+        //userTask.setTask(task);
         userTaskRepository.save(userTask);
         return userTask;
     }
@@ -161,7 +162,7 @@ public class TaskServiceImpl implements TaskService {
         return userTask;
     }
 
-    public List<User> findUsersByTaskId(long taskId) throws TaskNotFoundException {
+    public List<UserTask> findUsersByTaskId(long taskId) throws TaskNotFoundException {
         Task task = taskRepository.findTaskById(taskId);
         if (task == null) {
             throw new TaskNotFoundException();
@@ -171,7 +172,7 @@ public class TaskServiceImpl implements TaskService {
         for (UserTask userTask : userTasks) {
             users.add(userRepository.findUserById(userTask.getUser().getId()));
         }
-        return users;
+        return userTaskRepository.findUserTasksByTask(task);
     }
 
     private void nullCheck(User user) throws UserNotFoundException {
