@@ -13,6 +13,7 @@ import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.service.TaskService;
+import com.wedo.OMS.vo.*;
 import com.wedo.OMS.vo.EnumChoice;
 import com.wedo.OMS.vo.NewTask;
 import com.wedo.OMS.vo.OneLong;
@@ -41,8 +42,11 @@ public class TaskController {
      * @return
      */
     @PostMapping(value = "/users/{userId}/tasks")
-    public List<Task> getTask(@PathVariable("userId") long userId, @RequestBody EnumChoice utr) throws UserNotFoundException {
+    public List<vue_task> getTask(@PathVariable("userId") long userId, @RequestBody EnumChoice utr) throws UserNotFoundException {
         List<Task> tasks = new ArrayList<>();
+        List<vue_task> vueTasks = new ArrayList<>();
+        vue_task vueTask = new vue_task();
+        long percentage;
         switch (utr.getChoice()){
             case "LEADER":
                 tasks = taskService.findTasks(userId, UserTaskRole.LEADER);
@@ -51,7 +55,15 @@ public class TaskController {
                 tasks = taskService.findTasks(userId, UserTaskRole.FOLLOWER);
                 break;
         }
-        return tasks;
+        for(Task task:tasks){
+           vueTask.setId(task.getId());
+           vueTask.setName(task.getName());
+           percentage = task.getCompletion()*100/task.getTotal();
+           vueTask.setPercentage(percentage);
+           vueTask.setTaskColor(vueTask.percentToColor(percentage));
+           vueTasks.add(vueTask);
+        }
+        return vueTasks;
     }
 
     /**
