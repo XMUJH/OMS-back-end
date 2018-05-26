@@ -4,7 +4,9 @@ import com.wedo.OMS.entity.Resource;
 import com.wedo.OMS.entity.TaskResource;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
+import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.service.ResourceService;
+import com.wedo.OMS.vo.ResourceViewModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,17 @@ public class ResourceController {
     }
 
     /**
+     * 接包方获取所有资源
+     *
+     * @param userId
+     * @return
+     * @throws UserNotFoundException
+     */
+    @GetMapping(value = "/users/{userId}/resources")
+    public List<TaskResource> listTaskResourcesByUserId(@PathVariable("userId") long userId) throws UserNotFoundException {
+        return resourceService.listTaskResourcesByUserId(userId);
+    }
+    /**
      * 管理员分配资源（前端循环语句依次分配）
      *
      * @param resourceId
@@ -49,4 +62,16 @@ public class ResourceController {
     public List<Resource> listResourcesByTaskId(@PathVariable("taskId") long taskId) throws TaskNotFoundException {
         return resourceService.listResourcesByTaskId(taskId);
     }
+
+    /**
+     * 发包方获取所有资源
+     *
+     * @return
+     */
+    @GetMapping(value = "/resources")
+    public List<ResourceViewModel> listAllResourcesViewModel() {
+        return resourceService.listAllResourcesViewModel();
+    }
+
+
 }

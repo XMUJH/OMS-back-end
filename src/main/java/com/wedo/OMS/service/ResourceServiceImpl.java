@@ -1,13 +1,11 @@
 package com.wedo.OMS.service;
 
-import com.wedo.OMS.entity.Resource;
-import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.entity.TaskResource;
+import com.wedo.OMS.entity.*;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
-import com.wedo.OMS.repository.ResourceRepository;
-import com.wedo.OMS.repository.TaskRepository;
-import com.wedo.OMS.repository.TaskResourceRepository;
+import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.repository.*;
+import com.wedo.OMS.vo.ResourceViewModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,8 +17,12 @@ public class ResourceServiceImpl implements ResourceService {
     private final ResourceRepository resourceRepository;
     private TaskResourceRepository taskResourceRepository;
     private TaskRepository taskRepository;
+    private UserRepository userRepository;
+    private UserTaskRepository userTaskRepository;
 
-    public ResourceServiceImpl(ResourceRepository resourceRepository, TaskResourceRepository taskResourceRepository, TaskRepository taskRepository) {
+    public ResourceServiceImpl(UserTaskRepository userTaskRepository, UserRepository userRepository, ResourceRepository resourceRepository, TaskResourceRepository taskResourceRepository, TaskRepository taskRepository) {
+        this.userTaskRepository = userTaskRepository;
+        this.userRepository = userRepository;
         this.resourceRepository = resourceRepository;
         this.taskResourceRepository = taskResourceRepository;
         this.taskRepository = taskRepository;
@@ -43,8 +45,39 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> listAllResources() {
-        return resourceRepository.findAll();
+    public List<TaskResource> listTaskResourcesByUserId(long userId) throws UserNotFoundException {
+        User user = userRepository.findUserById(userId);
+        List<UserTask> userTasks = userTaskRepository.findUserTasksByUser(user);
+        List<Task> tasks = new ArrayList<>();
+        List<TaskResource> taskResources = new ArrayList<>();
+        for (UserTask ut : userTasks) {
+            tasks.add(ut.getTask());
+        }
+        for (Task task : tasks) {
+            taskResources.addAll(taskResourceRepository.findTaskResourcesByTask(task));
+        }
+        return taskResources;
+    }
+
+    @Override
+    public List<ResourceViewModel> listAllResourcesViewModel() {
+        List<Resource> resources = resourceRepository.findAll();
+        List<ResourceViewModel> resourceViewModels = new ArrayList<>();
+
+        for (Resource r : resources) {
+            List<TaskResource> taskResources = taskResourceRepository.findTaskResourcesByResource(r);
+            ResourceViewModel resourceViewModel = new ResourceViewModel();
+            resourceViewModel.setResourceName(r.getName());
+            List<Task> tasks = new ArrayList<>();
+            for (TaskResource tr : taskResources) {
+                tasks.add(tr.getTask());
+            }
+            resourceViewModel.setBelong(tasks);
+            resourceViewModel.setSafetyLevel(r.getSafety());
+            resourceViewModels.add(resourceViewModel);
+        }
+        return resourceViewModels;
+
     }
 
     @Override

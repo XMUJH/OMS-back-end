@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * 里程碑审核记录
  */
+@Entity
 public class MilestoneHistory {
     @Id
     @GeneratedValue
