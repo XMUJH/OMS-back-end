@@ -82,8 +82,8 @@ public interface ResourceService {
      * 分配资源
      *
      * @param resourceId
-     * @param taskName
+     * @param taskId
      * @return
      */
-    TaskResource addTaskResource(long resourceId, String taskName) throws ResourceNotFoundException, TaskNotFoundException;
+    TaskResource addTaskResource(long resourceId, long taskId) throws ResourceNotFoundException, TaskNotFoundException;
 }

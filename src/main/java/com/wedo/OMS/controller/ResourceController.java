@@ -22,7 +22,7 @@ public class ResourceController {
      *
      * @param resourceId
      */
-    @DeleteMapping(value = "/resources/:resourceId")
+    @DeleteMapping(value = "/resources/{resourceId}")
     public void deleteResourceById(@PathVariable("resourceId") long resourceId) {
         resourceService.deleteResourceById(resourceId);
     }
@@ -31,12 +31,12 @@ public class ResourceController {
      * 管理员分配资源（前端循环语句依次分配）
      *
      * @param resourceId
-     * @param taskName
+     * @param taskID
      * @return
      */
-    @PostMapping(value = "/resources/:resourceId/tasks/:taskName")
-    public TaskResource addResource(@PathVariable("resourceId") long resourceId, @PathVariable("taskName") String taskName) throws ResourceNotFoundException, TaskNotFoundException {
-        return resourceService.addTaskResource(resourceId, taskName);
+    @PostMapping(value = "/resources/{resourceId}/tasks/{taskID}")
+    public TaskResource addResource(@PathVariable("resourceId") long resourceId, @PathVariable("taskID") long taskID) throws ResourceNotFoundException, TaskNotFoundException {
+        return resourceService.addTaskResource(resourceId, taskID);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ResourceController {
      * @param taskId
      * @return
      */
-    @GetMapping(value = "/tasks/:taskId/resources")
+    @GetMapping(value = "/tasks/{taskId}/resources")
     public List<Resource> listResourcesByTaskId(@PathVariable("taskId") long taskId) throws TaskNotFoundException {
         return resourceService.listResourcesByTaskId(taskId);
     }

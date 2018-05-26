@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @RestController
 public class UploadController {
     private final Logger logger = LoggerFactory.getLogger(UploadController.class);
@@ -19,8 +17,8 @@ public class UploadController {
         String fileName = file.getOriginalFilename();
         String filePath = "src/main/resources/static/";
         try {
-            FileUtil.write(file.getBytes(), filePath, fileName);
-        } catch (IOException e) {
+            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
+        } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
             return "upload fail";

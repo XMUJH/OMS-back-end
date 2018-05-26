@@ -1,4 +1,5 @@
 package com.wedo.OMS.service;
+
 import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.exception.ProjectNotFoundException;
@@ -70,4 +71,6 @@ public interface ProjectService {
      */
     List<Task> findProjectTasks(long projectBelongId);
 
+
+    Project findProjectByProjectId(long projectId);
 }

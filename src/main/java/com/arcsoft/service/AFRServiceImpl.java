@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class AFRServiceImpl implements AFRService {
+public class AFRServiceImpl implements com.arcsoft.service.AFRService {
     private boolean thirdPartyFace = false;
 
     @Override

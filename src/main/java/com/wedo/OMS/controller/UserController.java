@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -79,28 +78,33 @@ public class UserController {
         return milestoneRepository.findAll();
     }
 
-    //TODO Should be removed
-    @PostMapping(value = "/faceRecognition")
+    @PostMapping(value = "/faceRecognition/{userId}")
     public @ResponseBody
-    int faceRecognition(@RequestParam("img") MultipartFile file) {
+    int faceRecognition(@RequestParam("img") MultipartFile file, @PathVariable("userId") long userId) throws UserNotFoundException {
         String contentType = file.getContentType();
         System.out.println(contentType);
         String fileName = file.getOriginalFilename() + ".png";
         System.out.println(fileName);
         String filePath = "src/main/resources/static/faceTemp/";
+        String url = userService.getUserFaceUrlById(userId);
+
         try {
-            FileUtil.write(file.getBytes(), filePath, fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-            return -1;
+            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
+        } catch (Exception e) {
+            // TODO: handle exception
         }
-        String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/photo/photo-hjh.jpg", "src/main/resources/static/faceimg/002.jpg", "src/main/resources/static/faceimg/003.jpg"});
+        String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/faceimg/" + url});
         if (result.equals("Warning! Third Party Faces Detected")) {
             System.out.println("Warning! Third Party Faces Detected");
         }
-        if (result.equals("Recognition Successful!")) return 1;
-        if (result.equals("Recognition Failed!")) return 2;
+        if (result.equals("Recognition Successful!")) {
+            System.out.println("Recognition Successful!");
+            return 1;
+        }
+        if (result.equals("Recognition Failed!")) {
+            System.out.println("Recognition Failed!");
+            return 2;
+        }
         else return -1;
     }
 }
