@@ -45,7 +45,7 @@ public class ProjectController {
      */
     @GetMapping(value = "/projects/{projectId}")
     public Project getProject(@PathVariable("projectId") long projectId) throws ProjectNotFoundException {
-        return projectService.getProjectsByProjectId(projectId);
+        return projectService.getProjectByProjectId(projectId);
     }
 
     /**
