@@ -2,6 +2,8 @@ package com.wedo.OMS.controller;
 
 
 import com.arcsoft.service.AFRService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.wedo.OMS.entity.*;
 import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.exception.MilestoneNotFoundException;
@@ -80,14 +82,17 @@ public class UserController {
 
     @PostMapping(value = "/faceRecognition/{userId}")
     public @ResponseBody
-    int faceRecognition(@RequestParam("img") MultipartFile file, @PathVariable("userId") long userId) throws UserNotFoundException {
+    ObjectNode faceRecognition(@RequestParam("img") MultipartFile file, @PathVariable("userId") long userId) throws UserNotFoundException {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode returnMessage = mapper.createObjectNode();
         String contentType = file.getContentType();
         System.out.println(contentType);
-        String fileName = file.getOriginalFilename() + ".png";
+        String fileName = file.getOriginalFilename() + userId + ".png";
         System.out.println(fileName);
         String filePath = "src/main/resources/static/faceTemp/";
         String url = userService.getUserFaceUrlById(userId);
-
+        User user = userService.getUserByUserId(userId);
+        System.out.println(user.getRole().toString());
         try {
             FileUtil.uploadFile(file.getBytes(), filePath, fileName);
         } catch (Exception e) {
@@ -96,15 +101,18 @@ public class UserController {
         String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/faceimg/" + url});
         if (result.equals("Warning! Third Party Faces Detected")) {
             System.out.println("Warning! Third Party Faces Detected");
+            returnMessage.put("success", false);
         }
         if (result.equals("Recognition Successful!")) {
             System.out.println("Recognition Successful!");
-            return 1;
+            returnMessage.put("success", true);
+            returnMessage.put("userId", userId);
+            returnMessage.put("userRole", user.getRole().toString());
         }
         if (result.equals("Recognition Failed!")) {
             System.out.println("Recognition Failed!");
-            return 2;
+            returnMessage.put("success", false);
         }
-        else return -1;
+        return returnMessage;
     }
 }
