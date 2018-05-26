@@ -1,10 +1,12 @@
 package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Milestone;
+import com.wedo.OMS.entity.MilestoneHistory;
 import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.exception.MilestoneNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.service.MilestoneService;
+import com.wedo.OMS.vo.AuditMilestone;
 import com.wedo.OMS.vo.EnumChoice;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,18 +58,22 @@ public class MilestoneController {
      * 审核里程碑
      *
      * @param milestoneId
-     * @param enumChoice
+     * @param auditMilestone
      * @return
      */
     @PatchMapping(value = "/milestones/{milestoneId}")
-    public Milestone auditMilestoneByMilestoneId(@PathVariable("milestoneId") long milestoneId,@RequestBody EnumChoice enumChoice) throws MilestoneNotFoundException {
+    public Milestone auditMilestoneByMilestoneId(@PathVariable("milestoneId") long milestoneId,@RequestBody AuditMilestone auditMilestone) throws MilestoneNotFoundException {
         Milestone milestone = new Milestone();
-        switch (enumChoice.getChoice()){
+        MilestoneHistory milestoneHistory = milestoneService.getCurrentMilestoneHistory(0,milestone);
+        switch (auditMilestone.getStatus()){
             case "PASS":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.PASS);
+                milestoneService.updateCurrentMilestoneHistory(milestoneHistory,1);
                 break;
             case "NOTPASS":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.NOTPASS);
+                milestoneHistory.setReason(auditMilestone.getReason());
+                milestoneService.updateCurrentMilestoneHistory(milestoneHistory,2);
                 break;
             case "NOTBEGIN":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.NOTBEGIN);
@@ -76,4 +82,35 @@ public class MilestoneController {
         return milestone;
     }
 
+    /**
+     * 获取某里程碑的全部成果审核记录(按照提交时间排序)
+     * @param milestoneId
+     * @return
+     */
+    @GetMapping(value = "/milestones/{milestoneId}/milestoneHistories")
+    public List<MilestoneHistory> getMilestoneHistoriesByMilestoneId(@PathVariable("milestoneId") long milestoneId){
+        List<MilestoneHistory> milestoneHistories = milestoneService.getMilestoneHistoriesByMilestoneId(milestoneId);
+        milestoneHistories = milestoneService.sortMilestoneHistoriesByTime(milestoneHistories);
+        return milestoneHistories;
+    }
+
+    /**
+     * 获取当前审核记录
+     * @param milestoneId
+     * @return
+     */
+    @GetMapping(value = "/milestones/{milestoneId}/milestoneHistory")
+    public MilestoneHistory getCurrentMilestoneHistory(@PathVariable("milestoneId") long milestoneId){
+        Milestone milestone = milestoneService.getMilestoneByMilestoneId(milestoneId);
+        MilestoneHistory milestoneHistory = new MilestoneHistory();
+        if(milestone.getStatus()==MilestoneStatus.NOTPASS) {
+            if (milestoneService.getCurrentMilestoneHistory(0, milestone)!=null)
+                milestoneHistory = milestoneService.getCurrentMilestoneHistory(0,milestone);
+            else
+                milestoneHistory = milestoneService.getCurrentMilestoneHistory(2, milestone);
+        }
+        else if(milestone.getStatus()==MilestoneStatus.PASS)
+            milestoneHistory =  milestoneService.getCurrentMilestoneHistory(1,milestone);
+        return milestoneHistory;
+    }
 }

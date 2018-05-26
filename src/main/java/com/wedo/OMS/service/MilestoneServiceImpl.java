@@ -1,19 +1,17 @@
 package com.wedo.OMS.service;
 
-import com.wedo.OMS.entity.Milestone;
-import com.wedo.OMS.entity.Project;
-import com.wedo.OMS.entity.Result;
-import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.*;
 import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.exception.MilestoneNotFoundException;
 import com.wedo.OMS.exception.ResultNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
-import com.wedo.OMS.repository.MilestoneRepository;
-import com.wedo.OMS.repository.ProjectRepository;
-import com.wedo.OMS.repository.ResultRepository;
-import com.wedo.OMS.repository.TaskRepository;
+import com.wedo.OMS.repository.*;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,12 +21,14 @@ public class MilestoneServiceImpl implements MilestoneService {
     private final TaskRepository taskRepository;
     private final ResultRepository resultRepository;
     private final ProjectRepository projectRepository;
+    private final MilestoneHistoryRepository milestoneHistoryRepository;
 
-    public MilestoneServiceImpl(MilestoneRepository milestoneRepository, TaskRepository taskRepository, ResultRepository resultRepository, ProjectRepository projectRepository) {
+    public MilestoneServiceImpl(MilestoneRepository milestoneRepository, TaskRepository taskRepository, ResultRepository resultRepository, ProjectRepository projectRepository,final MilestoneHistoryRepository milestoneHistoryRepository) {
         this.milestoneRepository = milestoneRepository;
         this.taskRepository = taskRepository;
         this.resultRepository = resultRepository;
         this.projectRepository = projectRepository;
+        this.milestoneHistoryRepository = milestoneHistoryRepository;
     }
 
     /**
@@ -43,7 +43,7 @@ public class MilestoneServiceImpl implements MilestoneService {
         if (task == null) {
             throw new TaskNotFoundException();
         }
-        return milestoneRepository.findAllByTask(task);
+        return milestoneRepository.findMilestonesByTask(task);
     }
 
     /**
@@ -158,4 +158,71 @@ public class MilestoneServiceImpl implements MilestoneService {
         }
         return milestones;
     }
+
+    /**
+     * 获取某里程碑全部成果审核情况
+     * @param milestoneId
+     * @return
+     */
+    @Override
+    public List<MilestoneHistory> getMilestoneHistoriesByMilestoneId(long milestoneId){
+        Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
+        return milestoneHistoryRepository.findMilestoneHistoriesByMilestone(milestone);
+    }
+
+    /**
+     * 添加审核不通过原因
+     * @param milestoneHistoryId
+     * @param reason
+     * @return
+     */
+    @Override
+    public MilestoneHistory setMilestoneHistoryReason(long milestoneHistoryId,String reason){
+        MilestoneHistory milestoneHistory  = milestoneHistoryRepository.findMilestoneHistoryById(milestoneHistoryId);
+        milestoneHistory.setReason(reason);
+        milestoneHistoryRepository.save(milestoneHistory);
+        return milestoneHistory;
+    }
+
+    /**
+     * 获取里程碑当前审核记录
+     * @return
+     */
+    @Override
+    public MilestoneHistory getCurrentMilestoneHistory(long status,Milestone milestone){
+        return milestoneHistoryRepository.findMilestoneHistoryByStatusAndMilestone(status,milestone);
+    }
+
+    /**
+     * 将里程碑审核记按照时间排序
+     * @param milestoneHistories
+     * @return
+     */
+    @Override
+    public List<MilestoneHistory> sortMilestoneHistoriesByTime(List<MilestoneHistory> milestoneHistories){
+        for(int i=0;i<milestoneHistories.size()-1;i++){
+            for(int j=i+1;j<milestoneHistories.size();j++){
+                if(milestoneHistories.get(i).getCreateTime().compareTo(milestoneHistories.get(j).getCreateTime()) == 1){
+                    MilestoneHistory tmp = milestoneHistories.get(i);
+                    milestoneHistories.set(i,milestoneHistories.get(j));
+                    milestoneHistories.set(j,tmp);
+                }
+            }
+        }
+        return milestoneHistories;
+    }
+
+    /**
+     * 更新当前审核记录
+     * @param milestoneHistory
+     * @return
+     */
+    @Override
+    public MilestoneHistory updateCurrentMilestoneHistory(MilestoneHistory milestoneHistory,long status){
+        milestoneHistory.setStatus(status);
+        milestoneHistoryRepository.save(milestoneHistory);
+        return milestoneHistory;
+    }
+
+
 }
