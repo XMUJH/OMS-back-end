@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * 里程碑审核记录
  */
+@Entity
 public class MilestoneHistory {
     @Id
     @GeneratedValue
@@ -14,8 +15,8 @@ public class MilestoneHistory {
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;//审核记录所属里程碑
     private Date createTime;//审核时间
-    private long status;//该条历史记录的状态（第几次审核、未通过、通过）
-    private String reason;//审核未通过原因
+    private long status;//是否已经审核(0未审核，-1审核不通过，1审核通过，2最近审核不通过)
+    private String reason;//审核未通过原因（1为通过，否则为未通过原因）
 
     public MilestoneHistory() {
     }

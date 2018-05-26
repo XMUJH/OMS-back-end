@@ -1,6 +1,7 @@
 package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.Milestone;
+import com.wedo.OMS.entity.MilestoneHistory;
 import com.wedo.OMS.entity.Result;
 import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.exception.MilestoneNotFoundException;
@@ -64,4 +65,40 @@ public interface MilestoneService {
      * @param taskId
      */
     List<Milestone> addMilestone(List<Milestone> milestones, long taskId) throws TaskNotFoundException;
+
+    /**
+     * 获取某里程碑全部成果审核情况
+     * @param milestoneId
+     * @return
+     */
+    List<MilestoneHistory> getMilestoneHistoriesByMilestoneId(long milestoneId);
+
+    /**
+     * 添加审核不通过原因
+     * @param milestoneHistoryId
+     * @param reason
+     * @return
+     */
+    MilestoneHistory setMilestoneHistoryReason(long milestoneHistoryId,String reason);
+
+    /**
+     * 获取里程碑某状态审核记录（(0未审核，-1审核不通过，1审核通过，2最近审核不通过）
+     * @return
+     */
+    MilestoneHistory getCurrentMilestoneHistory(long status,Milestone milestone);
+
+    /**
+     * 将里程碑审核记按照时间排序
+     * @param milestoneHistories
+     * @return
+     */
+    List<MilestoneHistory> sortMilestoneHistoriesByTime(List<MilestoneHistory> milestoneHistories);
+
+    /**
+     * 更新里程碑当前审核记录状态(提价成果时应将之前状态为2的改为-1)
+     * @param milestoneHistory
+     * @return
+     */
+    MilestoneHistory updateCurrentMilestoneHistory(MilestoneHistory milestoneHistory,long status);
+
 }
