@@ -1,15 +1,9 @@
 package com.wedo.OMS.service;
 
-import com.wedo.OMS.entity.Code;
-import com.wedo.OMS.entity.Task;
-import com.wedo.OMS.entity.User;
-import com.wedo.OMS.entity.UserTask;
+import com.wedo.OMS.entity.*;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
-import com.wedo.OMS.exception.CodeNotFoundException;
-import com.wedo.OMS.exception.ProjectNotFoundException;
-import com.wedo.OMS.exception.TaskNotFoundException;
-import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.exception.*;
 
 import java.util.List;
 
@@ -125,4 +119,9 @@ public interface TaskService {
      * @return 成员列表
      */
     List<User> findUsersByTaskId(long taskId) throws TaskNotFoundException;
+
+    /**
+     * 列出所有日志
+     */
+    List<Record> findAllRecord() throws RecordNotFoundException;
 }

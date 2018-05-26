@@ -4,13 +4,11 @@ import com.wedo.OMS.entity.Code;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.entity.User;
 import com.wedo.OMS.entity.UserTask;
+import com.wedo.OMS.entity.Record;
 import com.wedo.OMS.enums.SafetyLevel;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
-import com.wedo.OMS.exception.CodeNotFoundException;
-import com.wedo.OMS.exception.ProjectNotFoundException;
-import com.wedo.OMS.exception.TaskNotFoundException;
-import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.exception.*;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.service.TaskService;
 import com.wedo.OMS.vo.*;
@@ -201,5 +199,33 @@ public class TaskController {
                 break;
         }
         return userTask;
+    }
+
+    @GetMapping(value = "/tasks/{taskId}/records")
+    public List<Record> getTaskRecords(@PathVariable("taskId") long taskId) throws RecordNotFoundException{
+        List<Record> records=taskService.findAllRecord();
+        List<Record> result=new ArrayList<Record>();
+        for(Record record : records)
+        {
+            if(record.getAttendance().getTask().getId()==taskId)
+            {
+                result.add(record);
+            }
+        }
+        return result;
+    }
+
+    @GetMapping(value = "/tasks/{taskId}/users/{userId}/records")
+    public List<Record> getTaskRecordsByUser(@PathVariable("taskId") long taskId, @PathVariable("userId") long userId) throws RecordNotFoundException{
+        List<Record> records=taskService.findAllRecord();
+        List<Record> result=new ArrayList<Record>();
+        for(Record record : records)
+        {
+            if(record.getAttendance().getTask().getId()==taskId&&record.getAttendance().getUser().getId()==userId)
+            {
+                result.add(record);
+            }
+        }
+        return result;
     }
 }

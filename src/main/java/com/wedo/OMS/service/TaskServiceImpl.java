@@ -4,10 +4,7 @@ import com.wedo.OMS.entity.*;
 import com.wedo.OMS.enums.CodeStatus;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
-import com.wedo.OMS.exception.CodeNotFoundException;
-import com.wedo.OMS.exception.ProjectNotFoundException;
-import com.wedo.OMS.exception.TaskNotFoundException;
-import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.exception.*;
 import com.wedo.OMS.repository.*;
 import com.wedo.OMS.utils.CodeUtils;
 import org.springframework.stereotype.Service;
@@ -23,13 +20,15 @@ public class TaskServiceImpl implements TaskService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
     private final CodeRepository codeRepository;
+    private final RecordRepository recordRepository;
 
-    TaskServiceImpl(TaskRepository taskRepository, UserTaskRepository userTaskRepository, UserRepository userRepository, ProjectRepository projectRepository, CodeRepository codeRepository) {
+    TaskServiceImpl(TaskRepository taskRepository, UserTaskRepository userTaskRepository, UserRepository userRepository, ProjectRepository projectRepository, CodeRepository codeRepository, RecordRepository recordRepository) {
         this.taskRepository = taskRepository;
         this.userTaskRepository = userTaskRepository;
         this.userRepository = userRepository;
         this.projectRepository = projectRepository;
         this.codeRepository = codeRepository;
+        this.recordRepository = recordRepository;
     }
 
     @Override
@@ -160,7 +159,7 @@ public class TaskServiceImpl implements TaskService {
         userTaskRepository.save(userTask);
         return userTask;
     }
-
+    @Override
     public List<User> findUsersByTaskId(long taskId) throws TaskNotFoundException {
         Task task = taskRepository.findTaskById(taskId);
         if (task == null) {
@@ -174,6 +173,10 @@ public class TaskServiceImpl implements TaskService {
         return users;
     }
 
+    @Override
+    public List<Record> findAllRecord() throws RecordNotFoundException{
+        return recordRepository.findAll();
+    }
     private void nullCheck(User user) throws UserNotFoundException {
         if (user == null) {
             throw new UserNotFoundException();
