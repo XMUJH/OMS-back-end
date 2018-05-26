@@ -5,6 +5,8 @@ import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.entity.TaskResource;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
+import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.vo.ResourceViewModel;
 
 import java.util.List;
 
@@ -18,11 +20,19 @@ public interface ResourceService {
     List<Resource> listResourcesByTaskId(long taskId) throws TaskNotFoundException;
 
     /**
+     * 接包方查看资源
+     *
+     * @param userId
+     * @return
+     */
+    List<TaskResource> listTaskResourcesByUserId(long userId) throws UserNotFoundException;
+
+    /**
      * 发包方查看所有资源
      *
      * @return
      */
-    List<Resource> listAllResources();
+    List<ResourceViewModel> listAllResourcesViewModel();
 
     /**
      * 发包方新建资源并分配
