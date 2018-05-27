@@ -119,7 +119,6 @@ public interface TaskService {
      * @return 成员列表
      */
     List<UserTask> findUsersByTaskId(long taskId) throws TaskNotFoundException;
-    List<User> findUsersByTaskId(long taskId) throws TaskNotFoundException;
 
     /**
      * 列出所有日志

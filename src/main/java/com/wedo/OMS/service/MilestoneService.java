@@ -108,4 +108,10 @@ public interface MilestoneService {
      */
     MilestoneHistory updateCurrentMilestoneHistory(MilestoneHistory milestoneHistory,long status);
 
+    /**
+     * 获得里程碑所有成果
+     * @param milestoneId
+     * @return
+     */
+    List<Result> getResultsByMilestone(long milestoneId);
 }

@@ -210,7 +210,7 @@ public class MilestoneServiceImpl implements MilestoneService {
     }
 
     /**
-     * 将里程碑审核记按照时间排序
+     * 将里程碑审核记录按照时间排序
      * @param milestoneHistories
      * @return
      */
@@ -240,5 +240,15 @@ public class MilestoneServiceImpl implements MilestoneService {
         return milestoneHistory;
     }
 
+    /**
+     * 获得里程碑所有成果
+     * @param milestoneId
+     * @return
+     */
+    @Override
+    public List<Result> getResultsByMilestone(long milestoneId){
+        Milestone milestone = milestoneRepository.findMilestoneById(milestoneId);
+        return resultRepository.findResultsByMilestone(milestone);
+    }
 
 }
