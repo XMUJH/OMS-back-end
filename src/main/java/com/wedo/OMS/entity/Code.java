@@ -13,7 +13,7 @@ public class Code {
     @Column(unique = true)
     private String code;//激活码
     private CodeStatus status;//激活码状态，无效为0，有效为1
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "task_id")
     private Task task;//相应任务
     private Date time;//激活码过期时间

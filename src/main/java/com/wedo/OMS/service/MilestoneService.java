@@ -74,6 +74,13 @@ public interface MilestoneService {
     List<MilestoneHistory> getMilestoneHistoriesByMilestoneId(long milestoneId);
 
     /**
+     * 获取某任务全部里程碑成果审核情况
+     * @param taskId
+     * @return
+     */
+    List<MilestoneHistory> getMilestoneHistoriesByTaskId(long taskId);
+
+    /**
      * 添加审核不通过原因
      * @param milestoneHistoryId
      * @param reason
@@ -101,4 +108,10 @@ public interface MilestoneService {
      */
     MilestoneHistory updateCurrentMilestoneHistory(MilestoneHistory milestoneHistory,long status);
 
+    /**
+     * 获得里程碑所有成果
+     * @param milestoneId
+     * @return
+     */
+    List<Result> getResultsByMilestone(long milestoneId);
 }

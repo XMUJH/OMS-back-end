@@ -12,7 +12,7 @@ public class Milestone {
     private long id;//里程碑id
     @Column(unique = true)
     private String name;//里程碑名称
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "task_id")
     private Task task;//里程碑所属任务
     private Date beginTime;//里程碑开始时间

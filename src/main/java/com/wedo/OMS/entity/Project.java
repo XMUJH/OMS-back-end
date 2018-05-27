@@ -9,7 +9,7 @@ public class Project {
     private long id;//项目id
     private String name;//项目名称
     private String password;//项目密码
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id")
     private Project belong;//前一级项目
     private long completion;//里程碑完成个数

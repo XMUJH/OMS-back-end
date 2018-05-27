@@ -54,9 +54,9 @@ public interface TaskService {
      * 队长新增任务成员
      *
      * @param userId       用户ID
-     * @param userTaskRole 用户角色权限
+     *
      */
-    UserTask addTaskUser(long taskId, long userId, UserTaskRole userTaskRole) throws UserNotFoundException, TaskNotFoundException;
+    UserTask addTaskUser(long taskId, long userId, String job) throws UserNotFoundException, TaskNotFoundException;
 
     /**
      * 发包方审核任务成员
@@ -74,7 +74,7 @@ public interface TaskService {
      * @param userId 被删除的用户id
      * @param taskId 任务id
      */
-    void deleteTaskUserById(long userId, long taskId) throws UserNotFoundException, TaskNotFoundException;
+    void deleteTaskUserById(long taskId,long userId) throws UserNotFoundException, TaskNotFoundException;
 
 
     /**
@@ -118,7 +118,7 @@ public interface TaskService {
      * @param taskId 任务id
      * @return 成员列表
      */
-    List<User> findUsersByTaskId(long taskId) throws TaskNotFoundException;
+    List<UserTask> findUsersByTaskId(long taskId) throws TaskNotFoundException;
 
     /**
      * 列出所有日志
