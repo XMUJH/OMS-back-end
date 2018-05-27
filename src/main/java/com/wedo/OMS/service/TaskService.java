@@ -74,7 +74,7 @@ public interface TaskService {
      * @param userId 被删除的用户id
      * @param taskId 任务id
      */
-    void deleteTaskUserById(long userId, long taskId) throws UserNotFoundException, TaskNotFoundException;
+    void deleteTaskUserById(long taskId,long userId) throws UserNotFoundException, TaskNotFoundException;
 
 
     /**

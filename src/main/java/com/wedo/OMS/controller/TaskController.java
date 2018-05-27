@@ -217,4 +217,16 @@ public class TaskController {
         }
         return result;
     }
+
+    /**
+     * 删除任务成员
+     * @param taskId
+     * @param userId
+     * @throws UserNotFoundException
+     * @throws TaskNotFoundException
+     */
+    @DeleteMapping(value = "/tasks/{taskId}/users/{userId}")
+    public void deleteTaskUser(@PathVariable("taskId") long taskId, @PathVariable("userId") long userId) throws UserNotFoundException, TaskNotFoundException {
+        taskService.deleteTaskUserById(taskId, userId);
+    }
 }

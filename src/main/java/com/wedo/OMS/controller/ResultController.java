@@ -15,6 +15,12 @@ public class ResultController {
     public ResultController(MilestoneService milestoneService){
         this.milestoneService = milestoneService;
     }
+
+    /**
+     * 获取里程碑的全部成果
+     * @param milestoneId
+     * @return
+     */
     @GetMapping(value = "/milestones/{milestoneId}/results")
     public List<Result> getResultsByMilestone(@PathVariable("milestoneId")long milestoneId){
         return milestoneService.getResultsByMilestone(milestoneId);

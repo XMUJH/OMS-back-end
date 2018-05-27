@@ -113,7 +113,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteTaskUserById(long userId, long taskId) throws UserNotFoundException, TaskNotFoundException {
+    public void deleteTaskUserById(long taskId,long userId) throws UserNotFoundException, TaskNotFoundException {
         User user = userRepository.findUserById(userId);
         Task task = taskRepository.findTaskById(taskId);
         nullCheck(user, task);
