@@ -4,9 +4,10 @@ package com.wedo.OMS.controller;
 import com.arcsoft.service.AFRService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.wedo.OMS.entity.*;
-import com.wedo.OMS.enums.MilestoneStatus;
-import com.wedo.OMS.exception.MilestoneNotFoundException;
+import com.wedo.OMS.entity.Milestone;
+import com.wedo.OMS.entity.Project;
+import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.User;
 import com.wedo.OMS.exception.PasswordIncorrectException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.repository.MilestoneRepository;
@@ -60,12 +61,11 @@ public class UserController {
         taskRepository.save(task);
     }
 
-    @GetMapping(value = "/user")
-    public List<Result> getUserInfo() throws MilestoneNotFoundException {
-        long a = 1;
-        MilestoneStatus b = MilestoneStatus.NOTBEGIN;
-        milestoneService.auditMilestoneByMilestoneId(a, b);
-        return milestoneService.getMilestoneResultsByMilestoneId(a);
+    @GetMapping(value = "/user/{userId}")
+    public @ResponseBody
+    User getUserInfo(@PathVariable("userId") long userId) throws UserNotFoundException {
+        User user = userService.getUserByUserId(userId);
+        return user;
     }
 
     @GetMapping(value = "/milestone")

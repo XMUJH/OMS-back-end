@@ -2,6 +2,7 @@ package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Milestone;
 import com.wedo.OMS.entity.MilestoneHistory;
+import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.enums.MilestoneStatus;
 import com.wedo.OMS.exception.MilestoneNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
@@ -73,7 +74,7 @@ public class MilestoneController {
             case "NOTPASS":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.NOTPASS);
                 milestoneHistory.setReason(auditMilestone.getReason());
-                milestoneService.updateCurrentMilestoneHistory(milestoneHistory,2);
+                milestoneService.updateCurrentMilestoneHistory(milestoneHistory,-1);
                 break;
             case "NOTBEGIN":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.NOTBEGIN);
@@ -95,22 +96,14 @@ public class MilestoneController {
     }
 
     /**
-     * 获取当前审核记录
-     * @param milestoneId
+     * 获取最新审核记录
+     * @param taskId
      * @return
      */
-    @GetMapping(value = "/milestones/{milestoneId}/milestoneHistory")
-    public MilestoneHistory getCurrentMilestoneHistory(@PathVariable("milestoneId") long milestoneId){
-        Milestone milestone = milestoneService.getMilestoneByMilestoneId(milestoneId);
-        MilestoneHistory milestoneHistory = new MilestoneHistory();
-        if(milestone.getStatus()==MilestoneStatus.NOTPASS) {
-            if (milestoneService.getCurrentMilestoneHistory(0, milestone)!=null)
-                milestoneHistory = milestoneService.getCurrentMilestoneHistory(0,milestone);
-            else
-                milestoneHistory = milestoneService.getCurrentMilestoneHistory(2, milestone);
-        }
-        else if(milestone.getStatus()==MilestoneStatus.PASS)
-            milestoneHistory =  milestoneService.getCurrentMilestoneHistory(1,milestone);
-        return milestoneHistory;
+    @GetMapping(value = "/tasks/{taskId}/milestoneHistory")
+    public MilestoneHistory getCurrentMilestoneHistory(@PathVariable("taskId") long taskId){
+        List<MilestoneHistory> milestoneHistories = milestoneService.getMilestoneHistoriesByTaskId(taskId);
+        milestoneHistories = milestoneService.sortMilestoneHistoriesByTime(milestoneHistories);
+        return milestoneHistories.get(milestoneHistories.size()-1);
     }
 }

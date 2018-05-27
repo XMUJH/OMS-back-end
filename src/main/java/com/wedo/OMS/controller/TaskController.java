@@ -146,7 +146,7 @@ public class TaskController {
      * @return
      */
     @GetMapping(value = "/tasks/{taskId}/users")
-    public List<User> findUsersByTaskId(@PathVariable("taskId") long taskId) throws TaskNotFoundException {
+    public List<UserTask> findUsersByTaskId(@PathVariable("taskId") long taskId) throws TaskNotFoundException {
         return taskService.findUsersByTaskId(taskId);
     }
 
@@ -155,21 +155,14 @@ public class TaskController {
      *
      * @param taskId
      * @param userId
-     * @param utr
+     * @param userTask
      * @return
      */
     @PostMapping(value = "/tasks/{taskId}/users/{userId}")
-    public UserTask addTaskUser(@PathVariable("taskId") long taskId, @PathVariable("userId") long userId, @RequestBody EnumChoice utr) throws UserNotFoundException, TaskNotFoundException {
-        UserTask userTask = new UserTask();
-        switch (utr.getChoice()){
-            case "LEADER":
-                userTask = taskService.addTaskUser(taskId, userId, UserTaskRole.LEADER);
-                break;
-            case "FOLLOWER":
-                userTask = taskService.addTaskUser(taskId, userId, UserTaskRole.FOLLOWER);
-                break;
-        }
-        return userTask;
+    public UserTask addTaskUser(@PathVariable("taskId") long taskId, @PathVariable("userId") long userId, @RequestBody UserTask userTask) throws UserNotFoundException, TaskNotFoundException {
+        UserTask userTask1 = new UserTask();
+        userTask1 = taskService.addTaskUser(taskId, userId, userTask.getJob());
+        return userTask1;
     }
 
     /**
@@ -223,5 +216,17 @@ public class TaskController {
             }
         }
         return result;
+    }
+
+    /**
+     * 删除任务成员
+     * @param taskId
+     * @param userId
+     * @throws UserNotFoundException
+     * @throws TaskNotFoundException
+     */
+    @DeleteMapping(value = "/tasks/{taskId}/users/{userId}")
+    public void deleteTaskUser(@PathVariable("taskId") long taskId, @PathVariable("userId") long userId) throws UserNotFoundException, TaskNotFoundException {
+        taskService.deleteTaskUserById(taskId, userId);
     }
 }

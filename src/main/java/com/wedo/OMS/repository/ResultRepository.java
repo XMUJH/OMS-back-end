@@ -9,6 +9,6 @@ import java.util.List;
 public interface ResultRepository extends JpaRepository<Result, Long> {
 
     List<Result> findAllByMilestone(Milestone milestone);
-
+    List<Result> findResultsByMilestone(Milestone milestone);
     Result findResultById(long resultId);
 }
