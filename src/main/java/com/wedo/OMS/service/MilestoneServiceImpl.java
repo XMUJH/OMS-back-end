@@ -194,6 +194,22 @@ public class MilestoneServiceImpl implements MilestoneService {
     }
 
     /**
+     * 获取某任务全部里程碑成果审核情况
+     * @param taskId
+     * @return
+     */
+    @Override
+    public List<MilestoneHistory> getMilestoneHistoriesByTaskId(long taskId){
+        Task task = taskRepository.findTaskById(taskId);
+        List<Milestone> milestones = milestoneRepository.findMilestonesByTask(task);
+        List<MilestoneHistory> milestoneHistories = new ArrayList<>();
+        for(Milestone milestone:milestones){
+            milestoneHistories.addAll(milestoneHistoryRepository.findMilestoneHistoriesByMilestone(milestone));
+        }
+        return milestoneHistories;
+    }
+
+    /**
      * 将里程碑审核记按照时间排序
      * @param milestoneHistories
      * @return
