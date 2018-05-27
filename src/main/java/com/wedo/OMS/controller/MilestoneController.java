@@ -34,6 +34,18 @@ public class MilestoneController {
     }
 
     /**
+     * 用户更新里程碑
+     *
+     * @param milestone
+     * @param milestoneId
+     * @return
+     */
+    @PostMapping(value = "/milestones/{milestoneId}")
+    public void updateMilestone(@RequestBody Milestone milestone, @PathVariable("milestoneId") long milestoneId) throws TaskNotFoundException {
+        milestoneService.updateMilestone(milestone,milestoneId);
+    }
+
+    /**
      * 获取任务全部里程碑
      *
      * @param taskId

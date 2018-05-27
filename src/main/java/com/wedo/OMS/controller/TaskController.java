@@ -50,9 +50,11 @@ public class TaskController {
                 break;
         }
         for(Task task:tasks){
-           vueTask.setId(task.getId());
+            vueTask=new vue_task();
+            vueTask.setId(task.getId());
            vueTask.setName(task.getName());
-           percentage = task.getCompletion()*100/task.getTotal();
+           if(task.getTotal()==0) percentage=0;
+           else percentage = task.getCompletion()*100/task.getTotal();
            vueTask.setPercentage(percentage);
            vueTask.setTaskColor(vueTask.percentToColor(percentage));
            vueTasks.add(vueTask);
@@ -79,6 +81,7 @@ public class TaskController {
         task.setChangeCount(newTask.getChangeCount());
         task.setCreateTime(newTask.getCreateTime());
         task.setEndTime(newTask.getEndTime());
+        /*
         switch(newTask.getSafety()){
             case("A"):
                 task.setSafety(SafetyLevel.A);
@@ -96,6 +99,7 @@ public class TaskController {
                 task.setSafety(SafetyLevel.E);
                 break;
         }
+        */
         return taskService.addTask(task, newTask.getProjectId());
     }
 

@@ -74,7 +74,8 @@ public class ProjectController {
             result=new vue_task();
             result.setId(task.getId());
             result.setName(task.getName());
-            percentage = task.getCompletion()*100/task.getTotal();
+            if(task.getTotal()==0) percentage=0;
+            else percentage = task.getCompletion()*100/task.getTotal();
             result.setPercentage(percentage);
             result.setTaskColor(result.percentToColor(percentage));
             vue_tasks.add(result);

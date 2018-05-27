@@ -114,4 +114,13 @@ public interface MilestoneService {
      * @return
      */
     List<Result> getResultsByMilestone(long milestoneId);
+
+    /**
+     * 用户更新里程碑
+     *
+     * @param milestone
+     * @param milestoneId
+     * @return
+     */
+    void updateMilestone(Milestone milestone, long milestoneId);
 }

@@ -249,4 +249,19 @@ public class MilestoneServiceImpl implements MilestoneService {
         return resultRepository.findResultsByMilestone(milestone);
     }
 
+    /**
+     * 用户更新里程碑
+     *
+     * @param milestone
+     * @param milestoneId
+     * @return
+     */
+    @Override
+    public void updateMilestone(Milestone milestone, long milestoneId){
+        Milestone milestoneOrgin = milestoneRepository.findMilestoneById(milestoneId);
+        milestoneOrgin.setName(milestone.getName());
+        milestoneOrgin.setInfo(milestone.getInfo());
+        milestoneOrgin.setEndTime(milestone.getEndTime());
+        milestoneRepository.save(milestoneOrgin);
+    }
 }

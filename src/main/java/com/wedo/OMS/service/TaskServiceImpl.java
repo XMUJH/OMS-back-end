@@ -64,7 +64,7 @@ public class TaskServiceImpl implements TaskService {
     public Code addTask(Task task, long projectId) throws ProjectNotFoundException {
         Project project = projectRepository.findProjectById(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException();
+            //throw new ProjectNotFoundException();
         }
         task.setProject(project);
         taskRepository.save(task);
@@ -157,6 +157,7 @@ public class TaskServiceImpl implements TaskService {
         userTask.setTask(task);
         userTask.setUser(user);
         userTask.setUserTaskRole(UserTaskRole.LEADER);
+        userTask.setJob("项目经理");
         userTaskRepository.save(userTask);
         return userTask;
     }
