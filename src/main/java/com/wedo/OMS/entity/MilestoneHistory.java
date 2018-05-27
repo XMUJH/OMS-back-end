@@ -11,7 +11,7 @@ public class MilestoneHistory {
     @Id
     @GeneratedValue
     private long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;//审核记录所属里程碑
     private Date createTime;//审核时间

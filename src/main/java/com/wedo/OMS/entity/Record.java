@@ -8,7 +8,7 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//日志id
     private String content;//日志内容
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "attendance_id")
     private Attendance attendance;//签到记录
 

@@ -12,7 +12,7 @@ public class Result {
     private String size;//成果文件大小
     private String address;//成果文件地址
     private Date commit;//成果文件提交时间
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;//成果文件所属里程碑
 

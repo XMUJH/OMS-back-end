@@ -14,7 +14,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;//任务id
     private String name;//任务名称
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id")
     private Project project;//任务所属项目
     private Date createTime;//任务创建时间
