@@ -87,7 +87,7 @@ public class UserController {
         ObjectNode returnMessage = mapper.createObjectNode();
         String contentType = file.getContentType();
         System.out.println(contentType);
-        String fileName = file.getOriginalFilename() + userId + ".png";
+        String fileName = file.getOriginalFilename() + userId + ".jpg";
         System.out.println(fileName);
         String filePath = "src/main/resources/static/faceTemp/";
         String url = userService.getUserFaceUrlById(userId);
