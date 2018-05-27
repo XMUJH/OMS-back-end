@@ -13,9 +13,10 @@ import com.wedo.OMS.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
-import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Base64.Encoder;
+import java.sql.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User signin(long userId, long taskId, Timestamp dateTime) throws UserNotFoundException, TaskNotFoundException {
+    public User signin(long userId, long taskId, Date date) throws UserNotFoundException, TaskNotFoundException {
         Attendance attendance = new Attendance();
         User user = userRepository.findUserById(userId);
         Task task = taskRepository.findTaskById(taskId);
@@ -80,26 +81,31 @@ public class UserServiceImpl implements UserService {
         }
         attendance.setUser(user);
         attendance.setTask(task);
-        attendance.setBeginTime(dateTime);
+        attendance.setBeginTime(date);
         attendanceRepository.save(attendance);
         return user;
     }
 
     @Override
-    public User signout(long userId, long taskId, Timestamp dateTime) throws UserNotFoundException, TaskNotFoundException, AttendanceNotFoundException {
+    public User signout(long userId, long taskId, Date date) throws UserNotFoundException, TaskNotFoundException, AttendanceNotFoundException {
         User user = userRepository.findUserById(userId);
         Task task = taskRepository.findTaskById(taskId);
-        Attendance attendance = attendanceRepository.findAttendanceByUserAndTask(user, task);
+        List<Attendance> attendances = attendanceRepository.findAttendancesByUserAndTask(user, task);
         if (user == null) {
             throw new UserNotFoundException();
         }
         if (task == null) {
             throw new TaskNotFoundException();
         }
-        if (attendance == null) {
+        if (attendances == null) {
             throw new AttendanceNotFoundException();
         }
-        attendance.setEndTime(dateTime);
+        Attendance attendance = new Attendance();
+        for(Attendance attendance1:attendances){
+            if(attendance1.getEndTime()==null)
+                attendance = attendance1;
+        }
+        attendance.setEndTime(date);
         attendanceRepository.save(attendance);
         return user;
     }

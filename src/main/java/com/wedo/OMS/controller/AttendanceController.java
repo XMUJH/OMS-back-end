@@ -68,8 +68,7 @@ public class AttendanceController {
      */
     @PostMapping(value = "/attendances")
     public User signIn(@RequestBody UserAttendance userAttendance) throws UserNotFoundException, TaskNotFoundException {
-        Timestamp startTimeStamp = new Timestamp( userAttendance.getDate().getTime());
-        return userService.signin(userAttendance.getUserId(), userAttendance.getTaskId(), startTimeStamp);
+        return userService.signin(userAttendance.getUserId(), userAttendance.getTaskId(), userAttendance.getDate());
     }
 
     /**
@@ -82,8 +81,7 @@ public class AttendanceController {
      */
     @PatchMapping(value = "/attendances")
     public User signOut(@RequestBody UserAttendance userAttendance) throws UserNotFoundException, AttendanceNotFoundException, TaskNotFoundException {
-        Timestamp endTimeStamp = new Timestamp( userAttendance.getDate().getTime());
-        return userService.signout(userAttendance.getUserId(), userAttendance.getTaskId(), endTimeStamp);
+        return userService.signout(userAttendance.getUserId(), userAttendance.getTaskId(), userAttendance.getDate());
     }
 
 }
