@@ -102,11 +102,11 @@ public interface MilestoneService {
     List<MilestoneHistory> sortMilestoneHistoriesByTime(List<MilestoneHistory> milestoneHistories);
 
     /**
-     * 更新里程碑当前审核记录状态(提价成果时应将之前状态为2的改为-1)
+     * 存一条新的审核记录
      * @param milestoneHistory
      * @return
      */
-    MilestoneHistory updateCurrentMilestoneHistory(MilestoneHistory milestoneHistory,long status);
+    MilestoneHistory saveNewMilestoneHistory(MilestoneHistory milestoneHistory);
 
     /**
      * 获得里程碑所有成果

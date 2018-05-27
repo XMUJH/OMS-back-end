@@ -229,15 +229,13 @@ public class MilestoneServiceImpl implements MilestoneService {
     }
 
     /**
-     * 更新当前审核记录
+     * 存一条新的审核记录
      * @param milestoneHistory
      * @return
      */
     @Override
-    public MilestoneHistory updateCurrentMilestoneHistory(MilestoneHistory milestoneHistory,long status){
-        milestoneHistory.setStatus(status);
-        milestoneHistoryRepository.save(milestoneHistory);
-        return milestoneHistory;
+    public MilestoneHistory saveNewMilestoneHistory(MilestoneHistory milestoneHistory){
+        return milestoneHistoryRepository.save(milestoneHistory);
     }
 
     /**

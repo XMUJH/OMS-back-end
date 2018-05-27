@@ -56,7 +56,7 @@ public class MilestoneController {
     }
 
     /**
-     * 审核里程碑
+     * 审核里程碑成果
      *
      * @param milestoneId
      * @param auditMilestone
@@ -64,20 +64,21 @@ public class MilestoneController {
      */
     @PatchMapping(value = "/milestones/{milestoneId}")
     public Milestone auditMilestoneByMilestoneId(@PathVariable("milestoneId") long milestoneId,@RequestBody AuditMilestone auditMilestone) throws MilestoneNotFoundException {
-        Milestone milestone = new Milestone();
-        MilestoneHistory milestoneHistory = milestoneService.getCurrentMilestoneHistory(0,milestone);
+        Milestone milestone = milestoneService.getMilestoneByMilestoneId(milestoneId);
+        MilestoneHistory milestoneHistory = new MilestoneHistory();
+        milestoneHistory.setCreateTime(auditMilestone.getDate());
+        milestoneHistory.setReason(auditMilestone.getReason());
+        milestoneHistory.setMilestone(milestone);
         switch (auditMilestone.getStatus()){
             case "PASS":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.PASS);
-                milestoneService.updateCurrentMilestoneHistory(milestoneHistory,1);
+                milestoneHistory.setStatus(1);
+                milestoneService.saveNewMilestoneHistory(milestoneHistory);
                 break;
             case "NOTPASS":
                 milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.NOTPASS);
-                milestoneHistory.setReason(auditMilestone.getReason());
-                milestoneService.updateCurrentMilestoneHistory(milestoneHistory,-1);
-                break;
-            case "NOTBEGIN":
-                milestone = milestoneService.auditMilestoneByMilestoneId(milestoneId, MilestoneStatus.NOTBEGIN);
+                milestoneHistory.setStatus(-1);
+                milestoneService.saveNewMilestoneHistory(milestoneHistory);
                 break;
         }
         return milestone;
