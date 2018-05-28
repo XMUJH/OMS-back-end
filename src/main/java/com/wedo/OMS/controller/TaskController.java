@@ -1,17 +1,18 @@
 package com.wedo.OMS.controller;
 
-import com.wedo.OMS.entity.*;
-import com.wedo.OMS.enums.SafetyLevel;
+import com.wedo.OMS.entity.Code;
+import com.wedo.OMS.entity.Record;
+import com.wedo.OMS.entity.Task;
+import com.wedo.OMS.entity.UserTask;
 import com.wedo.OMS.enums.UserTaskRole;
 import com.wedo.OMS.enums.VerifyStatus;
 import com.wedo.OMS.exception.*;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.service.TaskService;
-import com.wedo.OMS.vo.*;
 import com.wedo.OMS.vo.EnumChoice;
 import com.wedo.OMS.vo.NewTask;
 import com.wedo.OMS.vo.OneLong;
-import com.wedo.OMS.vo.OneString;
+import com.wedo.OMS.vo.VueTask;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,10 +37,10 @@ public class TaskController {
      * @return
      */
     @PostMapping(value = "/users/{userId}/tasks")
-    public List<vue_task> getTask(@PathVariable("userId") long userId, @RequestBody EnumChoice utr) throws UserNotFoundException {
+    public List<VueTask> getTask(@PathVariable("userId") long userId, @RequestBody EnumChoice utr) throws UserNotFoundException {
         List<Task> tasks = new ArrayList<>();
-        List<vue_task> vueTasks = new ArrayList<>();
-        vue_task vueTask = new vue_task();
+        List<VueTask> vueTasks = new ArrayList<>();
+        VueTask vueTask = new VueTask();
         long percentage;
         switch (utr.getChoice()){
             case "LEADER":
@@ -50,13 +51,13 @@ public class TaskController {
                 break;
         }
         for(Task task:tasks){
-            vueTask=new vue_task();
+            vueTask = new VueTask();
             vueTask.setId(task.getId());
            vueTask.setName(task.getName());
            if(task.getTotal()==0) percentage=0;
            else percentage = task.getCompletion()*100/task.getTotal();
            vueTask.setPercentage(percentage);
-           vueTask.setTaskColor(vueTask.percentToColor(percentage));
+            vueTask.setTaskColor(VueTask.percentToColor(percentage));
            vueTasks.add(vueTask);
         }
         return vueTasks;

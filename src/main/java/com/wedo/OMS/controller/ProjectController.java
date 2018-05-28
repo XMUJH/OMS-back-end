@@ -3,12 +3,11 @@ package com.wedo.OMS.controller;
 import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.exception.ProjectNotFoundException;
-import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.vo.NewProject;
 import com.wedo.OMS.vo.OneLong;
 import com.wedo.OMS.vo.ProjectViewModel;
-import com.wedo.OMS.vo.vue_task;
+import com.wedo.OMS.vo.VueTask;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -70,20 +69,20 @@ public class ProjectController {
      * @return
      */
     @GetMapping(value = "/projects/{projectId}/tasks")
-    public List<vue_task> getProjectTasks(@PathVariable("projectId") long projectId){
+    public List<VueTask> getProjectTasks(@PathVariable("projectId") long projectId) {
         List<Task> tasks=projectService.findProjectTasks(projectId);
-        vue_task result;
-        List<vue_task> vue_tasks=new ArrayList<vue_task>();
+        VueTask result;
+        List<VueTask> vue_tasks = new ArrayList<VueTask>();
         long percentage;
         for(Task task : tasks)
         {
-            result=new vue_task();
+            result = new VueTask();
             result.setId(task.getId());
             result.setName(task.getName());
             if(task.getTotal()==0) percentage=0;
             else percentage = task.getCompletion()*100/task.getTotal();
             result.setPercentage(percentage);
-            result.setTaskColor(result.percentToColor(percentage));
+            result.setTaskColor(VueTask.percentToColor(percentage));
             vue_tasks.add(result);
         }
         return vue_tasks;
@@ -95,7 +94,7 @@ public class ProjectController {
      * @param projectId2 目标项目id
      */
     @PatchMapping(value = "/projects/{projectId}")
-    public void MoveProjectToProjectById(@PathVariable("projectId") long projectId, @RequestBody OneLong projectId2) throws ProjectNotFoundException, TaskNotFoundException {
+    public void MoveProjectToProjectById(@PathVariable("projectId") long projectId, @RequestBody OneLong projectId2) throws ProjectNotFoundException {
         long id = projectId2.getId();
         projectService.MoveInProjectToOutProjectByProjectId(projectId, id);
     }
