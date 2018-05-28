@@ -5,11 +5,13 @@ import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.repository.*;
+import com.wedo.OMS.vo.ProjectViewModel;
 import com.wedo.OMS.vo.ResourceViewModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,8 +21,10 @@ public class ResourceServiceImpl implements ResourceService {
     private TaskRepository taskRepository;
     private UserRepository userRepository;
     private UserTaskRepository userTaskRepository;
+    private ProjectRepository projectRepository;
 
-    public ResourceServiceImpl(UserTaskRepository userTaskRepository, UserRepository userRepository, ResourceRepository resourceRepository, TaskResourceRepository taskResourceRepository, TaskRepository taskRepository) {
+    public ResourceServiceImpl(ProjectRepository projectRepository, UserTaskRepository userTaskRepository, UserRepository userRepository, ResourceRepository resourceRepository, TaskResourceRepository taskResourceRepository, TaskRepository taskRepository) {
+        this.projectRepository = projectRepository;
         this.userTaskRepository = userTaskRepository;
         this.userRepository = userRepository;
         this.resourceRepository = resourceRepository;
@@ -80,6 +84,15 @@ public class ResourceServiceImpl implements ResourceService {
 
     }
 
+    public Resource addResource(String filename) {
+        Resource resource = new Resource();
+        resource.setAddress("resource/" + filename);
+        resource.setCommit(new Date());
+        resource.setName(filename);
+        resourceRepository.save(resource);
+        return resource;
+
+    }
     @Override
     public Resource addResource(Resource resource, List<Task> tasks) {
         resourceRepository.save(resource);
@@ -160,5 +173,31 @@ public class ResourceServiceImpl implements ResourceService {
         taskResource.setTask(task);
         taskResourceRepository.save(taskResource);
         return taskResource;
+    }
+
+    @Override
+    public List<TaskResource> addTaskResource(long resourceId, List<ProjectViewModel> projectViewModels) throws ResourceNotFoundException, TaskNotFoundException {
+        List<Task> tasks = new ArrayList<>();
+        for (ProjectViewModel pr : projectViewModels) {
+            tasks.addAll(getTasksFromProjectViewModel(tasks, pr));
+        }
+        List<TaskResource> taskResources = new ArrayList<>();
+        for (Task task : tasks) {
+            taskResources.add(addTaskResource(resourceId, task.getId()));
+        }
+        return taskResources;
+    }
+
+    @Override
+    public List<Task> getTasksFromProjectViewModel(List<Task> tasks, ProjectViewModel projectViewModel) {
+        if (projectViewModel.getType() == 1) {
+            tasks.add(taskRepository.findTaskById(projectViewModel.getId()));
+        } else {
+            for (ProjectViewModel pr : projectViewModel.getChildren()) {
+                tasks = getTasksFromProjectViewModel(tasks, pr);
+            }
+        }
+        return tasks;
+
     }
 }

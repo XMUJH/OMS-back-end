@@ -6,11 +6,14 @@ import com.wedo.OMS.entity.TaskResource;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
+import com.wedo.OMS.vo.ProjectViewModel;
 import com.wedo.OMS.vo.ResourceViewModel;
 
 import java.util.List;
 
 public interface ResourceService {
+
+    Resource addResource(String filename);
     /**
      * 获取任务资源
      *
@@ -96,4 +99,9 @@ public interface ResourceService {
      * @return
      */
     TaskResource addTaskResource(long resourceId, long taskId) throws ResourceNotFoundException, TaskNotFoundException;
+
+    List<TaskResource> addTaskResource(long resourceId, List<ProjectViewModel> projectViewModels) throws ResourceNotFoundException, TaskNotFoundException;
+
+    List<Task> getTasksFromProjectViewModel(List<Task> tasks, ProjectViewModel projectViewModel);
+
 }

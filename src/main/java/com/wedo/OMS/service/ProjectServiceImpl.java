@@ -6,8 +6,10 @@ import com.wedo.OMS.exception.ProjectNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.repository.ProjectRepository;
 import com.wedo.OMS.repository.TaskRepository;
+import com.wedo.OMS.vo.ProjectViewModel;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -152,5 +154,38 @@ public class ProjectServiceImpl implements ProjectService {
     public Project findProjectByProjectId(long projectId)
     {
         return projectRepository.findProjectById(projectId);
+    }
+
+    /**
+     * 获取所有项目和任务
+     *
+     * @param projectBelongId
+     * @return
+     */
+    @Override
+    public List<ProjectViewModel> listAllProjectsAndTasks(long projectBelongId) {
+        //获得项目和任务
+        List<ProjectViewModel> projectViewModels = new ArrayList<>();
+        Project projectBelong = projectRepository.findProjectById(projectBelongId);
+        List<Project> topProjects = projectRepository.findProjectsByBelong(projectBelong);
+        List<Task> topTasks = taskRepository.findTasksByProject(projectBelong);
+        for (Project pro : topProjects) {
+            ProjectViewModel projectViewModel = new ProjectViewModel();
+            projectViewModel.setId(pro.getId());
+            projectViewModel.setLabel(pro.getName());
+            projectViewModel.setType(0);
+            projectViewModel.setChildren(listAllProjectsAndTasks(pro.getId()));
+            projectViewModels.add(projectViewModel);
+        }
+        for (Task task : topTasks) {
+            ProjectViewModel projectViewModel = new ProjectViewModel();
+            projectViewModel.setId(task.getId());
+            projectViewModel.setLabel(task.getName());
+            projectViewModel.setType(1);
+            projectViewModels.add(projectViewModel);
+        }
+
+        return projectViewModels;
+
     }
 }

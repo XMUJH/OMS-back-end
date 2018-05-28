@@ -4,6 +4,8 @@ import com.wedo.OMS.entity.Project;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.exception.ProjectNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
+import com.wedo.OMS.vo.ProjectViewModel;
+
 import java.util.List;
 
 public interface ProjectService {
@@ -73,4 +75,11 @@ public interface ProjectService {
 
 
     Project findProjectByProjectId(long projectId);
+
+    /**
+     * 发包方获取所有项目和任务
+     *
+     * @return
+     */
+    List<ProjectViewModel> listAllProjectsAndTasks(long projectId);
 }

@@ -6,6 +6,7 @@ import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.service.ResourceService;
+import com.wedo.OMS.vo.ProjectViewModel;
 import com.wedo.OMS.vo.ResourceViewModel;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,17 +41,18 @@ public class ResourceController {
     public List<TaskResource> listTaskResourcesByUserId(@PathVariable("userId") long userId) throws UserNotFoundException {
         return resourceService.listTaskResourcesByUserId(userId);
     }
+
     /**
-     * 管理员分配资源（前端循环语句依次分配）
+     * 管理员分配资源
      *
-     * @param resourceId
-     * @param taskID
      * @return
      */
-    @PostMapping(value = "/resources/{resourceId}/tasks/{taskID}")
-    public TaskResource addResource(@PathVariable("resourceId") long resourceId, @PathVariable("taskID") long taskID) throws ResourceNotFoundException, TaskNotFoundException {
-        return resourceService.addTaskResource(resourceId, taskID);
+
+    @PostMapping(value = "/resources/{resourceId}/allot")
+    public void allotResource(@PathVariable("resourceId") long resourceId, @RequestBody List<ProjectViewModel> projectViewModels) throws ResourceNotFoundException, TaskNotFoundException {
+        resourceService.addTaskResource(resourceId, projectViewModels);
     }
+
 
     /**
      * 获取该任务所有资源

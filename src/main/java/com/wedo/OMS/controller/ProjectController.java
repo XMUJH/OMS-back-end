@@ -7,10 +7,10 @@ import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.service.ProjectService;
 import com.wedo.OMS.vo.NewProject;
 import com.wedo.OMS.vo.OneLong;
+import com.wedo.OMS.vo.ProjectViewModel;
 import com.wedo.OMS.vo.vue_task;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Max;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +20,12 @@ public class ProjectController {
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    @GetMapping(value = "/projects")
+    public List<ProjectViewModel> getAllProjectsAndTasks() {
+        return projectService.listAllProjectsAndTasks(-1);
+
     }
 
     /**
