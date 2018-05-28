@@ -2,10 +2,7 @@ package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Result;
 import com.wedo.OMS.service.MilestoneService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +21,15 @@ public class ResultController {
     @GetMapping(value = "/milestones/{milestoneId}/results")
     public List<Result> getResultsByMilestone(@PathVariable("milestoneId")long milestoneId){
         return milestoneService.getResultsByMilestone(milestoneId);
+    }
+
+    /**
+     * 上传成果
+     * @param milestoneId
+     * @return
+     */
+    @PostMapping(value = "/milestones/{milestoneId}/results")
+    public void newResult(@PathVariable("milestoneId")long milestoneId, @RequestBody Result result){
+        milestoneService.newResult(result,milestoneId);
     }
 }
