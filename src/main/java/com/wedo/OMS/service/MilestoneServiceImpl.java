@@ -259,9 +259,10 @@ public class MilestoneServiceImpl implements MilestoneService {
     @Override
     public void updateMilestone(Milestone milestone, long milestoneId){
         Milestone milestoneOrgin = milestoneRepository.findMilestoneById(milestoneId);
-        milestoneOrgin.setName(milestone.getName());
-        milestoneOrgin.setInfo(milestone.getInfo());
-        milestoneOrgin.setEndTime(milestone.getEndTime());
+        if(milestone.getName()!=null) milestoneOrgin.setName(milestone.getName());
+        if(milestone.getInfo()!=null) milestoneOrgin.setInfo(milestone.getInfo());
+        if(milestone.getEndTime()!=null) milestoneOrgin.setEndTime(milestone.getEndTime());
+        if(milestone.getStatus()!=null) milestoneOrgin.setStatus(milestone.getStatus());
         milestoneRepository.save(milestoneOrgin);
     }
 }
