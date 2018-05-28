@@ -6,7 +6,7 @@ import com.wedo.OMS.exception.PasswordIncorrectException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
 
-import java.sql.Date;
+import java.util.Date;
 
 public interface UserService {
     /**
@@ -39,7 +39,7 @@ public interface UserService {
      * @param date
      * @return
      */
-    User signout(long userId, long taskId, Date date) throws UserNotFoundException, TaskNotFoundException, AttendanceNotFoundException;
+    User signout(long userId, long taskId, Date date, String content) throws UserNotFoundException, TaskNotFoundException, AttendanceNotFoundException;
 
     /**
      * 获取所有人脸信息

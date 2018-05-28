@@ -98,21 +98,26 @@ public class UserController {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/faceimg/" + url});
-        if (result.equals("Warning! Third Party Faces Detected")) {
-            System.out.println("Warning! Third Party Faces Detected");
-            returnMessage.put("success", false);
+        try {
+            String result = afrService.doFR("src/main/resources/static/faceTemp/" + fileName, new String[]{"src/main/resources/static/faceimg/" + url});
+            if (result.equals("Warning! Third Party Faces Detected")) {
+                System.out.println("Warning! Third Party Faces Detected");
+                returnMessage.put("success", false);
+            }
+            if (result.equals("Recognition Successful!")) {
+                System.out.println("Recognition Successful!");
+                returnMessage.put("success", true);
+                returnMessage.put("userId", userId);
+                returnMessage.put("userRole", user.getRole().toString());
+            }
+            if (result.equals("Recognition Failed!")) {
+                System.out.println("Recognition Failed!");
+                returnMessage.put("success", false);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            return returnMessage;
         }
-        if (result.equals("Recognition Successful!")) {
-            System.out.println("Recognition Successful!");
-            returnMessage.put("success", true);
-            returnMessage.put("userId", userId);
-            returnMessage.put("userRole", user.getRole().toString());
-        }
-        if (result.equals("Recognition Failed!")) {
-            System.out.println("Recognition Failed!");
-            returnMessage.put("success", false);
-        }
-        return returnMessage;
     }
 }

@@ -9,10 +9,10 @@ import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
 import com.wedo.OMS.service.AttendanceService;
 import com.wedo.OMS.service.UserService;
-import org.springframework.web.bind.annotation.*;
 import com.wedo.OMS.vo.UserAttendance;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -68,6 +68,8 @@ public class AttendanceController {
      */
     @PostMapping(value = "/attendances")
     public User signIn(@RequestBody UserAttendance userAttendance) throws UserNotFoundException, TaskNotFoundException {
+        Date date = new Date();
+        userAttendance.setDate(date);
         return userService.signin(userAttendance.getUserId(), userAttendance.getTaskId(), userAttendance.getDate());
     }
 
@@ -81,7 +83,10 @@ public class AttendanceController {
      */
     @PatchMapping(value = "/attendances")
     public User signOut(@RequestBody UserAttendance userAttendance) throws UserNotFoundException, AttendanceNotFoundException, TaskNotFoundException {
-        return userService.signout(userAttendance.getUserId(), userAttendance.getTaskId(), userAttendance.getDate());
+        Date date = new Date();
+        userAttendance.setDate(date);
+        String content = userAttendance.getContent();
+        return userService.signout(userAttendance.getUserId(), userAttendance.getTaskId(), userAttendance.getDate(), content);
     }
 
 }
