@@ -27,7 +27,7 @@ public class FileUtil {
             throw new FileNotFoundException(filePath);
         }
 
-        if (file.length() > 1024 * 1024 * 1024) {
+        if (file.length() > 1024 * 1024 * 1024 * 1024) {
             throw new IOException("File is too large");
         }
 

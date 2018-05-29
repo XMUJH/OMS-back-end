@@ -265,4 +265,27 @@ public class MilestoneServiceImpl implements MilestoneService {
         if(milestone.getStatus()!=null) milestoneOrgin.setStatus(milestone.getStatus());
         milestoneRepository.save(milestoneOrgin);
     }
+
+    /**
+     * 用户上传资源
+     *
+     * @param result
+     * @param milestoneId
+     * @return
+     */
+    @Override
+    public void newResult(Result result, long milestoneId)
+    {
+        Milestone milestone=milestoneRepository.findMilestoneById(milestoneId);
+        milestone.setSubmitTime(milestone.getSubmitTime()+1);
+        milestone.setStatus(MilestoneStatus.NOTPASS);
+        milestoneRepository.save(milestone);
+        result.setMilestone(milestone);
+        resultRepository.save(result);
+        MilestoneHistory milestoneHistory=new MilestoneHistory();
+        milestoneHistory.setStatus(0);
+        milestoneHistory.setMilestone(milestone);
+        milestoneHistory.setCreateTime(result.getCommit());
+        milestoneHistoryRepository.save(milestoneHistory);
+    }
 }

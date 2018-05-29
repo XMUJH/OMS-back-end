@@ -123,4 +123,13 @@ public interface MilestoneService {
      * @return
      */
     void updateMilestone(Milestone milestone, long milestoneId);
+
+    /**
+     * 用户上传资源
+     *
+     * @param result
+     * @param milestoneId
+     * @return
+     */
+    void newResult(Result result, long milestoneId);
 }
