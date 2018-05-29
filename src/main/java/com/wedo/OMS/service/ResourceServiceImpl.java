@@ -1,6 +1,7 @@
 package com.wedo.OMS.service;
 
 import com.wedo.OMS.entity.*;
+import com.wedo.OMS.enums.SafetyLevel;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
@@ -181,8 +182,32 @@ public class ResourceServiceImpl implements ResourceService {
         for (ProjectViewModel pr : projectViewModels) {
             tasks.addAll(getTasksFromProjectViewModel(tasks, pr));
         }
+        //临时数组
+        List<Task> tempArr = new ArrayList<>();
+        //遍历原数组
+        for (int i = 0; i < tasks.size(); i++) {
+            //声明一个标记，并每次重置
+            boolean isTrue = true;
+            //内层循环将原数组的元素逐个对比
+            for (int j = i + 1; j < tasks.size(); j++) {
+                //如果发现有重复元素，改变标记状态并结束当次内层循环
+                if (tasks.get(i) == tasks.get(j)) {
+                    isTrue = false;
+                    break;
+                }
+            }
+            //判断标记是否被改变，如果没被改变就是没有重复元素
+            if (isTrue) {
+                //没有元素就将原数组的元素赋给临时数组
+                tempArr.add(tasks.get(i));
+                //走到这里证明当前元素没有重复，那么记录自增
+            }
+        }
+        //声明需要返回的数组，这个才是去重后的数组
+        List<Task> newArr = tempArr;
+        //用arraycopy方法将刚才去重的数组拷贝到新数组并返回
         List<TaskResource> taskResources = new ArrayList<>();
-        for (Task task : tasks) {
+        for (Task task : newArr) {
             taskResources.add(addTaskResource(resourceId, task.getId()));
         }
         return taskResources;
@@ -199,5 +224,12 @@ public class ResourceServiceImpl implements ResourceService {
         }
         return tasks;
 
+    }
+
+    @Override
+    public void safetyResource(long resourceId, SafetyLevel safetyLevel) {
+        Resource resource = resourceRepository.findResourceById(resourceId);
+        resource.setSafety(safetyLevel);
+        resourceRepository.save(resource);
     }
 }

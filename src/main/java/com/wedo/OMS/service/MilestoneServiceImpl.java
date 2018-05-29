@@ -8,10 +8,7 @@ import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.repository.*;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -148,11 +145,11 @@ public class MilestoneServiceImpl implements MilestoneService {
             milestone.setTask(task);
         }
         milestoneRepository.saveAll(milestones);
-        task.setCompletion(task.getCompletion() + num);
+        task.setTotal(task.getTotal() + num);
         taskRepository.save(task);
         Project project = task.getProject();
         while (project != null) {
-            project.setCompletion(project.getCompletion() + num);
+            project.setTotal(project.getTotal() + num);
             projectRepository.save(project);
             project = project.getBelong();
         }

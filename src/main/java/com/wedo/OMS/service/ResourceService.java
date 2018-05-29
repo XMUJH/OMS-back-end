@@ -3,6 +3,7 @@ package com.wedo.OMS.service;
 import com.wedo.OMS.entity.Resource;
 import com.wedo.OMS.entity.Task;
 import com.wedo.OMS.entity.TaskResource;
+import com.wedo.OMS.enums.SafetyLevel;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
@@ -103,5 +104,7 @@ public interface ResourceService {
     List<TaskResource> addTaskResource(long resourceId, List<ProjectViewModel> projectViewModels) throws ResourceNotFoundException, TaskNotFoundException;
 
     List<Task> getTasksFromProjectViewModel(List<Task> tasks, ProjectViewModel projectViewModel);
+
+    void safetyResource(long resourceId, SafetyLevel safetyLevel);
 
 }

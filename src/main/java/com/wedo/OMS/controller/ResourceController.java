@@ -2,6 +2,7 @@ package com.wedo.OMS.controller;
 
 import com.wedo.OMS.entity.Resource;
 import com.wedo.OMS.entity.TaskResource;
+import com.wedo.OMS.enums.SafetyLevel;
 import com.wedo.OMS.exception.ResourceNotFoundException;
 import com.wedo.OMS.exception.TaskNotFoundException;
 import com.wedo.OMS.exception.UserNotFoundException;
@@ -18,6 +19,15 @@ public class ResourceController {
 
     public ResourceController(ResourceService resourceService) {
         this.resourceService = resourceService;
+    }
+
+    @PostMapping(value = "/resources/{resourceId}/safety")
+    public void safetyResource(@PathVariable("resourceId") long resourceId, @RequestBody String value) {
+        if (value.equals("1=")) resourceService.safetyResource(resourceId, SafetyLevel.E);
+        if (value.equals("2=")) resourceService.safetyResource(resourceId, SafetyLevel.D);
+        if (value.equals("3=")) resourceService.safetyResource(resourceId, SafetyLevel.C);
+        if (value.equals("4=")) resourceService.safetyResource(resourceId, SafetyLevel.B);
+        if (value.equals("5=")) resourceService.safetyResource(resourceId, SafetyLevel.A);
     }
 
     /**
